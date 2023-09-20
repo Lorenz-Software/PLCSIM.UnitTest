@@ -4,6 +4,8 @@
 
 Visual Studio solution for executing unit tests for TIA Portal projects on PLCSIM Advanced.
 
+Plugin framework to support different versions of TIA Openess and PLCSIm Advanced.
+
 ## System Requirements
 
 - Visual Studio 2019
@@ -31,7 +33,10 @@ Visual Studio solution for executing unit tests for TIA Portal projects on PLCSI
 
 ## Ressources
 
-Directory ".\Plugins\" contains precompiled plugins from plugin projects. Therefore it is not necesseracy to have PLCSIM Advanced or TIA Portal installed to compile command line runner application.
+- Directory ".\Plugins\" 
+    - Binaries from plugin projects. Therefore it is not necesseracy to have PLCSIM Advanced or TIA Portal installed to compile command line runner application.
+- Directory ".\TIA Portal Libraries\"
+    - Libraries for use in TIA Portal projects
 
 ## Authors and acknowledgment
 
@@ -43,4 +48,4 @@ MIT
 
 ## Project status
 
-Not tested in production stage but support and feedback is welcome any time
+Alpha: Not tested in production stage but support and feedback is welcome any time.
