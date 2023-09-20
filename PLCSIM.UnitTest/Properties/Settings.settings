@@ -1,0 +1,12 @@
+﻿<?xml version='1.0' encoding='utf-8'?>
+<SettingsFile xmlns="http://schemas.microsoft.com/VisualStudio/2004/01/settings" CurrentProfile="(Default)" GeneratedClassNamespace="PLCSIM.UnitTest.Properties" GeneratedClassName="Settings">
+  <Profiles />
+  <Settings>
+    <Setting Name="PluginPath_Release" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">.\Plugins</Value>
+    </Setting>
+    <Setting Name="PluginPath_Dev" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">..\..\..\Plugins</Value>
+    </Setting>
+  </Settings>
+</SettingsFile>

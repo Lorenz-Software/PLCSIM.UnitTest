@@ -1,0 +1,15 @@
+﻿<UserControl x:Class="PLCSIM.UnitTest.View.LogView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:res="clr-namespace:PLCSIM.UnitTest.Logger" 
+             mc:Ignorable="d" 
+             d:DesignHeight="450" d:DesignWidth="800">
+    <UserControl.Resources>
+        <res:Log4NetNotifyAppender x:Key="Log" />
+    </UserControl.Resources>
+    <Grid DataContext="{StaticResource Log}">
+        <TextBox x:Name="LoggingTextBox" Text="{Binding Appender.Notification, Mode=OneWay}" Margin="0" TextWrapping="Wrap" Background="{DynamicResource {x:Static SystemColors.ControlLightLightBrushKey}}" Padding="2" Grid.IsSharedSizeScope="True" IsReadOnly="True" ScrollViewer.CanContentScroll="True" UseLayoutRounding="False" Foreground="{DynamicResource {x:Static SystemColors.InactiveCaptionTextBrushKey}}" HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Visible"/>
+    </Grid>
+</UserControl>
