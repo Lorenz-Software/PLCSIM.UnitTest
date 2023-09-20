@@ -6,6 +6,7 @@ Visual Studio solution for executing unit tests for TIA Portal projects on PLCSI
 
 ## System Requirements
 
+- Visual Studio 2019
 - .NET Framework 4.8
 - PLCSIM Advanced v5.0
 - TIA Openess
