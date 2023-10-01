@@ -1,4 +1,4 @@
-﻿# PLCSIM.UnitTest.CommandLine
+﻿# <img src="Ressources/PLCSIM.CmdRunner.png" alt="PLCSIM.CmdRunner Icon" width="48" height="48" align="top"> PLCSIM.UnitTest.CommandLine
 
 ## Description
 
