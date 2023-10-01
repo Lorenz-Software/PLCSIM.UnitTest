@@ -1,8 +1,8 @@
-﻿using ApplicationUtilities.Logger;
-using ApplicationUtilities.DI;
-using System.Windows;
-using System.Collections.Generic;
+﻿using ApplicationUtilities.DI;
+using ApplicationUtilities.Logger;
 using PLCSIM.UnitTest.Utilities.PlugIns;
+using System.Collections.Generic;
+using System.Windows;
 
 namespace PLCSIM.UnitTest
 {

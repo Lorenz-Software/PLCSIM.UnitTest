@@ -1,10 +1,9 @@
-﻿using CommandLine;
-using ApplicationUtilities.Logger;
+﻿using ApplicationUtilities.Logger;
+using CommandLine;
+using PLCSIM.UnitTest.CommandLine.Options;
 using System;
 using System.Collections.Generic;
 using System.IO;
-using PLCSIM.UnitTest.CommandLine.Options;
-using PLCSIM.UnitTest.CommandLine.PlugIns;
 
 namespace PLCSIM.UnitTest.CommandLine
 {

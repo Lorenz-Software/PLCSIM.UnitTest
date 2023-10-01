@@ -6,7 +6,7 @@ using TiaOpeness;
 
 namespace PLCSIM.UnitTest.CommandLine.Commands
 {
-    class ListPluginsRunner: ICommandRunner
+    class ListPluginsRunner : ICommandRunner
     {
         private ListPluginsOptions options;
 

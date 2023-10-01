@@ -159,7 +159,8 @@ namespace PLCSIM.UnitTest.CommandLine.PlugIns
                                 logger.Verbose($"\t{b.PluginName} ({b.PluginVersion})");
                                 logger.Verbose($"\t\tAssembly: {assembly.Location}");
                                 PlcSimAdvancedPlugins.Add(b.PluginCmdOption.ToLower(), b);
-                            } catch (Exception e)
+                            }
+                            catch (Exception e)
                             {
                                 logger.Error($"Could not load PLCSIM Advanced plugin: {t.FullName} from '{file.FullName}");
                                 logger.Log(e);

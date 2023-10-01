@@ -1,6 +1,6 @@
-﻿using log4net.Appender;
+﻿using ApplicationUtilities.Logger;
+using log4net.Appender;
 using log4net.Core;
-using ApplicationUtilities.Logger;
 using System;
 using System.ComponentModel;
 using System.Globalization;

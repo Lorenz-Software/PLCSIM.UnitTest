@@ -1,6 +1,11 @@
-﻿using PLCSIM.UnitTest.Command;
+﻿using ApplicationUtilities.DI;
 using ApplicationUtilities.Logger;
-using ApplicationUtilities.DI;
+using ApplicationUtilities.Utilities;
+using PLCSIM.UnitTest.Command;
+using PLCSIM.UnitTest.Utilities.PlugIns;
+using PlcSimAdvanced;
+using PlcSimAdvanced.Model;
+using PlcSimAdvanced.Utilities;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -8,11 +13,6 @@ using System.Diagnostics;
 using System.IO;
 using System.Threading.Tasks;
 using System.Windows.Input;
-using ApplicationUtilities.Utilities;
-using PlcSimAdvanced.Model;
-using PlcSimAdvanced.Utilities;
-using PlcSimAdvanced;
-using PLCSIM.UnitTest.Utilities.PlugIns;
 
 namespace PLCSIM.UnitTest.ViewModel
 {
@@ -413,7 +413,8 @@ namespace PLCSIM.UnitTest.ViewModel
                 fileopener.StartInfo.FileName = "explorer";
                 fileopener.StartInfo.Arguments = "\"" + TestResultFile + "\"";
                 fileopener.Start();
-            } else
+            }
+            else
             {
                 logger.Error("Test result file not available");
             }

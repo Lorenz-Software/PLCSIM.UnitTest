@@ -1,9 +1,9 @@
-﻿using log4net;
+﻿using ApplicationUtilities.Logger;
+using log4net;
 using log4net.Appender;
 using log4net.Config;
 using log4net.Core;
 using log4net.Repository;
-using ApplicationUtilities.Logger;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.Composition;

@@ -1,5 +1,15 @@
 ﻿using ApplicationUtilities.DI;
 using ApplicationUtilities.Logger;
+using Siemens.Engineering;
+using Siemens.Engineering.Compiler;
+using Siemens.Engineering.Connection;
+using Siemens.Engineering.Download;
+using Siemens.Engineering.Download.Configurations;
+using Siemens.Engineering.HW;
+using Siemens.Engineering.HW.Features;
+using Siemens.Engineering.Online;
+using Siemens.Engineering.Online.Configurations;
+using Siemens.Engineering.SW;
 using System;
 using System.IO;
 using System.Linq;

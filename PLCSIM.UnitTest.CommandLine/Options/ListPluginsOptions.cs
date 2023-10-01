@@ -3,7 +3,7 @@
 namespace PLCSIM.UnitTest.CommandLine.Options
 {
     [Verb("plugins", HelpText = "List plugins")]
-    class ListPluginsOptions: BaseOptions
+    class ListPluginsOptions : BaseOptions
     {
     }
 }

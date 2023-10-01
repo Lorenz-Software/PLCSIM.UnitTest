@@ -5,17 +5,14 @@ using PlcSimAdvanced;
 using PlcSimAdvanced.Model;
 using PlcSimAdvanced.Utilities;
 using System;
-using System.Collections.Generic;
 using System.IO;
-using System.Linq;
-using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using TiaOpeness;
 
 namespace PLCSIM.UnitTest.CommandLine.Commands
 {
-    class UnitTestRunner: ICommandRunner
+    class UnitTestRunner : ICommandRunner
     {
         protected const string PlcInstanceName = "PlcInstance";
         private const uint CreatePlcInstanceTimeout = 30000;
@@ -99,7 +96,8 @@ namespace PLCSIM.UnitTest.CommandLine.Commands
 
             timeoutTokenSource = new CancellationTokenSource();
             var timeoutToken = timeoutTokenSource.Token;
-            timeoutToken.Register(() => {
+            timeoutToken.Register(() =>
+            {
                 logger.Debug("Cancelling timeout task...");
             });
             timeoutTask = Task.Delay(options.Timeout);
@@ -145,7 +143,8 @@ namespace PLCSIM.UnitTest.CommandLine.Commands
             try
             {
                 plcsim.RemovePlcSimInstance(RemovePlcInstanceTimeout, true);
-            } catch (Exception e)
+            }
+            catch (Exception e)
             {
                 logger.Log(e);
             }

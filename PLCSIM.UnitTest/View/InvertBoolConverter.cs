@@ -5,7 +5,7 @@ using System.Windows.Data;
 namespace PLCSIM.UnitTest.View
 {
     [ValueConversion(typeof(bool), typeof(bool))]
-    public class InvertBoolConverter : ConverterMarkupExtension<InvertBoolConverter >
+    public class InvertBoolConverter : ConverterMarkupExtension<InvertBoolConverter>
     {
         public InvertBoolConverter()
         {
