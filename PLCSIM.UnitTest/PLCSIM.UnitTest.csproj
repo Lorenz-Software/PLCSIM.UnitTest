@@ -51,8 +51,7 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <PropertyGroup>
-    <ApplicationIcon>
-    </ApplicationIcon>
+    <ApplicationIcon>PLCSIM.UnitTest.ico</ApplicationIcon>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x64'">
     <DebugSymbols>true</DebugSymbols>
@@ -193,7 +192,6 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </EmbeddedResource>
     <None Include="packages.config" />
-    <None Include="PLCSIM.UnitTest_TemporaryKey.pfx" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
@@ -225,7 +223,13 @@
       <Name>PlcSimAdvanced</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Resource Include="Resources\PLCSIM.UnitTest.ico" />
+    <Resource Include="Resources\PLCSIM.UnitTest.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="PLCSIM.UnitTest.ico" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <ProjectExtensions />
 </Project>
