@@ -195,8 +195,8 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="PLCSIM.CmdRunner.ico" />
-    <Content Include="Ressources\PLCSIM.CmdRunner.ico" />
-    <Content Include="Ressources\PLCSIM.CmdRunner.png" />
+    <Content Include="Resources\PLCSIM.CmdRunner.ico" />
+    <Content Include="Resources\PLCSIM.CmdRunner.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>

@@ -33,11 +33,12 @@ Plugin framework to support different versions of TIA Openess and PLCSIm Advance
 - PLCSIM.UnitTest: Desktop application for testing unit test communication with PLCSIM Advanced instance
 - PLCSIM.UnitTest.CommandLine: Unit test commandline runner
 
-## Ressources
+## Resources
 
-- Directory ".\Plugins\" 
-    - Binaries from plugin projects. Therefore it is not necesseracy to have PLCSIM Advanced or TIA Portal installed to compile command line runner application.
-- Directory ".\TIA Portal Libraries\"
+- Directory "./Plugins/" 
+    - Binaries from plugin projects.<br/>
+      Therefore it is not necessary to have PLCSIM Advanced or TIA Portal installed to compile command line runner application.
+- Directory "./TIA Portal Libraries/"
     - Libraries for use in TIA Portal projects
 
 ## Authors and acknowledgment

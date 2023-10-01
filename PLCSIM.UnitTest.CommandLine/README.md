@@ -1,4 +1,4 @@
-﻿# <img src="Ressources/PLCSIM.CmdRunner.png" alt="PLCSIM.CmdRunner Icon" width="48" height="48" align="top"> PLCSIM.UnitTest.CommandLine
+﻿# <img src="Resources/PLCSIM.CmdRunner.png" alt="PLCSIM.CmdRunner Icon" width="48" height="48" align="top"> PLCSIM.UnitTest.CommandLine
 
 ## Description
 
@@ -148,21 +148,21 @@ PLCSIM.UnitTest.CommandLine.exe allow -v <listofversions>
 
 ### PLCSIM Advanced plugins
   
-- API v5.0 (see project PlcSimAdvanced.V5_0)
+- API v5.0 (see project "Plugin Projects/PlcSimAdvanced.V5_0")
 
 ### TIA Openess plugins
   
-- TIA Portal v16 (see project TiaOpness.V16)
-- TIA Portal v17 (see project TiaOpness.V17)
-- TIA Portal v18 (see project TiaOpness.V18)
+- TIA Portal v16 (see project "Plugin Projects/TiaOpeness.V16")
+- TIA Portal v17 (see project "Plugin Projects/TiaOpeness.V17")
+- TIA Portal v18 (see project "Plugin Projects/TiaOpeness.V18")
 
 ## Implementation Details
 
 - Plugin directory
   - see application settings
-  - Debug: "..\..\..\Plugins"
+  - Debug: "\<solution directory\>/Plugins"
     - Plugin projects copy DLL to this directory on post-build trigger
-  - Release: ".\Plugins"
+  - Release: "./Plugins"
 - Additional plugins can be added without recompiling main program as long as plugin contract remains the same
 
 
