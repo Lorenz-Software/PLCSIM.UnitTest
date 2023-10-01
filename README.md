@@ -1,4 +1,4 @@
-# PLCSIM.UnitTest
+# <img src="PLCSIM.UnitTest/Resources/PLCSIM.UnitTest.png" alt="PLCSIM.CmdRunner Icon" width="48" height="48" align="top"> PLCSIM.UnitTest
 [![GitHub license](https://img.shields.io/github/license/Naereen/StrapDown.js.svg)](https://github.com/Lorenz-Software/PLCSIM.UnitTest/blob/master/LICENSE)
 [![Open Source? Yes!](https://badgen.net/badge/Open%20Source%20%3F/Yes%21/blue?icon=github)](https://github.com/Lorenz-Software/PLCSIM.UnitTest)
 
