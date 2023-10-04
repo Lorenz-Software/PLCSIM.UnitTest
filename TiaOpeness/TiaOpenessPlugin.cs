@@ -14,14 +14,21 @@ namespace TiaOpeness
         protected Version version;
         protected string description = "";
         protected string cmdOption = "";
+        protected string domainName = "";
         protected IApplicationLogger logger;
         protected ITiaOpeness tia;
+        protected AppDomain domain;
         protected bool isInitialized = false;
 
         protected TiaOpenessPlugin(Context context)
         {
             Context.Instance = context;
             logger = Context.Get<IApplicationLogger>();
+        }
+
+        ~TiaOpenessPlugin()
+        {
+            Cleanup();
         }
 
         public string PluginName
@@ -39,11 +46,15 @@ namespace TiaOpeness
             get => version;
         }
 
-        public string CmdOption
+        public string PluginCmdOption
         {
             get => cmdOption;
         }
 
+        public string PluginDomainName
+        {
+            get => domainName;
+        }
 
         public bool IsInitialized
         {
@@ -53,6 +64,13 @@ namespace TiaOpeness
         public abstract bool IsTiaOpenessInstalled();
 
         public abstract bool Initialize();
+
+        public virtual void Cleanup()
+        {
+            tia = null;
+            UnloadDomain();
+            isInitialized = false;
+        }
 
         protected abstract ITiaOpeness CreateTiaOpenessInstance();
 
@@ -137,8 +155,30 @@ namespace TiaOpeness
             }
         }
 
-        public abstract void Cleanup();
-
         public abstract void AllowFirewallAccess(Assembly assembly);
+
+        public AppDomain CreateDomain(string installationPath)
+        {
+            AppDomainSetup domaininfo = new AppDomainSetup();
+            domaininfo.ApplicationBase = installationPath;
+
+            var Domain = AppDomain.CreateDomain(PluginDomainName, null, domaininfo);
+            return Domain;
+        }
+
+        public void UnloadDomain()
+        {
+            if (domain != null)
+            {
+                try
+                {
+                    AppDomain.Unload(domain);
+                } catch (Exception e)
+                {
+                    logger.Log(e);
+                }
+            }
+            domain = null;
+        }
     }
 }

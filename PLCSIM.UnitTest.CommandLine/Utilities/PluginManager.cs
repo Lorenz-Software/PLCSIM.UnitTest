@@ -112,7 +112,7 @@ namespace PLCSIM.UnitTest.CommandLine.PlugIns
                                                 BindingFlags.CreateInstance, null, null, new Object[] { ApplicationContext.Instance }) as ITiaOpenessPlugin;
                                 logger.Verbose($"\t{b.PluginName} ({b.PluginVersion})");
                                 logger.Verbose($"\t\tAssembly: {assembly.Location}");
-                                TiaOpenessPlugins.Add(b.CmdOption.ToLower(), b);
+                                TiaOpenessPlugins.Add(b.PluginCmdOption.ToLower(), b);
                             }
                             catch (Exception e)
                             {

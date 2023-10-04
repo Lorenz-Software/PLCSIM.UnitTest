@@ -1,5 +1,6 @@
 ﻿using ApplicationUtilities.DI;
 using PlcSimAdvanced.Model;
+using PlcSimAdvanced.V5_0.Internal;
 using PlcSimAdvanced.V5_0.Model;
 using System;
 using System.Collections.Generic;
@@ -8,28 +9,33 @@ namespace PlcSimAdvanced.V5_0
 {
     public class PlcSimAdvancedPlugin_V50 : PlcSimAdvancedPlugin
     {
+        private const string DOMAINNAME = "PlcSimAdvV50";
         private const string PLUGINNAME = "PLCSIM Advanced Plugin";
         private const string VERSION = "5.0.0.0";
         private const string CMDOPTION = "v5.0";
+        private const string DESCRIPTION = "PLCSIM Advanced Plugin (v5.0)";
 
         public PlcSimAdvancedPlugin_V50(Context context) : base(context)
         {
             this.name = PLUGINNAME;
             this.version = new Version(VERSION);
             this.cmdOption = CMDOPTION;
+            this.description = DESCRIPTION;
+            this.domainName = DOMAINNAME;
         }
 
         public override event EventHandler OnOperatingStateChanged;
 
         public override bool IsPlcSimAdvancedInstalled()
         {
-            return ApiResolverPlcSimAdvV50.IsInstalled();
+            return PlcSimAdvancedHelper_V50.IsInstalled();
         }
 
         public override bool Initialize()
         {
-            ApiResolverPlcSimAdvV50.CreateDomain();
-            AppDomain.CurrentDomain.AssemblyResolve += ApiResolverPlcSimAdvV50.AssemblyResolver;
+            string tiaInstallationPath = PlcSimAdvancedHelper_V50.GetInstallationPath();
+            domain = CreateDomain(tiaInstallationPath);
+            AppDomain.CurrentDomain.AssemblyResolve += PlcSimAdvancedApiResolver_V50.AssemblyResolver;
 
             isInitialized = true;
             return isInitialized;
@@ -76,17 +82,6 @@ namespace PlcSimAdvanced.V5_0
                 throw new InvalidOperationException("PLCSIM Advanced instance is NULL");
             PlcSimInstanceV50.UnregisterPlcInstance(plcSimInstance, timeout, delete);
             plcSimInstance = null;
-        }
-
-        public override void Cleanup()
-        {
-            //if (plcSimInstance != null)
-            //    throw new InvalidOperationException("PLCSIM Advanced instance is not NULL");
-            if (plcSimInstance != null)
-                logger.Warn("PLCSIM Advanced instance not NULL");
-            plcSimInstance = null;
-            ApiResolverPlcSimAdvV50.UnloadDomain();
-            isInitialized = false;
         }
     }
 }

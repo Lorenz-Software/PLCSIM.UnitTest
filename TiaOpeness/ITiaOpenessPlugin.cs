@@ -5,7 +5,7 @@ namespace TiaOpeness
 {
     public interface ITiaOpenessPlugin : IPluginBase
     {
-        string CmdOption { get; }
+        string PluginCmdOption { get; }
 
         bool IsTiaOpenessInstalled();
 

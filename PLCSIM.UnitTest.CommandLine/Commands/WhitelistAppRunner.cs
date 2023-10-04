@@ -8,13 +8,13 @@ using TiaOpeness;
 
 namespace PLCSIM.UnitTest.CommandLine.Commands
 {
-    class AllowAppRunner : ICommandRunner
+    class WhitelistAppRunner : ICommandRunner
     {
         private static IApplicationLogger logger = Context.Get<IApplicationLogger>();
 
-        private AllowAppOptions options;
+        private WhitelistAppOptions options;
 
-        public AllowAppRunner(AllowAppOptions options)
+        public WhitelistAppRunner(WhitelistAppOptions options)
         {
             this.options = options;
         }

@@ -1,25 +1,30 @@
 ﻿using ApplicationUtilities.DI;
 using System;
 using System.Reflection;
+using TiaOpeness.V18.Internal;
 
 namespace TiaOpeness.V18
 {
     public class TiaOpenessPlugin_V18 : TiaOpenessPlugin
     {
+		private const string DOMAINNAME = "TiaV18";
         private const string PLUGINNAME = "TIA Openess Plugin";
         private const string VERSION = "18.0.0.0";
         private const string CMDOPTION = "v18";
+        private const string DESCRIPTION = "TIA Openess Plugin (v18.0)";
 
         public TiaOpenessPlugin_V18(Context context) : base(context)
         {
             this.name = PLUGINNAME;
             this.version = new Version(VERSION);
             this.cmdOption = CMDOPTION;
+            this.description = DESCRIPTION;
+            this.domainName = DOMAINNAME;
         }
 
         public override bool IsTiaOpenessInstalled()
         {
-            return TiaOpenessApiResolver_V18.IsInstalled();
+            return TiaOpenessHelper_V18.IsInstalled();
         }
 
         public override void AllowFirewallAccess(Assembly assembly)
@@ -30,7 +35,8 @@ namespace TiaOpeness.V18
 
         public override bool Initialize()
         {
-            TiaOpenessApiResolver_V18.CreateDomain();
+            string tiaInstallationPath = TiaOpenessHelper_V18.GetInstallationPath();
+            domain = CreateDomain(tiaInstallationPath);
             AppDomain.CurrentDomain.AssemblyResolve += TiaOpenessApiResolver_V18.AssemblyResolver;
 
             isInitialized = true;
@@ -42,11 +48,5 @@ namespace TiaOpeness.V18
             return new TiaOpeness_V18();
         }
 
-        public override void Cleanup()
-        {
-            tia = null;
-            TiaOpenessApiResolver_V18.UnloadDomain();
-            isInitialized = false;
-        }
     }
 }

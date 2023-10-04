@@ -20,10 +20,10 @@ namespace PLCSIM.UnitTest.CommandLine
             return Run(new ListPluginsRunner(options), options);
         }
 
-        public int Run(AllowAppOptions options)
+        public int Run(WhitelistAppOptions options)
         {
             LoadPlugins();
-            return Run(new AllowAppRunner(options), options);
+            return Run(new WhitelistAppRunner(options), options);
         }
 
         public int Run(UnitTestOptions options)

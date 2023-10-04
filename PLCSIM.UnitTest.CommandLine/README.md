@@ -11,7 +11,7 @@ Program is based on plugin system that includes plugins for
 
 > [!IMPORTANT]
 > To run in CI/CD pripeline or in any other unsupervised environment, access in TIA openess firewall must be granted by an administrator.
-> Can be done by manually choosing option to allow access during first run or by commandline option `allow`.
+> Can be done by manually choosing option to allow access during first run or by commandline option `whitelist`.
 
 ## System requirements
 
@@ -95,7 +95,7 @@ Displays
 > [!IMPORTANT]
 > **MUST BE RUN AS ADMIN!**
 ```
-PLCSIM.UnitTest.CommandLine.exe allow -v <listofversions> 
+PLCSIM.UnitTest.CommandLine.exe whitelist -v <listofversions> 
 ```
 `-v` | `--version`
 * TIA Portal versions to grant access
@@ -165,6 +165,12 @@ PLCSIM.UnitTest.CommandLine.exe allow -v <listofversions>
   - Release: "./Plugins"
 - Additional plugins can be added without recompiling main program as long as plugin contract remains the same
 
+## CI/CD Pipeline Samples
+
+- Gitlab
+  - see [Gitlab Pipeline](Resources/GitlabPipeline.md)
+- Jenkins
+  - [!TODO] [![Static Badge](https://img.shields.io/badge/TODO-red?style=pastic)](https://shields.io/)
 
 ## Authors and acknowledgment
 

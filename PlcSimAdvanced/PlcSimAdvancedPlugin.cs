@@ -12,8 +12,10 @@ namespace PlcSimAdvanced
         protected Version version;
         protected string description = "";
         protected string cmdOption = "";
+        protected string domainName = "";
         protected IApplicationLogger logger;
         protected IPlcSimInstance plcSimInstance;
+        protected AppDomain domain;
         protected bool isInitialized = false;
         protected bool eventHandlersRegistered = false;
 
@@ -23,6 +25,11 @@ namespace PlcSimAdvanced
         {
             Context.Instance = context;
             logger = Context.Get<IApplicationLogger>();
+        }
+
+        ~PlcSimAdvancedPlugin()
+        {
+            Cleanup();
         }
 
         public string PluginName
@@ -43,6 +50,11 @@ namespace PlcSimAdvanced
         public string PluginCmdOption
         {
             get => cmdOption;
+        }
+
+        public string PluginDomainName
+        {
+            get => domainName;
         }
 
         public bool IsInitialized
@@ -100,6 +112,17 @@ namespace PlcSimAdvanced
 
         public abstract bool Initialize();
 
+        public virtual void Cleanup()
+        {
+            //if (plcSimInstance != null)
+            //    throw new InvalidOperationException("PLCSIM Advanced instance is not NULL");
+            if (plcSimInstance != null)
+                logger.Warn("PLCSIM Advanced instance not NULL");
+            plcSimInstance = null;
+            UnloadDomain();
+            isInitialized = false;
+        }
+
         public abstract void RetrievePlcSimInstance(uint index);
 
         public abstract void RetrievePlcSimInstance(string name);
@@ -133,6 +156,30 @@ namespace PlcSimAdvanced
 
         public abstract IEnumerable<LogEntry> ReadData();
 
-        public abstract void Cleanup();
+        public AppDomain CreateDomain(string installationPath)
+        {
+            AppDomainSetup domaininfo = new AppDomainSetup();
+            domaininfo.ApplicationBase = installationPath;
+
+            var Domain = AppDomain.CreateDomain(PluginDomainName, null, domaininfo);
+            return Domain;
+        }
+
+        public void UnloadDomain()
+        {
+            if (domain != null)
+            {
+                try
+                {
+                    AppDomain.Unload(domain);
+                }
+                catch (Exception e)
+                {
+                    logger.Log(e);
+                }
+            }
+            domain = null;
+        }
+
     }
 }

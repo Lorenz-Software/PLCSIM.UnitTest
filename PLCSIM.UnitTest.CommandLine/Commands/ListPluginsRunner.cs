@@ -46,7 +46,7 @@ namespace PLCSIM.UnitTest.CommandLine.Commands
             Console.WriteLine($"\t\tVersion: {plugin.PluginVersion}");
             Console.WriteLine($"\t\tDescription: {plugin.PluginDescription}");
             Console.WriteLine($"\t\tDLL installed: {plugin.IsTiaOpenessInstalled()}");
-            Console.WriteLine($"\t\tCommand line ID: {plugin.CmdOption}");
+            Console.WriteLine($"\t\tCommand line ID: {plugin.PluginCmdOption}");
         }
     }
 }
