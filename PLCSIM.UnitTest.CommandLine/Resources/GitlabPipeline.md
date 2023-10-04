@@ -1,6 +1,6 @@
 ﻿# Gitlab Pipeline
 
-[![GitLab](https://badgen.net/badge/icon/gitlab?icon=gitlab&label)](https://https://gitlab.com/)
+[![GitLab](https://badgen.net/badge/icon/gitlab?icon=gitlab&label)](https://gitlab.com/)
 
 ## Description
 
