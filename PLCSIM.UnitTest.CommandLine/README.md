@@ -178,4 +178,4 @@ D. Lorenz
 
 ## License
 
-MIT [![MIT license](https://img.shields.io/badge/License-MIT-blue.svg)](https://lbesson.mit-license.org/)
+MIT [![MIT License](https://img.shields.io/github/license/Naereen/StrapDown.js.svg)](https://github.com/Lorenz-Software/PLCSIM.UnitTest/blob/master/LICENSE)
