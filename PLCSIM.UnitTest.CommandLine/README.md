@@ -167,10 +167,11 @@ PLCSIM.UnitTest.CommandLine.exe whitelist -v <listofversions>
 
 ## CI/CD Pipeline Samples
 
-- Gitlab
+- Gitlab [![GitLab](https://badgen.net/badge/icon/gitlab?icon=gitlab&label)](https://https://gitlab.com/)
   - see [Gitlab Pipeline](Resources/GitlabPipeline.md)
-- Jenkins
-  - [!TODO] [![Static Badge](https://img.shields.io/badge/TODO-red?style=pastic)](https://shields.io/)
+  - https://simpleicons.org/icons/jenkins.svg
+- Jenkins [![Jenkins](https://img.shields.io/badge/Jenkins-blue?logo=Jenkins&logoColor=white&labelColor=gray)](https://www.jenkins.io/)
+  - [!TODO] [![TODO](https://img.shields.io/badge/TODO-red?style=pastic)]([https://shields.io/](https://github.com/Lorenz-Software/PLCSIM.UnitTest))
 
 ## Authors and acknowledgment
 
