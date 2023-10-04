@@ -42,8 +42,8 @@ shutdown_timeout = 0
 ```
 
 - Environment Variables
-  - EXEC_DIR - Directory where application is installed
-  - UNITTEST_RUNNER - Application exe
+  - `EXEC_DIR` - Directory where application is installed
+  - `UNITTEST_RUNNER` - Application exe file name
 
 ## Gitlab Pipeline
 
