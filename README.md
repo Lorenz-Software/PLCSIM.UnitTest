@@ -6,7 +6,7 @@
 
 Visual Studio solution for executing unit tests for TIA Portal projects on PLCSIM Advanced.
 
-Plugin framework to support different versions of TIA Openess and PLCSIm Advanced.
+Plugin framework to support different versions of TIA Openess and PLCSIM Advanced.
 
 ## System Requirements
 
@@ -31,7 +31,7 @@ Plugin framework to support different versions of TIA Openess and PLCSIm Advance
     - TiaOpeness.V17: Plugin for TIA Openess V17
     - TiaOpeness.V18: Plugin for TIA Openess V18
 - PLCSIM.UnitTest: Desktop application for testing unit test communication with PLCSIM Advanced instance
-- PLCSIM.UnitTest.CommandLine: Unit test commandline runner
+- PLCSIM.UnitTest.CommandLine: Unit test commandline runner (see [README](PLCSIM.UnitTest.CommandLine/README.md))
 
 ## Resources
 
