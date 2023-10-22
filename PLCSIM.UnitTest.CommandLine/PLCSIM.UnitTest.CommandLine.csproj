@@ -24,7 +24,7 @@
     <UpdatePeriodically>false</UpdatePeriodically>
     <UpdateRequired>false</UpdateRequired>
     <MapFileExtensions>true</MapFileExtensions>
-    <ApplicationRevision>0</ApplicationRevision>
+    <ApplicationRevision>1</ApplicationRevision>
     <ApplicationVersion>0.1.0.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <PublishWizardCompleted>true</PublishWizardCompleted>
@@ -109,6 +109,9 @@
   <PropertyGroup>
     <SignManifests>false</SignManifests>
   </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationIcon>PLCSIM.CmdRunner.ico</ApplicationIcon>
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="CommandLine, Version=2.9.1.0, Culture=neutral, PublicKeyToken=5a870481e358d379, processorArchitecture=MSIL">
       <HintPath>..\packages\CommandLineParser.2.9.1\lib\net461\CommandLine.dll</HintPath>
@@ -127,12 +130,12 @@
     <Compile Include="Application.cs" />
     <Compile Include="ApplicationContext.cs" />
     <Compile Include="Commands\ListPluginsRunner.cs" />
-    <Compile Include="Commands\AllowAppRunner.cs" />
+    <Compile Include="Commands\WhitelistAppRunner.cs" />
     <Compile Include="Commands\ICommandRunner.cs" />
     <Compile Include="Commands\UnitTestRunner.cs" />
     <Compile Include="Logger\ApplicationLogger.cs" />
     <Compile Include="Options\ListPluginsOptions.cs" />
-    <Compile Include="Options\AllowAppOptions.cs" />
+    <Compile Include="Options\WhitelistAppOptions.cs" />
     <Compile Include="Options\BaseOptions.cs" />
     <Compile Include="Options\UnitTestOptions.cs" />
     <Compile Include="Properties\Settings.Designer.cs">
@@ -156,6 +159,7 @@
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
     </None>
     <None Include="README.md" />
+    <None Include="Resources\GitlabPipeline.md" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\ApplicationUtilities\ApplicationUtilities.csproj">
@@ -189,6 +193,11 @@
       <ProductName>.NET Framework 3.5 SP1</ProductName>
       <Install>false</Install>
     </BootstrapperPackage>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="PLCSIM.CmdRunner.ico" />
+    <Content Include="Resources\PLCSIM.CmdRunner.ico" />
+    <Content Include="Resources\PLCSIM.CmdRunner.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>

@@ -1,10 +1,9 @@
-﻿using CommandLine;
-using ApplicationUtilities.Logger;
+﻿using ApplicationUtilities.Logger;
+using CommandLine;
+using PLCSIM.UnitTest.CommandLine.Options;
 using System;
 using System.Collections.Generic;
 using System.IO;
-using PLCSIM.UnitTest.CommandLine.Options;
-using PLCSIM.UnitTest.CommandLine.PlugIns;
 
 namespace PLCSIM.UnitTest.CommandLine
 {
@@ -34,10 +33,10 @@ namespace PLCSIM.UnitTest.CommandLine
             var application = new Application();
             int exitCode = -1;
 
-            var parserResult = commandLineParser.ParseArguments<ListPluginsOptions, AllowAppOptions, UnitTestOptions>(args);
+            var parserResult = commandLineParser.ParseArguments<ListPluginsOptions, WhitelistAppOptions, UnitTestOptions>(args);
             parserResult.MapResult(
               (ListPluginsOptions options) => exitCode = application.Run(options),
-              (AllowAppOptions options) => exitCode = application.Run(options),
+              (WhitelistAppOptions options) => exitCode = application.Run(options),
               (UnitTestOptions options) => exitCode = application.Run(options),
               errors => exitCode = DoOnCommandLineParseError(errors, helpWriter)
               );

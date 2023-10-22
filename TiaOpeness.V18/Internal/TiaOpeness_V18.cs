@@ -1,15 +1,25 @@
 ﻿using ApplicationUtilities.DI;
 using ApplicationUtilities.Logger;
+using Siemens.Engineering;
+using Siemens.Engineering.Compiler;
+using Siemens.Engineering.Connection;
+using Siemens.Engineering.Download;
+using Siemens.Engineering.Download.Configurations;
+using Siemens.Engineering.HW;
+using Siemens.Engineering.HW.Features;
+using Siemens.Engineering.Online;
+using Siemens.Engineering.Online.Configurations;
+using Siemens.Engineering.SW;
 using System;
 using System.IO;
 using System.Linq;
 
-namespace TiaOpeness.V16
+namespace TiaOpeness.V18.Internal
 {
-    class TiaOpeness_V16 : ITiaOpeness
+    class TiaOpeness_V18 : ITiaOpeness
     {
-        private const string PROJECTEXTENSION = ".ap16";
-        private const string ARCHIVEEXTENSION = ".zap16";
+        private const string PROJECTEXTENSION = ".ap18";
+        private const string ARCHIVEEXTENSION = ".zap18";
         private const string CONFIGMODE_PN_IE = "PN/IE";
         private const string PCINTERFACE_PLCSIM = "PLCSIM";
         private const string LOGTAB = "  ";
@@ -19,9 +29,7 @@ namespace TiaOpeness.V16
         private bool isTiaPortalDisposed = true;
         private Project project = null;
 
-        public TiaOpeness_V16()
-        {
-        }
+        public TiaOpeness_V18() { }
 
         #region TIA Portal
 
@@ -38,7 +46,7 @@ namespace TiaOpeness.V16
 
         public void CloseTiaPortal()
         {
-            logger.Info("Closing TIA portal...");
+            logger.Debug("Closing TIA portal...");
             tiaPortal.Notification -= DoOnTiaPortalNotification;
             tiaPortal.Confirmation -= DoOnTiaPortalConfirmation;
             tiaPortal.Notification -= DoOnTiaPortalDisposed;
@@ -62,11 +70,10 @@ namespace TiaOpeness.V16
             return File.Exists(filePath) && Path.GetExtension(filePath).Equals(ARCHIVEEXTENSION, StringComparison.OrdinalIgnoreCase);
         }
 
-
         public bool OpenProject(string filePath)
         {
             if (!IsValidProjectFile(filePath))
-                throw new FileNotFoundException($"File '{filePath}' is not a valid project file for TIA Portal V16");
+                throw new FileNotFoundException($"File '{filePath}' is not a valid project file for TIA Portal V18");
 
             logger.Debug($"Opening TIA project from '{filePath}'...");
 
@@ -94,7 +101,7 @@ namespace TiaOpeness.V16
         public bool OpenArchivedProject(string filePath, string destinationDir)
         {
             if (!IsValidProjectArchive(filePath))
-                throw new FileNotFoundException($"File '{filePath}' is not a valid project archive for TIA Portal V16");
+                throw new FileNotFoundException($"File '{filePath}' is not a valid project archive for TIA Portal V18");
             if (!Directory.Exists(destinationDir))
                 throw new DirectoryNotFoundException($"Directory '{destinationDir}' to extract project archive not found.");
 
@@ -327,47 +334,55 @@ namespace TiaOpeness.V16
                 throw new InvalidOperationException(
                     $"Could not retrieve download provider connection configuration for device item {item.Name}!"
                 );
-            ConfigurationMode configurationMode = configuration.Modes.Find(CONFIGMODE_PN_IE);
-            if (configurationMode == null)
-                throw new InvalidOperationException(
-                    $"Could not retrieve download provider connection configuration mode {CONFIGMODE_PN_IE} for device item  {item.Name}!"
+            configuration.OnlineLegitimation += DoOnOnlineLegitimationEvent;
+            try
+            {
+                ConfigurationMode configurationMode = configuration.Modes.Find(CONFIGMODE_PN_IE);
+                if (configurationMode == null)
+                    throw new InvalidOperationException(
+                        $"Could not retrieve download provider connection configuration mode {CONFIGMODE_PN_IE} for device item  {item.Name}!"
+                    );
+                ConfigurationPcInterface pcInterface = configurationMode.PcInterfaces.Find(
+                    PCINTERFACE_PLCSIM,
+                    1
                 );
-            ConfigurationPcInterface pcInterface = configurationMode.PcInterfaces.Find(
-                PCINTERFACE_PLCSIM,
-                1
-            );
-            if (pcInterface == null)
-                throw new InvalidOperationException(
-                    $"Could not retrieve PC interface {CONFIGMODE_PN_IE}/{PCINTERFACE_PLCSIM} for device item  {item.Name}!"
+                if (pcInterface == null)
+                    throw new InvalidOperationException(
+                        $"Could not retrieve PC interface {CONFIGMODE_PN_IE}/{PCINTERFACE_PLCSIM} for device item  {item.Name}!"
+                    );
+
+                // configure target interface
+                IConfiguration targetInterface = pcInterface.TargetInterfaces[0];
+                if (targetInterface == null)
+                    throw new InvalidOperationException(
+                        $"Could not retrieve target interface configuration for device item {item.Name}!"
+                    );
+                logger.Info($"Downloading over PC interface: {pcInterface.Name}");
+
+                ConfigurationTargetInterface targetConfigInterface =
+                    targetInterface as ConfigurationTargetInterface;
+                logger.Info($"Download over target interface: {targetConfigInterface.Name}");
+
+                logger.Debug("Downloading hardware and software...");
+                DownloadResult result = downloadProvider.Download(
+                    targetConfigInterface,
+                    DoOnPreDownLoadEvent,
+                    DoOnPostDownLoadEvent,
+                    DownloadOptions.Software | DownloadOptions.Hardware
                 );
-
-            // configure target interface
-            IConfiguration targetInterface = pcInterface.TargetInterfaces[0];
-            if (targetInterface == null)
-                throw new InvalidOperationException(
-                    $"Could not retrieve target interface configuration for device item {item.Name}!"
-                );
-            logger.Info($"Downloading over PC interface: {pcInterface.Name}");
-
-            ConfigurationTargetInterface targetConfigInterface =
-                targetInterface as ConfigurationTargetInterface;
-            logger.Info($"Download over target interface: {targetConfigInterface.Name}");
-
-            logger.Debug("Downloading hardware and software...");
-            DownloadResult result = downloadProvider.Download(
-                targetConfigInterface,
-                DoOnPreDownLoadEvent,
-                DoOnPostDownLoadEvent,
-                DownloadOptions.Software | DownloadOptions.Hardware
-            );
-            logger.Verbose("Download messages:");
-            LogDownloadMessages(result.Messages, "");
-            if (result.State >= DownloadResultState.Error)
-                throw new Exception("Download failed.");
-            else if (result.State == DownloadResultState.Warning)
-                logger.Warn("Download finished with warnings");
-            else if (result.State == DownloadResultState.Success)
-                logger.Info("Download finished successfully");
+                logger.Verbose("Download messages:");
+                LogDownloadMessages(result.Messages, "");
+                if (result.State >= DownloadResultState.Error)
+                    throw new Exception("Download failed.");
+                else if (result.State == DownloadResultState.Warning)
+                    logger.Warn("Download finished with warnings");
+                else if (result.State == DownloadResultState.Success)
+                    logger.Info("Download finished successfully");
+            }
+            finally
+            {
+                configuration.OnlineLegitimation -= DoOnOnlineLegitimationEvent;
+            }
         }
 
         public void GoOnline(Model.DeviceItem deviceItem)
@@ -394,32 +409,40 @@ namespace TiaOpeness.V16
                 throw new InvalidOperationException(
                     $"Could not retrieve connection configuration for device item  {item.Name}!"
                 );
-            ConfigurationMode configurationMode = configuration.Modes.Find(CONFIGMODE_PN_IE);
-            if (configurationMode == null)
-                throw new InvalidOperationException(
-                    $"Could not retrieve connection configuration mode {CONFIGMODE_PN_IE} for device item  {item.Name}!"
-                );
+            configuration.OnlineLegitimation += DoOnOnlineLegitimationEvent;
+            try
+            {
+                ConfigurationMode configurationMode = configuration.Modes.Find(CONFIGMODE_PN_IE);
+                if (configurationMode == null)
+                    throw new InvalidOperationException(
+                        $"Could not retrieve connection configuration mode {CONFIGMODE_PN_IE} for device item  {item.Name}!"
+                    );
 
-            ConfigurationPcInterface pcInterface = configurationMode.PcInterfaces.Find(
-                PCINTERFACE_PLCSIM,
-                1
-            );
-            if (pcInterface == null)
-                throw new InvalidOperationException(
-                    $"Could not retrieve PC interface {CONFIGMODE_PN_IE}/{PCINTERFACE_PLCSIM} for device item  {item.Name}!"
+                ConfigurationPcInterface pcInterface = configurationMode.PcInterfaces.Find(
+                    PCINTERFACE_PLCSIM,
+                    1
                 );
-            logger.Info($"Going online over PC interface: {pcInterface.Name}");
+                if (pcInterface == null)
+                    throw new InvalidOperationException(
+                        $"Could not retrieve PC interface {CONFIGMODE_PN_IE}/{PCINTERFACE_PLCSIM} for device item  {item.Name}!"
+                    );
+                logger.Info($"Going online over PC interface: {pcInterface.Name}");
 
-            ConfigurationTargetInterface targetInterface = pcInterface.TargetInterfaces[0];
-            if (targetInterface == null)
-                throw new InvalidOperationException(
-                    $"Could not retrieve target interface configuration for device item {item.Name}!"
-                );
-            configuration.ApplyConfiguration(targetInterface);
-            logger.Info($"Going online over target interface: {targetInterface.Name}");
+                ConfigurationTargetInterface targetInterface = pcInterface.TargetInterfaces[0];
+                if (targetInterface == null)
+                    throw new InvalidOperationException(
+                        $"Could not retrieve target interface configuration for device item {item.Name}!"
+                    );
+                configuration.ApplyConfiguration(targetInterface);
+                logger.Info($"Going online over target interface: {targetInterface.Name}");
 
-            onlineProvider.GoOnline();
-            logger.Info($"State: {onlineProvider.State}");
+                onlineProvider.GoOnline();
+                logger.Info($"State: {onlineProvider.State}");
+            }
+            finally
+            {
+                configuration.OnlineLegitimation -= DoOnOnlineLegitimationEvent;
+            }
         }
 
         public void GoOffline(Model.DeviceItem deviceItem)
@@ -446,8 +469,16 @@ namespace TiaOpeness.V16
                 throw new InvalidOperationException(
                     $"Could not retrieve connection configuration for device item  {item.Name}!"
                 );
-            onlineProvider.GoOffline();
-            logger.Info($"State: {onlineProvider.State}");
+            configuration.OnlineLegitimation += DoOnOnlineLegitimationEvent;
+            try
+            {
+                onlineProvider.GoOffline();
+                logger.Info($"State: {onlineProvider.State}");
+            }
+            finally
+            {
+                configuration.OnlineLegitimation -= DoOnOnlineLegitimationEvent;
+            }
         }
 
         #endregion // Online
@@ -617,24 +648,24 @@ namespace TiaOpeness.V16
                 );
                 return;
             }
-            //if (configuration is DataBlockReinitialization)
-            //{
-            //    (configuration as DataBlockReinitialization).CurrentSelection =
-            //        DataBlockReinitializationSelections.StopPlcAndReinitialize;
-            //    logger.Info(
-            //        $"{LOGTAB}DataBlockReinitialization: {(configuration as DataBlockReinitialization).CurrentSelection}"
-            //    );
-            //    return;
-            //}
-            //if (configuration is DataBlockReinitialization)
-            //{
-            //    (configuration as DataBlockReinitialization).CurrentSelection =
-            //        DataBlockReinitializationSelections.StopPlcAndReinitialize;
-            //    logger.Info(
-            //        $"{LOGTAB}DataBlockReinitialization: {(configuration as DataBlockReinitialization).CurrentSelection}"
-            //    );
-            //    return;
-            //}
+            if (configuration is DataBlockReinitialization)
+            {
+                (configuration as DataBlockReinitialization).CurrentSelection =
+                    DataBlockReinitializationSelections.StopPlcAndReinitialize;
+                logger.Debug(
+                    $"{LOGTAB}DataBlockReinitialization: {(configuration as DataBlockReinitialization).CurrentSelection}"
+                );
+                return;
+            }
+            if (configuration is DataBlockReinitialization)
+            {
+                (configuration as DataBlockReinitialization).CurrentSelection =
+                    DataBlockReinitializationSelections.StopPlcAndReinitialize;
+                logger.Debug(
+                    $"{LOGTAB}DataBlockReinitialization: {(configuration as DataBlockReinitialization).CurrentSelection}"
+                );
+                return;
+            }
             logger.Warn($"Unknown DownloadSelectionConfiguration type: {configuration.GetType()}");
         }
 
@@ -703,8 +734,8 @@ namespace TiaOpeness.V16
         {
             if (configuration is ModuleReadAccessPassword)
             {
-                //if (!(configuration as ModuleReadAccessPassword).IsSecureCommunication)
-                //    logger.Warn($"{LOGTAB}ModuleReadAccessPassword: Using insecure communication");
+                if (!(configuration as ModuleReadAccessPassword).IsSecureCommunication)
+                    logger.Warn($"{LOGTAB}ModuleReadAccessPassword: Using insecure communication");
                 //(configuration as ModuleReadAccessPassword).SetPassword(password);
                 //logger.Debug($"{LOGTAB}ModuleReadAccessPassword: Password set}");
                 logger.Warn($"{LOGTAB}ModuleReadAccessPassword: Don't know any passsword");
@@ -712,8 +743,8 @@ namespace TiaOpeness.V16
             }
             if (configuration is ModuleWriteAccessPassword)
             {
-                //if (!(configuration as ModuleWriteAccessPassword).IsSecureCommunication)
-                //    logger.Warn($"{LOGTAB}ModuleWriteAccessPassword: Using insecure communication");
+                if (!(configuration as ModuleWriteAccessPassword).IsSecureCommunication)
+                    logger.Warn($"{LOGTAB}ModuleWriteAccessPassword: Using insecure communication");
                 //(configuration as ModuleWriteAccessPassword).SetPassword(password);
                 //logger.Debug($"{LOGTAB}ModuleWriteAccessPassword: Password set}");
                 logger.Warn($"{LOGTAB}ModuleWriteAccessPassword: Don't know any passsword");
@@ -721,22 +752,22 @@ namespace TiaOpeness.V16
             }
             if (configuration is BlockBindingPassword)
             {
-                //if (!(configuration as BlockBindingPassword).IsSecureCommunication)
-                //    logger.Warn($"{LOGTAB}BlockBindingPassword: Using insecure communication");
+                if (!(configuration as BlockBindingPassword).IsSecureCommunication)
+                    logger.Warn($"{LOGTAB}BlockBindingPassword: Using insecure communication");
                 //(configuration as BlockBindingPassword).SetPassword(password);
                 //logger.Debug($"{LOGTAB}BlockBindingPassword: Password set}");
                 logger.Warn($"{LOGTAB}BlockBindingPassword: Don't know any passsword");
                 return;
             }
-            //if (configuration is PlcMasterSecretPassword)
-            //{
-            //    if (!(configuration as PlcMasterSecretPassword).IsSecureCommunication)
-            //        logger.Warn($"{LOGTAB}PlcMasterSecretPassword: Using insecure communication");
-            //    //(configuration as PlcMasterSecretPassword).SetPassword(password);
-            //    //logger.Debug($"{LOGTAB}PlcMasterSecretPassword: Password set}");
-            //    logger.Warn($"{LOGTAB}PlcMasterSecretPassword: Don't know any passsword");
-            //    return;
-            //}
+            if (configuration is PlcMasterSecretPassword)
+            {
+                if (!(configuration as PlcMasterSecretPassword).IsSecureCommunication)
+                    logger.Warn($"{LOGTAB}PlcMasterSecretPassword: Using insecure communication");
+                //(configuration as PlcMasterSecretPassword).SetPassword(password);
+                //logger.Debug($"{LOGTAB}PlcMasterSecretPassword: Password set}");
+                logger.Warn($"{LOGTAB}PlcMasterSecretPassword: Don't know any passsword");
+                return;
+            }
             logger.Warn($"Unknown DownloadPasswordConfiguration type: {configuration.GetType()}");
         }
 
@@ -760,6 +791,21 @@ namespace TiaOpeness.V16
                 return;
             }
             logger.Warn($"Unknown DownloadSelectionConfiguration type: {configuration.GetType()}");
+        }
+
+        private void DoOnOnlineLegitimationEvent(OnlineConfiguration onlineConfiguration)
+        {
+            if (onlineConfiguration is TlsVerificationConfiguration)
+            {
+                var verificationConfig = onlineConfiguration as TlsVerificationConfiguration;
+                verificationConfig.CurrentSelection = TlsVerificationConfigurationSelection.Trusted;
+                logger.Debug($"TLS Verification configuration event:");
+                logger.Debug($"{LOGTAB}PLC={verificationConfig.PlcName}");
+                logger.Debug($"{LOGTAB}VerificationInfo={verificationConfig.VerificationInfo}");
+                logger.Debug($"{LOGTAB}Trusted={verificationConfig.CurrentSelection}");
+                return;
+            }
+            logger.Warn($"Unknown OnlineConfiguration event type: {onlineConfiguration.GetType()}");
         }
 
         #endregion
@@ -930,7 +976,7 @@ namespace TiaOpeness.V16
             foreach (var targetInterface in pcInterface.TargetInterfaces)
             {
                 logger.Verbose($"{prefix}{LOGTAB}Target interface:  {targetInterface.Name}");
-                //LogConfigurationAddresses(targetInterface.Addresses, prefix + LOGTAB + LOGTAB);
+                LogConfigurationAddresses(targetInterface.Addresses, prefix + LOGTAB + LOGTAB);
             }
         }
 
@@ -992,7 +1038,7 @@ namespace TiaOpeness.V16
         )
         {
             logger.Verbose(
-                $"{prefix}Connection configured: {configuration.IsConfigured}"
+                $"{prefix}Connection configured: {configuration.IsConfigured} (Legacy: {configuration.EnableLegacyCommunication})"
             );
             foreach (var mode in configuration.Modes)
             {

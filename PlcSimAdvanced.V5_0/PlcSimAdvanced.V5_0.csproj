@@ -82,7 +82,8 @@
     <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ApiResolverPlcSimAdvV50.cs" />
+    <Compile Include="Internal\PlcSimAdvancedApiResolver_V50.cs" />
+    <Compile Include="Internal\PlcSimAdvancedHelper_V50.cs" />
     <Compile Include="Model\Constants.cs" />
     <Compile Include="Model\Plc.cs" />
     <Compile Include="PlcSimAdvancedPlugin_V50.cs" />

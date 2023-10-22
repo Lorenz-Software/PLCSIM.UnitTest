@@ -3,8 +3,8 @@ using System.Collections.Generic;
 
 namespace PLCSIM.UnitTest.CommandLine.Options
 {
-    [Verb("allow", HelpText = "Allow permanent application access to TIA Portal Openess (Administrator only)")]
-    class AllowAppOptions: BaseOptions
+    [Verb("whitelist", HelpText = "Whitelist app in TIA Portal Openess firewall (Administrator only)")]
+    class WhitelistAppOptions : BaseOptions
     {
         [Option(shortName: 'v', longName: "versions", Required = true, HelpText = "TIA Portal versions")]
         public IEnumerable<string> Versions { get; set; }

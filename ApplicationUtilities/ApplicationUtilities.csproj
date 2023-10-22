@@ -82,6 +82,7 @@
     <Compile Include="Logger\IApplicationLogger.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Utilities\PeriodicTask.cs" />
+    <Compile Include="Utilities\WindowsUtilities.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

@@ -4,73 +4,18 @@ using System.IO;
 using System.Reflection;
 using System.Security.AccessControl;
 
-namespace PlcSimAdvanced.V5_0
+namespace PlcSimAdvanced.V5_0.Internal
 {
-    public static class ApiResolverPlcSimAdvV50
+    static class PlcSimAdvancedHelper_V50
     {
-        #region constants
-
-        public const string DomainName = "PlcSimAdvV50";
         public const string Version = "5.0";
         private const string InstalledSWKeyFolder = "SOFTWARE\\WOW6432Node\\Siemens\\Automation\\_InstalledSW\\PLCSIMADV\\Global";
         private const string InstalledSWPathKey = "Path";
         private const string LibraryKeyFolder = "SOFTWARE\\Wow6432Node\\Siemens\\Shared Tools\\PLCSIMADV_SimRT";
         private const string LibraryPathKey = "Path";
         private const string ApiFolder = "API";
-        private const string LibraryName = "Siemens.Simatic.Simulation.Runtime.Api.x64";
+        public const string LibraryName = "Siemens.Simatic.Simulation.Runtime.Api.x64";
         private const string LibraryFileName = "Siemens.Simatic.Simulation.Runtime.Api.x64.dll";
-
-        #endregion // constants
-
-        public static AppDomain Domain = null;
-
-        #region methods
-
-        public static AppDomain CreateDomain()
-        {
-            AppDomainSetup domaininfo = new AppDomainSetup();
-            domaininfo.ApplicationBase = GetInstallationPath();
-
-            Domain = AppDomain.CreateDomain(DomainName, null, domaininfo);
-            return Domain;
-        }
-
-        public static void UnloadDomain()
-        {
-            if (Domain != null)
-            {
-                try
-                {
-                    AppDomain.Unload(Domain);
-                }
-                catch (Exception)
-                {
-
-                }
-            }
-        }
-
-        /// <summary>
-        /// Determines the API library to be loaded 
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="args"></param>
-        /// <returns></returns>
-        public static Assembly AssemblyResolver(object sender, ResolveEventArgs args)
-        {
-            var lookupName = new AssemblyName(args.Name);
-            if (lookupName.Name.Equals(LibraryName, StringComparison.OrdinalIgnoreCase))
-            {
-                var libraryFilePath = GetLibraryFilePath();
-                if (File.Exists(libraryFilePath))
-                {
-                    var assemblyName = AssemblyName.GetAssemblyName(libraryFilePath);
-                    return Assembly.Load(assemblyName);
-                    //return Assembly.LoadFrom(libraryFilePath);
-                }
-            }
-            return null;
-        }
 
         /// <summary>
         /// Determines if the version of the API library is installed
@@ -81,7 +26,7 @@ namespace PlcSimAdvanced.V5_0
             return File.Exists(GetLibraryFilePath());
         }
 
-        private static string GetLibraryFilePath()
+        public static string GetLibraryFilePath()
         {
             string libraryFilePath = Path.Combine(GetApiPath(), LibraryFileName);
             if (File.Exists(libraryFilePath))
@@ -90,7 +35,7 @@ namespace PlcSimAdvanced.V5_0
                 return null;
         }
 
-        private static string GetApiPath()
+        public static string GetApiPath()
         {
             using (var baseKey = RegistryKey.OpenBaseKey(RegistryHive.LocalMachine, RegistryView.Registry64))
             {
@@ -107,7 +52,8 @@ namespace PlcSimAdvanced.V5_0
             return null;
         }
 
-        private static string GetInstallationPath()
+
+        public static string GetInstallationPath()
         {
             using (var baseKey = RegistryKey.OpenBaseKey(RegistryHive.LocalMachine, RegistryView.Registry64))
             {
@@ -122,6 +68,11 @@ namespace PlcSimAdvanced.V5_0
             }
             return null;
         }
-        #endregion
+
+        public static Version GetAssemblyVersion()
+        {
+            AssemblyName assemblyName = AssemblyName.GetAssemblyName(GetLibraryFilePath());
+            return assemblyName.Version;
+        }
     }
 }

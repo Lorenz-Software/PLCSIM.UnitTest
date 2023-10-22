@@ -14,12 +14,12 @@ using System;
 using System.IO;
 using System.Linq;
 
-namespace TiaOpeness.V17
+namespace TiaOpeness.V17.Internal
 {
     class TiaOpeness_V17 : ITiaOpeness
     {
-        private const string PROJECTEXTENSION = ".ap17";
-        private const string ARCHIVEEXTENSION = ".zap17";
+        public const string PROJECTEXTENSION = ".ap17";
+        public const string ARCHIVEEXTENSION = ".zap17";
         private const string CONFIGMODE_PN_IE = "PN/IE";
         private const string PCINTERFACE_PLCSIM = "PLCSIM";
         private const string LOGTAB = "  ";

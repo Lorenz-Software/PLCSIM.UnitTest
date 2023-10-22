@@ -8,13 +8,13 @@ using TiaOpeness;
 
 namespace PLCSIM.UnitTest.CommandLine.Commands
 {
-    class AllowAppRunner: ICommandRunner
+    class WhitelistAppRunner : ICommandRunner
     {
         private static IApplicationLogger logger = Context.Get<IApplicationLogger>();
 
-        private AllowAppOptions options;
+        private WhitelistAppOptions options;
 
-        public AllowAppRunner(AllowAppOptions options)
+        public WhitelistAppRunner(WhitelistAppOptions options)
         {
             this.options = options;
         }
@@ -31,14 +31,16 @@ namespace PLCSIM.UnitTest.CommandLine.Commands
                     if (plugin == null)
                     {
                         logger.Warn($"TIA Portal openess plugin ({version}) not found");
-                    } else
+                    }
+                    else
                     {
                         if (plugin.IsTiaOpenessInstalled())
                             plugin.AllowFirewallAccess(assembly);
                         else
                             logger.Warn($"TIA Portal openess ({plugin.PluginVersion}) not installed");
                     }
-                } catch (Exception e)
+                }
+                catch (Exception e)
                 {
                     logger.Error($"Error allowing firewall access for {version}");
                     logger.Log(e);

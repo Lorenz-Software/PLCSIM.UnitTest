@@ -1,4 +1,4 @@
-﻿# PLCSIM.UnitTest.CommandLine
+﻿# <img src="Resources/PLCSIM.CmdRunner.png" alt="PLCSIM.CmdRunner Icon" width="48" height="48" align="top"> PLCSIM.UnitTest.CommandLine
 
 ## Description
 
@@ -11,7 +11,7 @@ Program is based on plugin system that includes plugins for
 
 > [!IMPORTANT]
 > To run in CI/CD pripeline or in any other unsupervised environment, access in TIA openess firewall must be granted by an administrator.
-> Can be done by manually choosing option to allow access during first run or by commandline option `allow`.
+> Can be done by manually choosing option to allow access during first run or by commandline option `whitelist`.
 
 ## System requirements
 
@@ -95,7 +95,7 @@ Displays
 > [!IMPORTANT]
 > **MUST BE RUN AS ADMIN!**
 ```
-PLCSIM.UnitTest.CommandLine.exe allow -v <listofversions> 
+PLCSIM.UnitTest.CommandLine.exe whitelist -v <listofversions> 
 ```
 `-v` | `--version`
 * TIA Portal versions to grant access
@@ -148,23 +148,29 @@ PLCSIM.UnitTest.CommandLine.exe allow -v <listofversions>
 
 ### PLCSIM Advanced plugins
   
-- API v5.0 (see project PlcSimAdvanced.V5_0)
+- API v5.0 (see project "Plugin Projects/PlcSimAdvanced.V5_0")
 
 ### TIA Openess plugins
   
-- TIA Portal v16 (see project TiaOpness.V16)
-- TIA Portal v17 (see project TiaOpness.V17)
-- TIA Portal v18 (see project TiaOpness.V18)
+- TIA Portal v16 (see project "Plugin Projects/TiaOpeness.V16")
+- TIA Portal v17 (see project "Plugin Projects/TiaOpeness.V17")
+- TIA Portal v18 (see project "Plugin Projects/TiaOpeness.V18")
 
 ## Implementation Details
 
 - Plugin directory
   - see application settings
-  - Debug: "..\..\..\Plugins"
+  - Debug: "\<solution directory\>/Plugins"
     - Plugin projects copy DLL to this directory on post-build trigger
-  - Release: ".\Plugins"
+  - Release: "./Plugins"
 - Additional plugins can be added without recompiling main program as long as plugin contract remains the same
 
+## CI/CD Pipeline Samples
+
+- Gitlab [![GitLab](https://badgen.net/badge/icon/gitlab?icon=gitlab&label)](https://gitlab.com/)
+  - see [Gitlab Pipeline](Resources/GitlabPipeline.md)
+- Jenkins [![Jenkins](https://img.shields.io/badge/Jenkins-blue?logo=Jenkins&logoColor=white&labelColor=gray)](https://www.jenkins.io/)
+  - [![TODO](https://img.shields.io/badge/TODO-red?style=pastic)]([https://shields.io/](https://github.com/Lorenz-Software/PLCSIM.UnitTest))
 
 ## Authors and acknowledgment
 
@@ -172,4 +178,4 @@ D. Lorenz
 
 ## License
 
-MIT
+MIT [![MIT License](https://img.shields.io/github/license/Naereen/StrapDown.js.svg)](https://github.com/Lorenz-Software/PLCSIM.UnitTest/blob/master/LICENSE)

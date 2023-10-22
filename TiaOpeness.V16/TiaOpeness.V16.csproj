@@ -80,11 +80,12 @@
     <Reference Include="Microsoft.CSharp" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="TiaOpenessApiResolver_V16.cs" />
+    <Compile Include="Internal\TiaOpenessApiResolver_V16.cs" />
+    <Compile Include="Internal\TiaOpenessFirewall_V16.cs" />
+    <Compile Include="Internal\TiaOpenessHelper_V16.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="TiaOpenessFirewall_V16.cs" />
     <Compile Include="TiaOpenessPlugin_V16.cs" />
-    <Compile Include="TiaOpeness_V16.cs" />
+    <Compile Include="Internal\TiaOpeness_V16.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\ApplicationUtilities\ApplicationUtilities.csproj">
