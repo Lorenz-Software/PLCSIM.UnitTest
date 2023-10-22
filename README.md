@@ -51,4 +51,4 @@ MIT
 
 ## Project status
 
-Alpha: Not tested in production stage but support and feedback is welcome any time.
+Release Candidate: Command line runner tested with GitLab integration
