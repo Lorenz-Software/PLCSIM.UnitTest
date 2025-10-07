@@ -80,6 +80,11 @@ namespace PLCSIM.UnitTest.Utilities.PlugIns
             foreach (var ele in DirectoryPaths)
             {
                 DirectoryInfo dir = new DirectoryInfo(ele);
+                //if (!dir.Exists)
+                //{
+                //    logger.Warn($"Plugin directory '{dir.FullName}' does not exist!");
+                //    continue;
+                //}
                 foreach (FileInfo file in dir.GetFiles("*.dll"))
                 {
                     Assembly assembly = Assembly.LoadFrom(file.FullName);

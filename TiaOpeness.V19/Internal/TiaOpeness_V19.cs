@@ -38,18 +38,20 @@ namespace TiaOpeness.V19.Internal
             logger.Debug("Opening TIA portal...");
             tiaPortal = new TiaPortal(TiaPortalMode.WithoutUserInterface);
             isTiaPortalDisposed = false;
+            //tiaPortal.Authentication +=
             tiaPortal.Notification += DoOnTiaPortalNotification;
             tiaPortal.Confirmation += DoOnTiaPortalConfirmation;
-            tiaPortal.Notification += DoOnTiaPortalDisposed;
+            tiaPortal.Disposed += DoOnTiaPortalDisposed;
             logger.Info("TIA Portal opened");
         }
 
         public void CloseTiaPortal()
         {
             logger.Debug("Closing TIA portal...");
+            //tiaPortal.Authentication +=
             tiaPortal.Notification -= DoOnTiaPortalNotification;
             tiaPortal.Confirmation -= DoOnTiaPortalConfirmation;
-            tiaPortal.Notification -= DoOnTiaPortalDisposed;
+            tiaPortal.Disposed -= DoOnTiaPortalDisposed;
             tiaPortal.GetCurrentProcess().Dispose();
             isTiaPortalDisposed = true;
             project = null;
@@ -78,6 +80,7 @@ namespace TiaOpeness.V19.Internal
             logger.Debug($"Opening TIA project from '{filePath}'...");
 
             var result = false;
+            // TODO: Handle Siemens.Engineering.MissingProductsException
             var newProject = tiaPortal.Projects.Open(new FileInfo(filePath));
             if (newProject == null)
             {
@@ -108,8 +111,9 @@ namespace TiaOpeness.V19.Internal
             bool result = false;
 
             logger.Debug($"Retrieving archived TIA project from '{filePath}' into '{destinationDir}'...");
+            // TODO: Handle Siemens.Engineering.MissingProductsException
             var newProject = tiaPortal.Projects.Retrieve(
-                new FileInfo(filePath),
+            new FileInfo(filePath),
                 new DirectoryInfo(destinationDir)
             );
             if (newProject == null)
@@ -487,6 +491,7 @@ namespace TiaOpeness.V19.Internal
         private void DoOnTiaPortalNotification(object sender, NotificationEventArgs e)
         {
             logger.Info($"TIA Portal notification: {e.DetailText}");
+            e.IsHandled = true;
         }
 
         private void DoOnTiaPortalConfirmation(object sender, ConfirmationEventArgs e)

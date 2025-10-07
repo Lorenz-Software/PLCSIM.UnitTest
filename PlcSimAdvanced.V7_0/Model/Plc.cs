@@ -6,13 +6,13 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace PlcSimAdvanced.V6_0.Model
+namespace PlcSimAdvanced.V7_0.Model
 {
-    public class PlcSimInstanceV60 : IPlcSimInstance
+    public class PlcSimInstanceV70 : IPlcSimInstance
     {
         private static IApplicationLogger logger = Context.Get<IApplicationLogger>();
 
-        public static PlcSimInstanceV60 RetrievePlcInstance(uint index)
+        public static PlcSimInstanceV70 RetrievePlcInstance(uint index)
         {
             if (!SimulationRuntimeManager.IsInitialized)
                 throw new ArgumentNullException("SimulationRuntimeManager not initialized");
@@ -22,7 +22,7 @@ namespace PlcSimAdvanced.V6_0.Model
             SimulationRuntimeManager.NetworkMode = ENetworkMode.Softbus;
 
             string instanceName = SimulationRuntimeManager.RegisteredInstanceInfo[index].Name;
-             PlcSimInstanceV60 plc = new PlcSimInstanceV60(instanceName);
+            PlcSimInstanceV70 plc = new PlcSimInstanceV70(instanceName);
             logger.Debug($"Retrieving PLC instance \"{instanceName}\" (Index: {index})...");
             plc.instance = SimulationRuntimeManager.CreateInterface(instanceName);
             if (plc.instance == null)
@@ -36,7 +36,7 @@ namespace PlcSimAdvanced.V6_0.Model
             return plc;
         }
 
-        public static PlcSimInstanceV60 RetrievePlcInstance(string name)
+        public static PlcSimInstanceV70 RetrievePlcInstance(string name)
         {
             if (!SimulationRuntimeManager.IsInitialized)
                 throw new ArgumentNullException("SimulationRuntimeManager not initialized");
@@ -45,7 +45,7 @@ namespace PlcSimAdvanced.V6_0.Model
 
             SimulationRuntimeManager.NetworkMode = ENetworkMode.Softbus;
 
-            PlcSimInstanceV60 plc = new PlcSimInstanceV60(name);
+            PlcSimInstanceV70 plc = new PlcSimInstanceV70(name);
             plc.instance = SimulationRuntimeManager.CreateInterface(name);
             if (plc.instance == null)
                 throw new InvalidOperationException($"Error registering PLC instance");
@@ -58,7 +58,7 @@ namespace PlcSimAdvanced.V6_0.Model
             return plc;
         }
 
-        public static PlcSimInstanceV60 CreatePlcInstance(string name, uint timeout = 0)
+        public static PlcSimInstanceV70 CreatePlcInstance(string name, uint timeout = 0)
         {
             if (!SimulationRuntimeManager.IsInitialized)
                 throw new InvalidOperationException("SimulationRuntimeManager not initialized");
@@ -69,7 +69,7 @@ namespace PlcSimAdvanced.V6_0.Model
 
             SimulationRuntimeManager.NetworkMode = ENetworkMode.Softbus;
 
-            PlcSimInstanceV60 plc = new PlcSimInstanceV60(name);
+            PlcSimInstanceV70 plc = new PlcSimInstanceV70(name);
             logger.Debug($"Registering PLCSIM instance \"{name}\"...");
             var plcType = ECPUType.CPU1500_Unspecified;
             plc.instance = SimulationRuntimeManager.RegisterInstance(plcType, name);
@@ -105,10 +105,10 @@ namespace PlcSimAdvanced.V6_0.Model
             //if (plc.ID < null)
             //    throw new ArgumentNullException("PLC is NULL");
 
-            if (!(plc is PlcSimInstanceV60))
+            if (!(plc is PlcSimInstanceV70))
                 throw new ArgumentException("Parameter plc is not of type PlcSimAdvanced.V6_0.Model.PLC");
 
-            var thisPlc = plc as PlcSimInstanceV60;
+            var thisPlc = plc as PlcSimInstanceV70;
             if (thisPlc.instance == null)
                 throw new InvalidOperationException("Instance is NULL");
 
@@ -186,7 +186,7 @@ namespace PlcSimAdvanced.V6_0.Model
         //    return plc;
         //}
 
-        ~PlcSimInstanceV60()
+        ~PlcSimInstanceV70()
         {
             Dispose();
         }
@@ -220,7 +220,7 @@ namespace PlcSimAdvanced.V6_0.Model
             return Constants.ALLOWEDDATATYPES.Contains(datatype);
         }
 
-        private PlcSimInstanceV60(string instanceName)
+        private PlcSimInstanceV70(string instanceName)
         {
             if (!SimulationRuntimeManager.IsRuntimeManagerAvailable)
                 throw new InvalidOperationException("Runtime manager not available");

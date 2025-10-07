@@ -18,9 +18,9 @@ namespace PLCSIM.UnitTest.ViewModel
 {
     public class MainWindowViewModel : ViewModelBase
     {
-        private const string PLCSIM_CMDOPTION = "v6.0";
+        private const string PLCSIM_CMDOPTION = "v7.0";
 
-        protected IApplicationLogger logger = Context.Get<IApplicationLogger>();
+        protected static IApplicationLogger logger = Context.Get<IApplicationLogger>();
 
         private IPlcSimAdvancedPlugin plcsimPlugin;
         private bool isPlcSimConnected = false;
