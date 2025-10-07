@@ -15,6 +15,7 @@ Plugin framework to support different versions of TIA Openess and PLCSIM Advance
 - PLCSIM Advanced
     - v5.0
     - v6.0
+    - v7.0
 - TIA Openess
     - v16
     - v17
@@ -31,6 +32,7 @@ Plugin framework to support different versions of TIA Openess and PLCSIM Advance
 - Plugin projects
     - PlcSimAdvanced.V5.0: Plugin for PLCSIM Advanced API v5.0
     - PlcSimAdvanced.V6.0: Plugin for PLCSIM Advanced API v6.0
+    - PlcSimAdvanced.V7.0: Plugin for PLCSIM Advanced API v7.0
     - TiaOpeness.V16: Plugin for TIA Openess V16
     - TiaOpeness.V17: Plugin for TIA Openess V17
     - TiaOpeness.V18: Plugin for TIA Openess V18
