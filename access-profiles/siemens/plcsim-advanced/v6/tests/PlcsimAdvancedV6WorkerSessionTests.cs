@@ -13,6 +13,16 @@ namespace PLCSIM.UnitTest.Tests.AccessProfiles.Siemens.PlcsimAdvanced.V6;
 public sealed class PlcsimAdvancedV6WorkerSessionTests
 {
     [Theory]
+    [InlineData(false)]
+    [InlineData(true)]
+    public void Session_worker_is_deployed_beside_the_tests(bool validation)
+    {
+        var path = validation ? ResolveBuiltValidationWorkerPath() : ResolveBuiltWorkerPath();
+        Assert.Equal(AppContext.BaseDirectory.TrimEnd(Path.DirectorySeparatorChar), Path.GetDirectoryName(path));
+        Assert.True(File.Exists(path), $"Worker artifact was not deployed: {path}");
+    }
+
+    [Theory]
     [InlineData("")]
     [InlineData("|lastReadState=NotObserved")]
     public void Unobserved_monitoring_state_is_not_empty(string readStateField)
@@ -623,29 +633,6 @@ public sealed class PlcsimAdvancedV6WorkerSessionTests
 
     private static string ResolveBuiltWorkerPath()
     {
-        var directory = new DirectoryInfo(AppContext.BaseDirectory);
-        while (directory is not null)
-        {
-            var candidate = Path.Combine(
-                directory.FullName,
-                "access-profiles",
-                "siemens",
-                "plcsim-advanced",
-                "v6",
-                "worker",
-                "PLCSIM.UnitTest.AccessProfiles.Siemens.PlcsimAdvanced.V6.Worker",
-                "bin",
-                "Debug",
-                "net48",
-                "PLCSIM.UnitTest.AccessProfiles.Siemens.PlcsimAdvanced.V6.Worker.exe");
-            if (File.Exists(candidate))
-            {
-                return candidate;
-            }
-
-            directory = directory.Parent;
-        }
-
         return Path.Combine(
             AppContext.BaseDirectory,
             "PLCSIM.UnitTest.AccessProfiles.Siemens.PlcsimAdvanced.V6.Worker.exe");
@@ -653,30 +640,6 @@ public sealed class PlcsimAdvancedV6WorkerSessionTests
 
     private static string ResolveBuiltValidationWorkerPath()
     {
-        var directory = new DirectoryInfo(AppContext.BaseDirectory);
-        while (directory is not null)
-        {
-            var candidate = Path.Combine(
-                directory.FullName,
-                "access-profiles",
-                "siemens",
-                "plcsim-advanced",
-                "v6",
-                "tests",
-                "worker",
-                "ValidationWorker",
-                "bin",
-                "Debug",
-                "net48",
-                "PLCSIM.UnitTest.PlcsimAdvanced.V6.ValidationWorker.exe");
-            if (File.Exists(candidate))
-            {
-                return candidate;
-            }
-
-            directory = directory.Parent;
-        }
-
         return Path.Combine(
             AppContext.BaseDirectory,
             "PLCSIM.UnitTest.PlcsimAdvanced.V6.ValidationWorker.exe");

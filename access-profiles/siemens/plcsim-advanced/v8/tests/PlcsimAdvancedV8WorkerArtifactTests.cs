@@ -5,6 +5,13 @@ namespace PLCSIM.UnitTest.Tests.AccessProfiles.Siemens.PlcsimAdvanced.V8;
 
 public sealed class PlcsimAdvancedV8WorkerArtifactTests
 {
+    [Fact]
+    public void Performance_measurement_worker_is_deployed_beside_the_tests()
+    {
+        ReadArtifact(Path.Combine(AppContext.BaseDirectory,
+            "PLCSIM.UnitTest.PlcsimAdvanced.V8.PerformanceMeasurementWorker.exe"));
+    }
+
     private const string MeasurementEnvironmentVariable =
         "PLCSIM_UNITTEST_PLCSIM_ADVANCED_V8_EVENT_READ_MEASUREMENT_TARGET";
     private const string MeasurementDeferredState = "PayloadReadDeferred";
