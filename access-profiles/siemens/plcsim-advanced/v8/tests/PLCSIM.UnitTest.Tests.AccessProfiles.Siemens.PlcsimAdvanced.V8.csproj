@@ -49,6 +49,8 @@
   <Target Name="CopyPlcsimAdvancedV8Worker" AfterTargets="Build">
     <ItemGroup>
       <PlcsimAdvancedV8WorkerOutput Include="..\worker\PLCSIM.UnitTest.AccessProfiles.Siemens.PlcsimAdvanced.V8.Worker\bin\$(Configuration)\net48\*.*" />
+      <PlcsimAdvancedV8WorkerOutput Include="worker\ValidationWorker\bin\$(Configuration)\net48\*.*" />
+      <PlcsimAdvancedV8WorkerOutput Include="worker\PerformanceMeasurementWorker\bin\$(Configuration)\net48\*.*" />
     </ItemGroup>
     <Copy
       SourceFiles="@(PlcsimAdvancedV8WorkerOutput)"

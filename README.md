@@ -150,9 +150,10 @@ flowchart LR
 
 ## Project Status
 
-**Public release in preparation.** Application builds, deterministic tests and
-local package/installer checks have passed. Final release composition and
-artifacts tied to an exact public source revision are still pending.
+**Version 2.0.0:** the Windows distribution includes the WPF application, CLI,
+Siemens access profile and bindings, and Beckhoff TwinCAT 4026 access profile.
+See the [release notes and verification scope](docs/releases/2.0.0.md) and
+[download the installer](https://github.com/Lorenz-Software/PLCSIM.UnitTest/releases/tag/v2.0.0).
 
 ## Further Reading
 

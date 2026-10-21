@@ -45,6 +45,7 @@
   <Target Name="CopyPlcsimAdvancedV7Worker" AfterTargets="Build">
     <ItemGroup>
       <PlcsimAdvancedV7WorkerOutput Include="..\worker\PLCSIM.UnitTest.AccessProfiles.Siemens.PlcsimAdvanced.V7.Worker\bin\$(Configuration)\net48\*.*" />
+      <PlcsimAdvancedV7WorkerOutput Include="worker\ValidationWorker\bin\$(Configuration)\net48\*.*" />
     </ItemGroup>
     <Copy
       SourceFiles="@(PlcsimAdvancedV7WorkerOutput)"
