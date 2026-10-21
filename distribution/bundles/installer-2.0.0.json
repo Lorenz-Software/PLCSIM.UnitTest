@@ -7,7 +7,7 @@
   "application": {
     "package": "plcsim-unittest",
     "version": "2.0.0",
-    "manifestSha256": "3467ddc94423b4de4f3b6302e1907850e2e8ca8c11c4fa11d693fdad8f09c8b2",
+    "manifestSha256": "41b1cd7149e7742e80463720e3175a7a48dcb19e15e3d6d0d1658a910417825e",
     "destination": "."
   },
   "components": [
@@ -15,7 +15,7 @@
       "id": "profile.siemens",
       "package": "access-profiles.siemens",
       "version": "2.0.0",
-      "manifestSha256": "f242fef1c9f3b42ebf649f94cb78d36c8516da7f8b4fa8de434a5b5abdfda4aa",
+      "manifestSha256": "b8105978a0941d98e13702206551da08e0cf7fd8571d349e3e5be83c958c6586",
       "destination": "profiles/siemens",
       "selectedByDefault": true
     },
@@ -23,7 +23,7 @@
       "id": "plugin.siemens.tia-openness.v15_1",
       "package": "plugins.siemens.tia-openness.v15_1",
       "version": "2.0.0",
-      "manifestSha256": "73ef423a5e54c7842326a1ff282adf8cbfe7b8ef7004af99d6ddf2185a811769",
+      "manifestSha256": "f23fc2c461da294408c710062411609156987cf4afb8024425e8f8310b0e757a",
       "destination": "profiles/siemens/lib/bindings/tia-openness-v15_1",
       "parent": "profile.siemens",
       "selectedByDefault": true
@@ -32,7 +32,7 @@
       "id": "plugin.siemens.tia-openness.v17",
       "package": "plugins.siemens.tia-openness.v17",
       "version": "2.0.0",
-      "manifestSha256": "234da9677c52d912bca22b188bf88beae3a5e6e359573027d67f1424740b1e72",
+      "manifestSha256": "5c12ab0c33afe1818d84f3cc9e8a99c1d2fc05bf64fab4fd189a1ef52f8abd88",
       "destination": "profiles/siemens/lib/bindings/tia-openness-v17",
       "parent": "profile.siemens",
       "selectedByDefault": true
@@ -41,7 +41,7 @@
       "id": "plugin.siemens.tia-openness.v18",
       "package": "plugins.siemens.tia-openness.v18",
       "version": "2.0.0",
-      "manifestSha256": "5fcd8f84a9aae6e056c05b79e1328e4b6ef9e8f0daeab56be5c4de649eaf5442",
+      "manifestSha256": "fae257683b1b8e63e771c825987081624dc0a6f3cbcc951f92325ad2b860e00b",
       "destination": "profiles/siemens/lib/bindings/tia-openness-v18",
       "parent": "profile.siemens",
       "selectedByDefault": true
@@ -50,7 +50,7 @@
       "id": "plugin.siemens.tia-openness.v19",
       "package": "plugins.siemens.tia-openness.v19",
       "version": "2.0.0",
-      "manifestSha256": "3b597ec6c6cd41d5493badf4670f37264267445a40ebf5bcadf3422f765fcc37",
+      "manifestSha256": "3237cac808e8e539a056ae8bacdd50b2572494fb80478fda0596fbcaa0601af4",
       "destination": "profiles/siemens/lib/bindings/tia-openness-v19",
       "parent": "profile.siemens",
       "selectedByDefault": true
@@ -59,7 +59,7 @@
       "id": "plugin.siemens.tia-openness.v20",
       "package": "plugins.siemens.tia-openness.v20",
       "version": "2.0.0",
-      "manifestSha256": "852432e7138d2b6f27e52e6a819f3418179b7d145c381ff069670cb3f495b31d",
+      "manifestSha256": "2024bb5349dd4234e34dfca49d82a2c38d644729758f3afafa250f4cb9cab780",
       "destination": "profiles/siemens/lib/bindings/tia-openness-v20",
       "parent": "profile.siemens",
       "selectedByDefault": true
@@ -68,7 +68,7 @@
       "id": "plugin.siemens.tia-openness.v21",
       "package": "plugins.siemens.tia-openness.v21",
       "version": "2.0.0",
-      "manifestSha256": "ea31adf23a8aeb2d2520aaa80ebd29401e638cd997922fa713df297e0212239a",
+      "manifestSha256": "6ac7067d9ff1381d042af3f94e038ad348aacdef5b6cc5051fd5ff2f631a7c17",
       "destination": "profiles/siemens/lib/bindings/tia-openness-v21",
       "parent": "profile.siemens",
       "selectedByDefault": true
@@ -77,7 +77,7 @@
       "id": "plugin.siemens.plcsim-advanced.v6",
       "package": "plugins.siemens.plcsim-advanced.v6",
       "version": "2.0.0",
-      "manifestSha256": "ef00a1d3bcdb6d704aa4381c777e0667265582e8588043dcd68a18e0aa52424c",
+      "manifestSha256": "e1e39ffbfab71856bf9e8af820d40108354e100d98d26171033606c4cef33d33",
       "destination": "profiles/siemens/lib/bindings/plcsim-advanced-v6",
       "parent": "profile.siemens",
       "selectedByDefault": true
@@ -86,7 +86,7 @@
       "id": "plugin.siemens.plcsim-advanced.v7",
       "package": "plugins.siemens.plcsim-advanced.v7",
       "version": "2.0.0",
-      "manifestSha256": "dc2f96007f45337ed5f1e81e2b8d866d05348c62318ad3f55f19241d0e251d31",
+      "manifestSha256": "be925a15e034e2253f32a07315a7ee9b4346a0ff92518200508769e4f3931d9b",
       "destination": "profiles/siemens/lib/bindings/plcsim-advanced-v7",
       "parent": "profile.siemens",
       "selectedByDefault": true
@@ -95,7 +95,7 @@
       "id": "plugin.siemens.plcsim-advanced.v8",
       "package": "plugins.siemens.plcsim-advanced.v8",
       "version": "2.0.0",
-      "manifestSha256": "cef352bf78b65fc04f1728d2039f5a46634909d60b4fe1c971dd34899294d022",
+      "manifestSha256": "04dd7408f47ee07bf5b3df3acf3228ad719ba5e4e9da1c39f96a28f8df8454a0",
       "destination": "profiles/siemens/lib/bindings/plcsim-advanced-v8",
       "parent": "profile.siemens",
       "selectedByDefault": true
@@ -106,7 +106,7 @@
       "version": "1.0.0",
       "destination": "profiles/beckhoff-tc3-4026",
       "selectedByDefault": true,
-      "manifestSha256": "14408d91b61c9f730d1909b62e038a3430eb69a705673153d1b5f2177e3bcb2c"
+      "manifestSha256": "cce1f2a8a2d5792c9fb4dcddab8aab15e15bfad28daf44a2a7f66b1ced5662b7"
     }
   ]
 }
