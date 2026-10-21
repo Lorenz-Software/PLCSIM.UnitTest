@@ -1,0 +1,7 @@
+{
+  "id": "profile.beckhoff-tc3-4026",
+  "package": "access-profiles.beckhoff-tc3-4026",
+  "version": "1.0.0",
+  "destination": "profiles/beckhoff-tc3-4026",
+  "selectedByDefault": true
+}

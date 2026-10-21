@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Status and recovery - PLCSIM UnitTest Help</title>
+  <link rel="stylesheet" href="assets/help.css">
+</head>
+<body>
+  <header class="site-header">
+    <div class="header-content">
+      <img class="product-logo" src="assets/PLCSIM.UnitTest.png" alt="PLCSIM UnitTest">
+      <div><p class="product-name">PLCSIM UnitTest</p><h1>Status and recovery</h1></div>
+    </div>
+  </header>
+  <div class="help-layout">
+    <nav class="help-navigation" aria-label="Help topics">
+      <h2>Help topics</h2>
+      <ol><li><a href="index.html">Overview</a></li>
+        <li><a href="workflow.html">Session setup</a></li>
+        <li><a href="operation.html">Test execution</a></li>
+        <li><a href="analysis.html">Evidence analysis</a></li>
+        <li><a aria-current="page" href="diagnostics.html">Status and recovery</a></li>
+        <li><a href="settings.html">Settings</a></li>
+        <li><a href="configuration.html">Configuration authoring</a></li>
+        <li><a href="ci-integration.html">CI integration</a></li></ol>
+    </nav>
+    <main>
+<h2>Process status</h2>
+<p>The application deliberately separates process state into badges rather than presenting one combined ready/error flag.</p>
+<table><thead><tr><th>Badge</th><th>Meaning</th></tr></thead><tbody>
+<tr><td>Runtime Setup</td><td>Whether the runtime target is configured, prepared, or has received a transferred project.</td></tr>
+<tr><td>PLC</td><td>The observed PLC operating state, independent of who requested the transition.</td></tr>
+<tr><td>Communication</td><td>The trust state of the shared UnitTest communication session.</td></tr>
+<tr><td>Event Stream Monitor</td><td>Whether event observation is off, active, revalidating, or invalid.</td></tr>
+<tr><td>Run Control</td><td>Observed UnitTest lifecycle readiness and activity.</td></tr>
+</tbody></table>
+<figure class="screenshot screenshot-wide">
+  <img src="assets/screenshots/status-badges.png" alt="Runtime and UnitTest status badges">
+  <figcaption>Badge states are related, but each represents a separate responsibility and gate.</figcaption>
+</figure>
+<p><strong>Revalidating</strong> means established communication became temporarily stale. Relevant controls remain gated until trust returns or the revalidation deadline invalidates the session.</p>
+
+<h2>Active session context</h2>
+<p>The bottom status line shows which profile, project, PLC, and runtime the current session refers to. Activity reports the currently executing bounded workflow action.</p>
+<figure class="screenshot screenshot-wide">
+  <img src="assets/screenshots/status-line.png" alt="Status line with profile, project, PLC, runtime, and activity">
+  <figcaption>Use the status line to confirm target identity before issuing operational commands.</figcaption>
+</figure>
+
+<h2>Output and diagnostics</h2>
+<h3>Output</h3>
+<p>Output is the chronological operator-facing stream for discovery, setup, commands, cleanup, diagnostics, and artifact creation.</p>
+<figure class="screenshot screenshot-wide">
+  <img src="assets/screenshots/output.png" alt="Chronological workflow Output">
+  <figcaption>Output explains what the application attempted and in which order.</figcaption>
+</figure>
+<h3>Diagnostics</h3>
+<p>Diagnostics retain structured warnings and errors until cleared. Select an entry to inspect severity, code, source, phase, technical detail, evidence reference, and correlation.</p>
+<figure class="screenshot screenshot-wide">
+  <img src="assets/screenshots/diagnostics.png" alt="Diagnostic list and detail panel">
+  <figcaption>Diagnostics separate actionable faults from normal progress output.</figcaption>
+</figure>
+<h3>Analysis</h3>
+<p>Analysis turns retained structured evidence into a focused diagnostic report. Open the analysis related to a selected diagnostic, or continue with <a href="analysis.html">Evidence analysis</a> for the three analysis types, report contents, and export workflow.</p>
+
+<h2>Menus and common actions</h2>
+<table><thead><tr><th>Location</th><th>Actions</th></tr></thead><tbody>
+<tr><td>View</td><td>Clear the Run Result, Output, or Diagnostics; open the latest result artifact or output folder; start Run, PLC Lifecycle, or Communication Health analysis.</td></tr>
+<tr><td>Tools</td><td>Refresh profile registrations, reconnect runtime access, or open application settings.</td></tr>
+<tr><td>Help &gt; Logs</td><td>Open the current application log, access-profile log, or shared log folder.</td></tr>
+<tr><td>Run Result</td><td>Analyze the current or latest RunEpoch directly from the panel header.</td></tr>
+<tr><td>Diagnostics</td><td>Analyze evidence related to the selected entry, copy one or all diagnostics, or clear the list.</td></tr>
+</tbody></table>
+
+<h2>Recovery paths</h2>
+<table><thead><tr><th>Situation</th><th>Preferred action</th></tr></thead><tbody>
+<tr><td>Communication is temporarily revalidating</td><td>Wait for recovery; controls remain gated.</td></tr>
+<tr><td>Communication is invalid but the runtime target remains prepared</td><td>Reconnect Runtime.</td></tr>
+<tr><td>Event Stream Monitor is active with lost-event evidence</td><td>Finish inspecting the affected result, then use Reset Event Buffer and wait for a clean observation before starting another run.</td></tr>
+<tr><td>EventBuffer reset is accepted but the warning remains</td><td>Wait for PLC processing and another observation. If the state does not recover, inspect Output, Diagnostics, and PLC-side EventBuffer handling.</td></tr>
+<tr><td>Wrong profile configuration</td><td>Back to Step 3.</td></tr>
+<tr><td>Wrong PLC or runtime target</td><td>Back to Step 2.</td></tr>
+<tr><td>Project/profile context must be replaced</td><td>Back to Step 1 or End Session.</td></tr>
+<tr><td>Normal controls are blocked after a fatal profile failure</td><td>Back or End Session.</td></tr>
+<tr><td>Structured analysis is insufficient for an API, IPC, or worker failure</td><td>Open the Access Profile Log and perform a focused raw-logging reproduction if required.</td></tr>
+</tbody></table>
+<h3>Operation cancellation</h3>
+<p>Cancel interrupts the active operation, not automatically the complete profile session. The resulting step and enabled navigation indicate whether the action can be retried or setup must be released.</p>
+<h3>Session cleanup and application exit</h3>
+<p><strong>File &gt; End Session</strong> is the global cleanup route and remains available when normal workflow actions are blocked. Closing the application with an active setup requests confirmation and uses the same owner-driven cleanup boundary.</p>
+
+    </main>
+  </div>
+  <footer class="site-footer">
+    <div class="footer-content">
+      <a href="https://www.lorenz-software.solutions/"><img src="assets/LogoLorenzSoftware.png" alt="Lorenz Software"></a>
+      <p>PLCSIM UnitTest offline help. <a href="license.html">License</a></p>
+    </div>
+  </footer>
+</body>
+</html>

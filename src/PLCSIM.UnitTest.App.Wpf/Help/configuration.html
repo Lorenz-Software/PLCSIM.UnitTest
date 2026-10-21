@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Configuration authoring - PLCSIM UnitTest Help</title>
+  <link rel="stylesheet" href="assets/help.css">
+</head>
+<body>
+  <header class="site-header">
+    <div class="header-content">
+      <img class="product-logo" src="assets/PLCSIM.UnitTest.png" alt="PLCSIM UnitTest">
+      <div><p class="product-name">PLCSIM UnitTest</p><h1>Configuration file authoring</h1></div>
+    </div>
+  </header>
+  <div class="help-layout">
+    <nav class="help-navigation" aria-label="Help topics">
+      <h2>Help topics</h2>
+      <ol><li><a href="index.html">Overview</a></li>
+        <li><a href="workflow.html">Session setup</a></li>
+        <li><a href="operation.html">Test execution</a></li>
+        <li><a href="analysis.html">Evidence analysis</a></li>
+        <li><a href="diagnostics.html">Status and recovery</a></li>
+        <li><a href="settings.html">Settings</a></li>
+        <li><a aria-current="page" href="configuration.html">Configuration authoring</a></li>
+        <li><a href="ci-integration.html">CI integration</a></li></ol>
+    </nav>
+    <main>
+<h2>Configuration use cases</h2>
+<p>A JSON configuration describes a repeatable UnitTest setup. Use it with <strong>Import Configuration</strong> to prefill an editable WPF session, with <strong>Load UnitTest</strong> for the WPF managed setup flow, or with the command-line application for CI execution.</p>
+<div class="note"><strong>This is a setup format, not a serialized WPF session.</strong> Project ownership remains an application/session decision. Runtime provisioning intent can be configured; profile-specific target addresses remain owned by the selected profile.</div>
+
+<h2>Minimal configuration</h2>
+<pre><code>{
+  "version": 2,
+  "project": {
+    "source": "path-to-project"
+  },
+  "accessProfile": {
+    "id": "profile-id"
+  }
+}</code></pre>
+<p>This is a complete common configuration. Whether the selected profile accepts an empty profile payload depends on its own published fields, defaults, and validation.</p>
+<p>Use schema version <code>2</code> for new configurations. An omitted runtime section means <code>CreateOwned</code>, which is usable only if the selected profile supports creation. For an existing runtime, supply explicit <code>UseExisting</code> as shown below and the target values required by that profile.</p>
+
+<h2>Complete common structure</h2>
+<pre><code>{
+  "version": 2,
+  "runtime": {
+    "provisioningMode": "UseExisting"
+  },
+  "project": {
+    "source": "path-to-project"
+  },
+  "accessProfile": {
+    "id": "profile-id",
+    "version": "1.0.0",
+    "values": {
+      "profileOwnedField": "profile-owned-value",
+      "nestedProfileObject": {
+        "field": 100
+      }
+    }
+  },
+  "execution": {
+    "timeouts": {
+      "projectPrepare": "00:01:00",
+      "buildTransfer": "00:10:00",
+      "runtimePrepare": "00:01:00",
+      "plcCommand": "00:00:10",
+      "plcStartReaction": "00:00:30",
+      "plcStopReaction": "00:00:30",
+      "communicationPrepare": "00:00:30",
+      "communicationRevalidation": "00:00:30",
+      "unitTestCommand": "00:00:03",
+      "unitTestCommandReaction": "00:00:10",
+      "testRun": "00:02:00",
+      "finalEvent": "00:00:10"
+    }
+  },
+  "output": {
+    "directory": "artifacts",
+    "testResult": true
+  }
+}</code></pre>
+
+<h2>Root configuration</h2>
+<p>The root object identifies the configuration format and contains the project, access-profile, execution, and output sections described below.</p>
+<table><thead><tr><th>JSON path</th><th>Required</th><th>Meaning</th></tr></thead><tbody>
+<tr><td><code>version</code></td><td>Yes</td><td>Configuration contract version: <code>2</code>, or legacy <code>1</code> without a runtime section.</td></tr>
+<tr><td><code>runtime.provisioningMode</code></td><td>No</td><td><code>CreateOwned</code> (default) or explicit <code>UseExisting</code>. Requires version 2.</td></tr>
+<tr><td><code>project</code></td><td>Yes</td><td>Project source used to select and initialize an access profile.</td></tr>
+<tr><td><code>accessProfile</code></td><td>Yes</td><td>Access-profile selection and profile-owned configuration.</td></tr>
+<tr><td><code>execution</code></td><td>No</td><td>Common execution-policy overrides.</td></tr>
+<tr><td><code>output</code></td><td>No</td><td>Output policy for consumers that honor it.</td></tr>
+</tbody></table>
+
+<h2>Project source: <code>project</code></h2>
+<p>Runtime provisioning is independent of project build/download. With <code>UseExisting</code>, the configured target must resolve, or the profile must provide a documented default. Invalid explicit targets never fall back to another runtime. An address without a provisioning mode still means <code>CreateOwned</code> and is rejected if it selects an existing target. To migrate an existing-target configuration, set version 2 and <code>runtime.provisioningMode</code> to <code>UseExisting</code>. Unsupported creation stops before transfer; WPF leaves the selection editable.</p>
+<table><thead><tr><th>JSON path</th><th>Required</th><th>Meaning</th></tr></thead><tbody>
+<tr><td><code>project.source</code></td><td>Yes</td><td>Project entry point interpreted by the selected profile. This may be a project file, archive, or another source kind published by an installed profile.</td></tr>
+<tr><td><code>project.authorization.safetyPassword</code></td><td>No</td><td>CLI-only credential used when the selected profile requires Safety-program authorization before managed build or transfer. WPF discards this value and asks interactively when authorization is supported and required.</td></tr>
+</tbody></table>
+<div class="note"><strong>Credential handling.</strong> Keep configuration files containing <code>safetyPassword</code> protected. The value is never written to normal output, diagnostics, evidence, configuration summaries, command-line arguments, or exported WPF state.</div>
+
+<h2>Access profile: <code>accessProfile</code></h2>
+<p>This section selects the access profile and carries its own configuration payload. The application understands the profile identity, but it does not interpret the fields below <code>accessProfile.values</code>.</p>
+<table><thead><tr><th>JSON path</th><th>Required</th><th>Meaning</th></tr></thead><tbody>
+<tr><td><code>accessProfile.id</code></td><td>Yes</td><td>Registered access-profile identity.</td></tr>
+<tr><td><code>accessProfile.version</code></td><td>No</td><td>Exact semantic version. If omitted, the highest registered version for the id is selected.</td></tr>
+<tr><td><code>accessProfile.values</code></td><td>No</td><td>Profile-owned JSON object. Omission is treated as an empty object and is valid only when the selected profile can supply or accept all required values.</td></tr>
+</tbody></table>
+<h3>Profile-owned values</h3>
+<p>The selected profile defines the available field identifiers, value types, required fields, allowed values, defaults, inactive fields, and cross-field validation. Nested objects and field names therefore differ between profiles and may evolve independently of this common file format.</p>
+<p>For interactive authoring, load the profile in WPF and use the fields projected in Step 3. Those editors read and update <code>accessProfile.values</code> through the profile configuration service. For manually authored or generated files, use <code>docs/configuration.md</code> in the selected deployed profile package. That profile-owned document defines its JSON paths, value types, defaults, allowed values, dependencies, and examples.</p>
+<p>In a default installation, profile configuration documentation is located below <code>C:\Program Files\PLCSIM.UnitTest\profiles\&lt;profile package&gt;\docs\configuration.md</code>. When profile discovery is configured to use another directory, locate the same relative document below that active profile package root.</p>
+<div class="note"><strong>Profile boundary.</strong> Do not copy keys from another profile or assume that a binding version defines the payload. The access profile owns this schema and receives the complete <code>values</code> object without application-side interpretation of vendor semantics.</div>
+
+<h3>Compatibility and migration</h3>
+<p>Configuration schema <code>version</code>, access-profile API contract, component package versions, and PLC communication contracts are separate boundaries. The application accepts profile packages declaring API contract <code>2.0.0</code>; API <code>1.0.0</code> packages are rejected before loading. <code>accessProfile.version</code> selects a component package version, not an API contract or vendor product version.</p>
+<p>Legacy schema-1 files remain readable with implicit <code>CreateOwned</code> and cannot contain a <code>runtime</code> section. To preserve intended reuse, migrate to schema <code>2</code> with explicit <code>UseExisting</code>; the former <code>RequireExisting</code> name is not accepted. Install a compatible profile and binding composition, use its packaged configuration guide to migrate profile-owned values, and explicitly refresh registration under the execution account.</p>
+
+<h2>Execution timeout overrides: <code>execution.timeouts</code></h2>
+<p>The optional <code>execution.timeouts</code> object overrides common application defaults for this configuration. Values use invariant <code>TimeSpan</code> text such as <code>00:01:00</code>. Omitted fields retain their application defaults.</p>
+<table><thead><tr><th>JSON path</th><th>Boundary</th></tr></thead><tbody>
+<tr><td><code>execution.timeouts.projectPrepare</code></td><td>Project access and project-target preparation.</td></tr>
+<tr><td><code>execution.timeouts.buildTransfer</code></td><td>One combined build and transfer deadline.</td></tr>
+<tr><td><code>execution.timeouts.runtimePrepare</code></td><td>Runtime attachment or owned creation.</td></tr>
+<tr><td><code>execution.timeouts.plcCommand</code></td><td>PLC command transport/API acceptance.</td></tr>
+<tr><td><code>execution.timeouts.plcStartReaction</code>, <code>execution.timeouts.plcStopReaction</code></td><td>Observed PLC reaction after command acceptance.</td></tr>
+<tr><td><code>execution.timeouts.communicationPrepare</code></td><td>UnitTest communication establishment.</td></tr>
+<tr><td><code>execution.timeouts.communicationRevalidation</code></td><td>Maximum stale period; zero disables terminal timeout handling.</td></tr>
+<tr><td><code>execution.timeouts.unitTestCommand</code></td><td>RunControl command transport/API acceptance.</td></tr>
+<tr><td><code>execution.timeouts.unitTestCommandReaction</code></td><td>Observed RunControl reaction.</td></tr>
+<tr><td><code>execution.timeouts.testRun</code></td><td>Active run observation after trusted start evidence.</td></tr>
+<tr><td><code>execution.timeouts.finalEvent</code></td><td>Wait for final Event Stream evidence after terminal lifecycle evidence.</td></tr>
+</tbody></table>
+
+<h2>Output policy: <code>output</code></h2>
+<table><thead><tr><th>JSON path</th><th>Required</th><th>Meaning</th></tr></thead><tbody>
+<tr><td><code>output.directory</code></td><td>No</td><td>Artifact directory for consumers that use configuration-owned output policy.</td></tr>
+<tr><td><code>output.testResult</code></td><td>No</td><td>Enables generation of the test-result artifact for consumers that honor this field.</td></tr>
+</tbody></table>
+<p>The WPF application uses its application artifact settings instead of these values. The CLI requires its explicit output-file argument for the JUnit artifact.</p>
+
+<h2>Consumer-specific behavior</h2>
+<ul>
+<li>Import Configuration creates an editable draft and does not select project ownership.</li>
+<li>Load UnitTest uses application-managed project handling.</li>
+<li>WPF ignores <code>output.directory</code> and <code>output.testResult</code> and uses WPF artifact settings.</li>
+<li>WPF discards persisted project credentials and requests a transient password only when the selected profile reports <code>PasswordRequired</code>.</li>
+<li>The CLI requires its explicit output argument for the JUnit file.</li>
+<li>Project ownership is not a configuration-file field. Runtime provisioning intent is preserved by both import and load; importing alone does not prepare a runtime.</li>
+</ul>
+
+<h2>Configuration validation</h2>
+<p>Use <code>check-config --file &lt;configfile&gt;</code> as a lightweight preflight. It checks the common JSON shape, registration currentness, and registered profile selection. It does not load the profile, validate profile-owned values, discover operational targets, or prove project/runtime readiness.</p>
+<p>Profile-owned validation and target resolution occur during CLI <code>run</code> or WPF setup progression. A successful preflight therefore does not guarantee that setup or execution will succeed. Missing or stale registration must be refreshed explicitly; neither <code>check-config</code> nor <code>run</code> repairs it automatically.</p>
+
+    </main>
+  </div>
+  <footer class="site-footer">
+    <div class="footer-content">
+      <a href="https://www.lorenz-software.solutions/"><img src="assets/LogoLorenzSoftware.png" alt="Lorenz Software"></a>
+      <p>PLCSIM UnitTest offline help. <a href="license.html">License</a></p>
+    </div>
+  </footer>
+</body>
+</html>

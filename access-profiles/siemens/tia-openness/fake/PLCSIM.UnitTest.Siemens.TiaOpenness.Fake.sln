@@ -1,0 +1,68 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.0.31903.59
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{827E0CD3-B72D-47B6-A68D-7590B98EB39B}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PLCSIM.UnitTest.AccessProfiles.Siemens.TiaOpenness.Fake", "src\PLCSIM.UnitTest.AccessProfiles.Siemens.TiaOpenness.Fake\PLCSIM.UnitTest.AccessProfiles.Siemens.TiaOpenness.Fake.csproj", "{7043705E-42CC-4C1E-BA32-63D1CD4C20DD}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "access-profiles", "access-profiles", "{50661516-135F-A254-FD83-8687B03B338C}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "siemens", "siemens", "{2108DED0-611D-71E2-CC5A-24EE1E0F6EBB}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tia-openness", "tia-openness", "{ECCF040D-62F3-6B7A-4CAF-5BDA0EF1D2C9}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "fake", "fake", "{01961D9E-BACA-8661-385D-0714FDEF84A9}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tests", "tests", "{1F0000B2-F1C2-D77E-CB5B-D8E11EA1DBBB}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PLCSIM.UnitTest.Tests.AccessProfiles.Siemens.TiaOpenness.Fake", "tests\PLCSIM.UnitTest.Tests.AccessProfiles.Siemens.TiaOpenness.Fake.csproj", "{1CE9550D-000B-4EC8-B579-8754B0F058BB}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Debug|x64 = Debug|x64
+		Debug|x86 = Debug|x86
+		Release|Any CPU = Release|Any CPU
+		Release|x64 = Release|x64
+		Release|x86 = Release|x86
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{7043705E-42CC-4C1E-BA32-63D1CD4C20DD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7043705E-42CC-4C1E-BA32-63D1CD4C20DD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7043705E-42CC-4C1E-BA32-63D1CD4C20DD}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{7043705E-42CC-4C1E-BA32-63D1CD4C20DD}.Debug|x64.Build.0 = Debug|Any CPU
+		{7043705E-42CC-4C1E-BA32-63D1CD4C20DD}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{7043705E-42CC-4C1E-BA32-63D1CD4C20DD}.Debug|x86.Build.0 = Debug|Any CPU
+		{7043705E-42CC-4C1E-BA32-63D1CD4C20DD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7043705E-42CC-4C1E-BA32-63D1CD4C20DD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7043705E-42CC-4C1E-BA32-63D1CD4C20DD}.Release|x64.ActiveCfg = Release|Any CPU
+		{7043705E-42CC-4C1E-BA32-63D1CD4C20DD}.Release|x64.Build.0 = Release|Any CPU
+		{7043705E-42CC-4C1E-BA32-63D1CD4C20DD}.Release|x86.ActiveCfg = Release|Any CPU
+		{7043705E-42CC-4C1E-BA32-63D1CD4C20DD}.Release|x86.Build.0 = Release|Any CPU
+		{1CE9550D-000B-4EC8-B579-8754B0F058BB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1CE9550D-000B-4EC8-B579-8754B0F058BB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1CE9550D-000B-4EC8-B579-8754B0F058BB}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{1CE9550D-000B-4EC8-B579-8754B0F058BB}.Debug|x64.Build.0 = Debug|Any CPU
+		{1CE9550D-000B-4EC8-B579-8754B0F058BB}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{1CE9550D-000B-4EC8-B579-8754B0F058BB}.Debug|x86.Build.0 = Debug|Any CPU
+		{1CE9550D-000B-4EC8-B579-8754B0F058BB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1CE9550D-000B-4EC8-B579-8754B0F058BB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1CE9550D-000B-4EC8-B579-8754B0F058BB}.Release|x64.ActiveCfg = Release|Any CPU
+		{1CE9550D-000B-4EC8-B579-8754B0F058BB}.Release|x64.Build.0 = Release|Any CPU
+		{1CE9550D-000B-4EC8-B579-8754B0F058BB}.Release|x86.ActiveCfg = Release|Any CPU
+		{1CE9550D-000B-4EC8-B579-8754B0F058BB}.Release|x86.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{7043705E-42CC-4C1E-BA32-63D1CD4C20DD} = {827E0CD3-B72D-47B6-A68D-7590B98EB39B}
+		{2108DED0-611D-71E2-CC5A-24EE1E0F6EBB} = {50661516-135F-A254-FD83-8687B03B338C}
+		{ECCF040D-62F3-6B7A-4CAF-5BDA0EF1D2C9} = {2108DED0-611D-71E2-CC5A-24EE1E0F6EBB}
+		{01961D9E-BACA-8661-385D-0714FDEF84A9} = {ECCF040D-62F3-6B7A-4CAF-5BDA0EF1D2C9}
+		{1F0000B2-F1C2-D77E-CB5B-D8E11EA1DBBB} = {01961D9E-BACA-8661-385D-0714FDEF84A9}
+		{1CE9550D-000B-4EC8-B579-8754B0F058BB} = {1F0000B2-F1C2-D77E-CB5B-D8E11EA1DBBB}
+	EndGlobalSection
+EndGlobal

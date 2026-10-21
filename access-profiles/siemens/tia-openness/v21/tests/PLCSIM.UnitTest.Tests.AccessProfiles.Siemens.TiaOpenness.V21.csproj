@@ -1,0 +1,36 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <ItemGroup>
+    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.10.0" />
+    <PackageReference Include="xunit" Version="2.9.0" />
+    <PackageReference Include="xunit.runner.visualstudio" Version="2.8.2" />
+    <Reference Include="PLCSIM.UnitTest.Common">
+      <HintPath>$(ContractArtifactsDir)PLCSIM.UnitTest.Common.dll</HintPath>
+      <Private>true</Private>
+    </Reference>
+    <Reference Include="PLCSIM.UnitTest.Common.Application">
+      <HintPath>$(ContractArtifactsDir)PLCSIM.UnitTest.Common.Application.dll</HintPath>
+      <Private>true</Private>
+    </Reference>
+    <Reference Include="PLCSIM.UnitTest.AccessProfiles.Siemens.Contracts">
+      <HintPath>$(ContractArtifactsDir)PLCSIM.UnitTest.AccessProfiles.Siemens.Contracts.dll</HintPath>
+      <Private>true</Private>
+    </Reference>
+    <ProjectReference Include="..\src\PLCSIM.UnitTest.AccessProfiles.Siemens.TiaOpenness.V21\PLCSIM.UnitTest.AccessProfiles.Siemens.TiaOpenness.V21.csproj" />
+  </ItemGroup>
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+    <IsTestProject>true</IsTestProject>
+    <AssemblyName>PLCSIM.UnitTest.Tests.AccessProfiles.Siemens.TiaOpenness.V21</AssemblyName>
+  </PropertyGroup>
+  <PropertyGroup>
+    <TiaOpennessV21WorkerOutputDir>$(MSBuildProjectDirectory)\..\worker\PLCSIM.UnitTest.AccessProfiles.Siemens.TiaOpenness.V21.Worker\bin\$(Configuration)\net48</TiaOpennessV21WorkerOutputDir>
+  </PropertyGroup>
+  <Target Name="CopyTiaOpennessV21WorkerForTests" AfterTargets="Build">
+    <ItemGroup>
+      <TiaOpennessV21WorkerOutput Include="$(TiaOpennessV21WorkerOutputDir)\*.*" />
+    </ItemGroup>
+    <Copy SourceFiles="@(TiaOpennessV21WorkerOutput)" DestinationFolder="$(TargetDir)" SkipUnchangedFiles="true" />
+  </Target>
+</Project>

@@ -1,0 +1,41 @@
+{
+  "version": 1,
+  "project": {
+    "source": "..\\FakeProjects\\default-fake-project.json"
+  },
+  "accessProfile": {
+    "id": "fake",
+    "version": "1.0.0",
+    "values": {
+      "plcRef": {
+        "id": "fake-project-target"
+      },
+      "runtimeRef": {
+        "id": "fake-runtime-target"
+      },
+      "testSettings": {
+        "name": "Configuration sample run",
+        "iterations": 2,
+        "factor": 1.25,
+        "enabled": true,
+        "mode": "diagnostic"
+      }
+    }
+  },
+  "execution": {
+    "timeouts": {
+      "projectPrepare": "00:01:00",
+      "buildTransfer": "00:10:00",
+      "runtimePrepare": "00:01:00",
+      "plcCommand": "00:00:10",
+      "plcStartReaction": "00:00:30",
+      "plcStopReaction": "00:00:30",
+      "communicationPrepare": "00:00:30",
+      "communicationRevalidation": "00:00:30",
+      "unitTestCommand": "00:00:03",
+      "unitTestCommandReaction": "00:00:10",
+      "testRun": "00:02:00",
+      "finalEvent": "00:00:10"
+    }
+  }
+}

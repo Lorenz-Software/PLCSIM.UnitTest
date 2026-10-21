@@ -1,0 +1,38 @@
+{
+  "schemaVersion": 1,
+  "info": {
+    "bindingKind": "plcsim-advanced",
+    "bindingVersion": "2.0.0",
+    "displayName": "PLCSIM Advanced V7 Binding"
+  },
+  "entryPoint": {
+    "assembly": "PLCSIM.UnitTest.AccessProfiles.Siemens.PlcsimAdvanced.V7.dll",
+    "typeName": "PLCSIM.UnitTest.AccessProfiles.Siemens.PlcsimAdvanced.V7.PlcsimAdvancedV7Binding"
+  },
+  "declaration": {
+    "accessApis": [
+      {
+        "kind": "plcsim-advanced",
+        "productVersion": "7.0",
+        "accessApiVersion": "7.0"
+      }
+    ],
+    "projectSources": [],
+    "runtimes": [
+      {
+        "kind": "plcsim-advanced",
+        "version": "7.0",
+        "locality": "Local",
+        "compatibleProjectSourceKinds": [
+          "tia-project"
+        ]
+      }
+    ],
+    "unitTestCommunicationContractVersions": [
+      "1.0.0"
+    ],
+    "unitTestEventStreamContractVersions": [
+      "1.0.0"
+    ]
+  }
+}

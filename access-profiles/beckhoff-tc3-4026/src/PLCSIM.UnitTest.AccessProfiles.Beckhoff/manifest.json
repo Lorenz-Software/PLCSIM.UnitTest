@@ -1,0 +1,14 @@
+{
+  "schemaVersion": 1,
+  "profile": {
+    "id": "beckhoff-tc3-4026",
+    "version": "1.0.0",
+    "displayName": "Beckhoff TwinCAT 3 (4026) Access Profile",
+    "description": "Integrated TwinCAT 3.1 Build 4026 profile for XAE project deployment and UnitTest access to an existing local Usermode Runtime.",
+    "contractVersion": "2.0.0"
+  },
+  "entryPoint": {
+    "assembly": "PLCSIM.UnitTest.AccessProfiles.Beckhoff.dll",
+    "type": "PLCSIM.UnitTest.AccessProfiles.Beckhoff.BeckhoffAccessProfilePlugin"
+  }
+}

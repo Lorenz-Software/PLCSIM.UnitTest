@@ -1,0 +1,14 @@
+{
+  "runtimeRef": {
+    "id": "192.0.2.10.1.1",
+    "plcPort": 851
+  },
+  "unitTest": {
+    "runControl": "GVL_UnitTest.RunControl",
+    "eventBuffer": "GVL_UnitTest.EventStream",
+    "observationStrategy": "subscription",
+    "monitoringIntervalMs": 10,
+    "drainIntervalMs": 1,
+    "maxEventsPerBatch": 32
+  }
+}

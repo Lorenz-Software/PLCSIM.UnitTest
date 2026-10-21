@@ -1,0 +1,21 @@
+{
+  "version": 2,
+  "runtime": {
+    "provisioningMode": "UseExisting"
+  },
+  "project": {
+    "source": "C:\\CI\\workspace\\LibraryTests.tszip"
+  },
+  "accessProfile": {
+    "id": "beckhoff-tc3-4026",
+    "version": "1.0.0",
+    "values": {
+      "plcRef": {
+        "id": "<PLC target id from discovery>"
+      },
+      "twincat": {
+        "archiveWorkDirectory": "C:\\CI\\work\\twincat"
+      }
+    }
+  }
+}

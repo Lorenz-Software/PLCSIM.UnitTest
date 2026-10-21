@@ -1,0 +1,240 @@
+<Window x:Class="PLCSIM.UnitTest.App.Wpf.Dialogs.SettingsDialog"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="Settings"
+        Width="724"
+        Height="570"
+        Icon="../Assets/PLCSIM.UnitTest.ico"
+        ResizeMode="NoResize"
+        WindowStartupLocation="CenterOwner"
+        FontFamily="Segoe UI"
+        FontSize="11">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*" />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+
+        <TabControl Margin="12" TabStripPlacement="Left">
+            <TabControl.Resources>
+                <Style TargetType="TabItem">
+                    <Setter Property="Width" Value="132" />
+                    <Setter Property="Padding" Value="10,8" />
+                    <Setter Property="HorizontalContentAlignment" Value="Stretch" />
+                </Style>
+            </TabControl.Resources>
+
+            <TabItem Header="General">
+                <Grid Margin="18">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="18" />
+                        <RowDefinition Height="Auto" />
+                    </Grid.RowDefinitions>
+
+                    <StackPanel>
+                        <TextBlock Text="General" FontSize="15" FontWeight="SemiBold" />
+                        <TextBlock Margin="0,4,0,0"
+                                   Foreground="#666"
+                                   Text="Default behavior for new manual sessions." />
+                    </StackPanel>
+
+                    <CheckBox Grid.Row="2"
+                              VerticalAlignment="Center"
+                              Content="Build and download project by default"
+                              IsChecked="{Binding BuildAndDownloadProjectByDefault, UpdateSourceTrigger=PropertyChanged}" />
+                </Grid>
+            </TabItem>
+
+            <TabItem Header="Timeouts">
+                <ScrollViewer VerticalScrollBarVisibility="Auto"
+                              HorizontalScrollBarVisibility="Disabled">
+                    <StackPanel Margin="18">
+                        <StackPanel Margin="0,0,0,18">
+                            <TextBlock Text="Timeouts" FontSize="15" FontWeight="SemiBold" />
+                            <TextBlock Margin="0,4,0,0"
+                                       Foreground="#666"
+                                       Text="Default operation and observation deadlines for new sessions." />
+                        </StackPanel>
+
+                        <TextBlock Margin="0,0,0,8" Text="Setup" FontSize="13" FontWeight="SemiBold" />
+                        <Grid Margin="0,0,0,18">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="Auto" />
+                            </Grid.RowDefinitions>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="180" />
+                                <ColumnDefinition Width="120" />
+                                <ColumnDefinition Width="*" />
+                            </Grid.ColumnDefinitions>
+
+                            <TextBlock Grid.Row="0" Grid.Column="0" VerticalAlignment="Center" Text="Project prepare" />
+                            <TextBox Grid.Row="0" Grid.Column="1" Height="24" Text="{Binding ProjectPrepareTimeoutSeconds, UpdateSourceTrigger=PropertyChanged}" />
+                            <TextBlock Grid.Row="0" Grid.Column="2" Margin="8,0,0,0" VerticalAlignment="Center" Foreground="#666" Text="s" />
+
+                            <TextBlock Grid.Row="1" Grid.Column="0" Margin="0,8,0,0" VerticalAlignment="Center" Text="Build and transfer" />
+                            <TextBox Grid.Row="1" Grid.Column="1" Margin="0,8,0,0" Height="24" Text="{Binding BuildTransferTimeoutSeconds, UpdateSourceTrigger=PropertyChanged}" />
+                            <TextBlock Grid.Row="1" Grid.Column="2" Margin="8,8,0,0" VerticalAlignment="Center" Foreground="#666" Text="s" />
+
+                            <TextBlock Grid.Row="2" Grid.Column="0" Margin="0,8,0,0" VerticalAlignment="Center" Text="Runtime prepare" />
+                            <TextBox Grid.Row="2" Grid.Column="1" Margin="0,8,0,0" Height="24" Text="{Binding RuntimePrepareTimeoutSeconds, UpdateSourceTrigger=PropertyChanged}" />
+                            <TextBlock Grid.Row="2" Grid.Column="2" Margin="8,8,0,0" VerticalAlignment="Center" Foreground="#666" Text="s" />
+
+                            <TextBlock Grid.Row="3" Grid.Column="0" Margin="0,8,0,0" VerticalAlignment="Center" Text="Communication prepare" />
+                            <TextBox Grid.Row="3" Grid.Column="1" Margin="0,8,0,0" Height="24" Text="{Binding CommunicationPrepareTimeoutSeconds, UpdateSourceTrigger=PropertyChanged}" />
+                            <TextBlock Grid.Row="3" Grid.Column="2" Margin="8,8,0,0" VerticalAlignment="Center" Foreground="#666" Text="s" />
+                        </Grid>
+
+                        <TextBlock Margin="0,0,0,8" Text="PLC Control" FontSize="13" FontWeight="SemiBold" />
+                        <Grid Margin="0,0,0,18">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="Auto" />
+                            </Grid.RowDefinitions>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="180" />
+                                <ColumnDefinition Width="120" />
+                                <ColumnDefinition Width="*" />
+                            </Grid.ColumnDefinitions>
+
+                            <TextBlock Grid.Row="0" Grid.Column="0" VerticalAlignment="Center" Text="PLC command" />
+                            <TextBox Grid.Row="0" Grid.Column="1" Height="24" Text="{Binding PlcCommandTimeoutSeconds, UpdateSourceTrigger=PropertyChanged}" />
+                            <TextBlock Grid.Row="0" Grid.Column="2" Margin="8,0,0,0" VerticalAlignment="Center" Foreground="#666" Text="s" />
+
+                            <TextBlock Grid.Row="1" Grid.Column="0" Margin="0,8,0,0" VerticalAlignment="Center" Text="PLC start reaction" />
+                            <TextBox Grid.Row="1" Grid.Column="1" Margin="0,8,0,0" Height="24" Text="{Binding PlcStartReactionTimeoutSeconds, UpdateSourceTrigger=PropertyChanged}" />
+                            <TextBlock Grid.Row="1" Grid.Column="2" Margin="8,8,0,0" VerticalAlignment="Center" Foreground="#666" Text="s" />
+
+                            <TextBlock Grid.Row="2" Grid.Column="0" Margin="0,8,0,0" VerticalAlignment="Center" Text="PLC stop reaction" />
+                            <TextBox Grid.Row="2" Grid.Column="1" Margin="0,8,0,0" Height="24" Text="{Binding PlcStopReactionTimeoutSeconds, UpdateSourceTrigger=PropertyChanged}" />
+                            <TextBlock Grid.Row="2" Grid.Column="2" Margin="8,8,0,0" VerticalAlignment="Center" Foreground="#666" Text="s" />
+                        </Grid>
+
+                        <TextBlock Margin="0,0,0,8" Text="UnitTest Execution" FontSize="13" FontWeight="SemiBold" />
+                        <Grid Margin="0,0,0,18">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="Auto" />
+                            </Grid.RowDefinitions>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="180" />
+                                <ColumnDefinition Width="120" />
+                                <ColumnDefinition Width="*" />
+                            </Grid.ColumnDefinitions>
+
+                            <TextBlock Grid.Row="0" Grid.Column="0" VerticalAlignment="Center" Text="UnitTest command" />
+                            <TextBox Grid.Row="0" Grid.Column="1" Height="24" Text="{Binding UnitTestCommandTimeoutSeconds, UpdateSourceTrigger=PropertyChanged}" />
+                            <TextBlock Grid.Row="0" Grid.Column="2" Margin="8,0,0,0" VerticalAlignment="Center" Foreground="#666" Text="s" />
+
+                            <TextBlock Grid.Row="1" Grid.Column="0" Margin="0,8,0,0" VerticalAlignment="Center" Text="UnitTest reaction" />
+                            <TextBox Grid.Row="1" Grid.Column="1" Margin="0,8,0,0" Height="24" Text="{Binding UnitTestCommandReactionTimeoutSeconds, UpdateSourceTrigger=PropertyChanged}" />
+                            <TextBlock Grid.Row="1" Grid.Column="2" Margin="8,8,0,0" VerticalAlignment="Center" Foreground="#666" Text="s" />
+
+                            <TextBlock Grid.Row="2" Grid.Column="0" Margin="0,8,0,0" VerticalAlignment="Center" Text="Test run" />
+                            <TextBox Grid.Row="2" Grid.Column="1" Margin="0,8,0,0" Height="24" Text="{Binding TestRunTimeoutSeconds, UpdateSourceTrigger=PropertyChanged}" />
+                            <TextBlock Grid.Row="2" Grid.Column="2" Margin="8,8,0,0" VerticalAlignment="Center" Foreground="#666" Text="s" />
+
+                            <TextBlock Grid.Row="3" Grid.Column="0" Margin="0,8,0,0" VerticalAlignment="Center" Text="Final event evidence" />
+                            <TextBox Grid.Row="3" Grid.Column="1" Margin="0,8,0,0" Height="24" Text="{Binding FinalEventTimeoutSeconds, UpdateSourceTrigger=PropertyChanged}" />
+                            <TextBlock Grid.Row="3" Grid.Column="2" Margin="8,8,0,0" VerticalAlignment="Center" Foreground="#666" Text="s" />
+                        </Grid>
+
+                        <TextBlock Margin="0,0,0,8" Text="Recovery" FontSize="13" FontWeight="SemiBold" />
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="180" />
+                                <ColumnDefinition Width="120" />
+                                <ColumnDefinition Width="*" />
+                            </Grid.ColumnDefinitions>
+
+                            <TextBlock Grid.Column="0" VerticalAlignment="Center" Text="Communication revalidation" />
+                            <TextBox Grid.Column="1" Height="24" Text="{Binding CommunicationRevalidationTimeoutSeconds, UpdateSourceTrigger=PropertyChanged}" />
+                            <TextBlock Grid.Column="2" Margin="8,0,0,0" VerticalAlignment="Center" Foreground="#666" Text="s (0 = no timeout)" />
+                        </Grid>
+                    </StackPanel>
+                </ScrollViewer>
+            </TabItem>
+
+            <TabItem Header="Files And Logging">
+                <Grid Margin="18">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="18" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="18" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="170" />
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="Auto" />
+                    </Grid.ColumnDefinitions>
+
+                    <StackPanel Grid.ColumnSpan="3">
+                        <TextBlock Text="Files And Logging" FontSize="15" FontWeight="SemiBold" />
+                        <TextBlock Margin="0,4,0,0" Foreground="#666" Text="Application-level output and logging settings." />
+                    </StackPanel>
+
+                    <TextBlock Grid.Row="2" Grid.ColumnSpan="3" Margin="0,0,0,8" Text="Output" FontSize="13" FontWeight="SemiBold" />
+                    <TextBlock Grid.Row="3" Grid.Column="0" VerticalAlignment="Center" Text="Output directory" />
+                    <TextBox Grid.Row="3" Grid.Column="1" Height="24" Text="{Binding OutputDirectory, UpdateSourceTrigger=PropertyChanged}" />
+                    <Button Grid.Row="3" Grid.Column="2" Width="78" Height="24" Margin="8,0,0,0" Content="Browse..." Click="BrowseOutputDirectory_Click" />
+                    <TextBlock Grid.Row="4" Grid.Column="1" Grid.ColumnSpan="2" Margin="0,3,0,0" Foreground="#666" Text="{Binding ResolvedOutputDirectory}" TextTrimming="CharacterEllipsis" />
+
+                    <TextBlock Grid.Row="5" Grid.Column="0" Margin="0,8,0,0" VerticalAlignment="Center" Text="Test result file name" />
+                    <TextBox Grid.Row="5" Grid.Column="1" Margin="0,8,0,0" Height="24" Text="{Binding TestResultFileName, UpdateSourceTrigger=PropertyChanged}" />
+
+                    <TextBlock Grid.Row="7" Grid.ColumnSpan="3" Margin="0,0,0,8" Text="Logging" FontSize="13" FontWeight="SemiBold" />
+                    <TextBlock Grid.Row="8" Grid.Column="0" VerticalAlignment="Center" Text="Log directory" />
+                    <TextBox Grid.Row="8" Grid.Column="1" Height="24" Text="{Binding LogDirectory, UpdateSourceTrigger=PropertyChanged}" />
+                    <Button Grid.Row="8" Grid.Column="2" Width="78" Height="24" Margin="8,0,0,0" Content="Browse..." Click="BrowseLogDirectory_Click" />
+                    <TextBlock Grid.Row="9" Grid.Column="1" Grid.ColumnSpan="2" Margin="0,3,0,0" Foreground="#666" Text="{Binding ResolvedLogDirectory}" TextTrimming="CharacterEllipsis" />
+
+                    <TextBlock Grid.Row="10" Grid.Column="0" Margin="0,8,0,0" VerticalAlignment="Center" Text="Retention days" />
+                    <TextBox Grid.Row="10" Grid.Column="1" Margin="0,8,0,0" Width="70" HorizontalAlignment="Left" Height="24" Text="{Binding LogRetentionDays, UpdateSourceTrigger=PropertyChanged}" />
+
+                    <TextBlock Grid.Row="11" Grid.Column="0" Margin="0,8,0,0" VerticalAlignment="Center" Text="Application log level" />
+                    <ComboBox Grid.Row="11" Grid.Column="1" Margin="0,8,0,0" Width="130" HorizontalAlignment="Left" Height="24"
+                              ItemsSource="{Binding AvailableLogLevels}"
+                              SelectedItem="{Binding ApplicationLogLevel, UpdateSourceTrigger=PropertyChanged}"
+                              ToolTip="Changes take effect after restarting the application." />
+
+                    <TextBlock Grid.Row="12" Grid.Column="0" Margin="0,8,0,0" VerticalAlignment="Center" Text="Access profile log level" />
+                    <ComboBox Grid.Row="12" Grid.Column="1" Margin="0,8,0,0" Width="130" HorizontalAlignment="Left" Height="24"
+                              ItemsSource="{Binding AvailableLogLevels}"
+                              SelectedItem="{Binding AccessProfileLogLevel, UpdateSourceTrigger=PropertyChanged}"
+                              ToolTip="Profiles and their internal components inherit this level after restarting the application." />
+
+                    <CheckBox Grid.Row="13" Grid.Column="1" Grid.ColumnSpan="2" Margin="0,8,0,0"
+                              VerticalAlignment="Center"
+                              Content="Log raw access-profile events"
+                              IsChecked="{Binding RawEventLoggingEnabled, UpdateSourceTrigger=PropertyChanged}"
+                              IsEnabled="{Binding CanEnableRawEventLogging}"
+                              ToolTip="Available only when the access profile log level is Debug." />
+                </Grid>
+            </TabItem>
+        </TabControl>
+
+        <Border Grid.Row="1" Background="#F6F6F6" BorderBrush="#D0D0D0" BorderThickness="0,1,0,0" Padding="8">
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
+                <Button Width="78" Height="24" Margin="0,0,8,0" IsDefault="True" Content="Save" Click="Save_Click" />
+                <Button Width="78" Height="24" IsCancel="True" Content="Cancel" />
+            </StackPanel>
+        </Border>
+    </Grid>
+</Window>

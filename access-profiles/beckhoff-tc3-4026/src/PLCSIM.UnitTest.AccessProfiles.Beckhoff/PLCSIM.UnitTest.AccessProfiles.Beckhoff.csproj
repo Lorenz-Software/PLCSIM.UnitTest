@@ -1,0 +1,35 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <CopyLocalLockFileAssemblies>true</CopyLocalLockFileAssemblies>
+    <RestorePackagesWithLockFile>true</RestorePackagesWithLockFile>
+    <IsAccessProfilePackage>true</IsAccessProfilePackage>
+    <Version>1.0.0</Version>
+    <XaeInteropAssemblyPath Condition="'$(XaeInteropAssemblyPath)' == ''">$(ProgramW6432)\Beckhoff\TcXaeShell\Common7\IDE\PublicAssemblies\Microsoft.VisualStudio.Interop.dll</XaeInteropAssemblyPath>
+  </PropertyGroup>
+  <ItemGroup>
+    <InternalsVisibleTo Include="PLCSIM.UnitTest.Tests.AccessProfiles.Beckhoff.Unit" />
+    <PackageReference Include="Beckhoff.TwinCAT.Ads" Version="[7.0.389]" />
+    <Reference Include="Microsoft.VisualStudio.Interop">
+      <HintPath>$(XaeInteropAssemblyPath)</HintPath>
+      <Private>false</Private>
+      <EmbedInteropTypes>false</EmbedInteropTypes>
+    </Reference>
+    <Reference Include="PLCSIM.UnitTest.Common">
+      <HintPath>$(ContractArtifactsDir)PLCSIM.UnitTest.Common.dll</HintPath>
+      <Private>true</Private>
+    </Reference>
+    <Reference Include="PLCSIM.UnitTest.Common.Application">
+      <HintPath>$(ContractArtifactsDir)PLCSIM.UnitTest.Common.Application.dll</HintPath>
+      <Private>true</Private>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Update="manifest.json" CopyToOutputDirectory="PreserveNewest" />
+    <None Include="..\..\README.md" Link="README.md" CopyToOutputDirectory="PreserveNewest" />
+    <None Include="..\..\docs\**\*" Link="docs\%(RecursiveDir)%(Filename)%(Extension)" CopyToOutputDirectory="PreserveNewest" />
+  </ItemGroup>
+  <Target Name="ValidateEngineeringInteropReferences" BeforeTargets="ResolveAssemblyReferences">
+    <Error Condition="!Exists('$(XaeInteropAssemblyPath)')" Text="Installed XAE Microsoft.VisualStudio.Interop.dll is required. Set XaeInteropAssemblyPath for a non-default installation." />
+  </Target>
+</Project>

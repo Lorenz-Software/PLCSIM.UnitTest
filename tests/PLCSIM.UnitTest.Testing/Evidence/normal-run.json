@@ -1,0 +1,64 @@
+{
+  "name": "normal-run",
+  "description": "Minimal passed UnitTest run evidence.",
+  "batches": [
+    {
+      "sessionId": "fake-session",
+      "producerSequenceId": 4,
+      "deletedSequenceId": 0,
+      "lostEventCount": 0,
+      "bufferObservedEmpty": false,
+      "readState": "Valid",
+      "events": [
+        {
+          "sequenceId": 1,
+          "timestamp": "2026-06-19T12:00:00Z",
+          "ownerScope": "RunControl",
+          "eventType": "StateTransition",
+          "severity": "Information",
+          "name": "RunControl",
+          "resourceName": "RunControl",
+          "state": "Starting",
+          "result": "NotEvaluated",
+          "message": "RunControl started."
+        },
+        {
+          "sequenceId": 2,
+          "timestamp": "2026-06-19T12:00:01Z",
+          "ownerScope": "TestSuite",
+          "eventType": "Result",
+          "severity": "Information",
+          "name": "ExampleSuite",
+          "resourceName": "ExampleSuite",
+          "state": "Completed",
+          "result": "Passed",
+          "message": "Suite passed."
+        },
+        {
+          "sequenceId": 3,
+          "timestamp": "2026-06-19T12:00:02Z",
+          "ownerScope": "TestCase",
+          "eventType": "Result",
+          "severity": "Information",
+          "name": "ExampleSuite.PassingCase",
+          "resourceName": "PassingCase",
+          "state": "Completed",
+          "result": "Passed",
+          "message": "Test case passed."
+        },
+        {
+          "sequenceId": 4,
+          "timestamp": "2026-06-19T12:00:03Z",
+          "ownerScope": "RunControl",
+          "eventType": "StateTransition",
+          "severity": "Information",
+          "name": "RunControl",
+          "resourceName": "RunControl",
+          "state": "Completed",
+          "result": "Passed",
+          "message": "RunControl completed."
+        }
+      ]
+    }
+  ]
+}

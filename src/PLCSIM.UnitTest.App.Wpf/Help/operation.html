@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Test execution - PLCSIM UnitTest Help</title>
+  <link rel="stylesheet" href="assets/help.css">
+</head>
+<body>
+  <header class="site-header">
+    <div class="header-content">
+      <img class="product-logo" src="assets/PLCSIM.UnitTest.png" alt="PLCSIM UnitTest">
+      <div><p class="product-name">PLCSIM UnitTest</p><h1>Test execution</h1></div>
+    </div>
+  </header>
+  <div class="help-layout">
+    <nav class="help-navigation" aria-label="Help topics">
+      <h2>Help topics</h2>
+      <ol><li><a href="index.html">Overview</a></li>
+        <li><a href="workflow.html">Session setup</a></li>
+        <li><a aria-current="page" href="operation.html">Test execution</a></li>
+        <li><a href="analysis.html">Evidence analysis</a></li>
+        <li><a href="diagnostics.html">Status and recovery</a></li>
+        <li><a href="settings.html">Settings</a></li>
+        <li><a href="configuration.html">Configuration authoring</a></li>
+        <li><a href="ci-integration.html">CI integration</a></li></ol>
+    </nav>
+    <main>
+<h2>Execution sequence</h2>
+<p>After setup reaches Step 4, operate the session in the following order. Button availability follows observed state and communication readiness; it is not inferred only from commands sent by this application.</p>
+<figure class="screenshot screenshot-stepper">
+  <img src="assets/screenshots/step-4-operation.png" alt="Step 4 with PLC and UnitTest controls">
+  <figcaption>The Step 4 sidebar is the control surface used for repeated local runs.</figcaption>
+</figure>
+
+<h2>PLC operating state</h2>
+<p>Use <strong>Start PLC</strong> when the selected PLC is stopped. The command result only reports whether the profile could request the operation. The PLC badge changes from profile-published runtime observations.</p>
+<p>A PLC started or stopped externally, for example through engineering software, follows the same observation path. <strong>Stop PLC</strong> closes UnitTest communication before or while the PLC leaves the running state.</p>
+
+<h2>UnitTest communication</h2>
+<p>When the profile observes an executable running PLC, it establishes the shared UnitTest communication session. Communication, Event Stream Monitor, and Run Control become usable independently as their evidence arrives.</p>
+<figure class="screenshot screenshot-wide">
+  <img src="assets/screenshots/status-badges.png" alt="Ready runtime, PLC, communication, Event Stream Monitor, and Run Control badges">
+  <figcaption>This example is ready for another UnitTest action: the runtime is prepared, PLC is running, communication is connected, and monitoring is active.</figcaption>
+</figure>
+<p>Do not start a UnitTest solely because the PLC badge is green. Run Control must also report a state that permits the requested command.</p>
+
+<h2>UnitTest controls</h2>
+<dl>
+  <dt>Start</dt>
+  <dd>Requests a new RunControl epoch when the PLC reports idle and ready.</dd>
+  <dt>Abort</dt>
+  <dd>Requests controlled interruption of an active run. The final aborted outcome is derived from PLC evidence.</dd>
+  <dt>Reset</dt>
+  <dd>Requests return to idle and ready. Reset remains a recovery command where the profile permits it.</dd>
+  <dt>Reset Event Buffer</dt>
+  <dd>Requests that the PLC discard retained EventBuffer data. This is separate from resetting the UnitTest RunControl. PC-side run evidence is retained; an interrupted active observation is marked incomplete. Command acceptance does not prove that the buffer is clean: subsequent PLC observations establish that state. Observe the selected PLC framework's restrictions on when this operation is valid.</dd>
+</dl>
+<p>Command acceptance and observed reaction are monitored separately. Fast PLC execution may skip intermediate states between observation cycles; trusted RunControl event anchors and final evidence define the run.</p>
+
+<h2>Run results and artifacts</h2>
+<p><strong>Run Result</strong> shows the reconstructed hierarchy, outcomes, timing, summary, and evidence completeness.</p>
+<p>If the PLC reports lost events, the Event Stream Monitor remains active but shows a warning state. The Run Result identifies the lost-event count and incomplete evidence; a new UnitTest run remains blocked until the EventBuffer has been reset and observed clean.</p>
+<figure class="screenshot screenshot-wide">
+  <img src="assets/screenshots/run-result.png" alt="Completed Run Result with passed suites, expanded test cases, and the Analyze action">
+  <figcaption>Select a run, suite, or test case to inspect its detail and evidence.</figcaption>
+</figure>
+<p><strong>Test Result Artifact</strong> shows the generated JUnit XML and provides direct access to the file and its folder.</p>
+<figure class="screenshot screenshot-wide">
+  <img src="assets/screenshots/test-result-artifact.png" alt="Written JUnit XML artifact">
+  <figcaption>The WPF application writes the configured test-result artifact after a result can be finalized.</figcaption>
+</figure>
+
+<h2>Repeated runs and runtime reconnect</h2>
+<p>Reset as required by the PLC-side UnitTest implementation, then start another run. A new run replaces the current Run Result and artifact view but does not clear Output or Diagnostics.</p>
+<p>Use <strong>Reset Event Buffer</strong> when lost-event evidence persists. Wait until monitoring reports a clean EventBuffer before starting another run. This operation does not replace a normal UnitTest Reset.</p>
+<p><strong>Reconnect Runtime</strong> rebuilds runtime and UnitTest communication for the retained target. It does not rediscover, build, transfer, reprovision, delete, or issue PLC start/stop commands. Use it after a communication fault when the prepared runtime target remains valid.</p>
+
+    </main>
+  </div>
+  <footer class="site-footer">
+    <div class="footer-content">
+      <a href="https://www.lorenz-software.solutions/"><img src="assets/LogoLorenzSoftware.png" alt="Lorenz Software"></a>
+      <p>PLCSIM UnitTest offline help. <a href="license.html">License</a></p>
+    </div>
+  </footer>
+</body>
+</html>

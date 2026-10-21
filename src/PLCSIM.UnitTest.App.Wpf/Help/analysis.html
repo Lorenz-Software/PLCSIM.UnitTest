@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Evidence analysis - PLCSIM UnitTest Help</title>
+  <link rel="stylesheet" href="assets/help.css">
+</head>
+<body>
+  <header class="site-header">
+    <div class="header-content">
+      <img class="product-logo" src="assets/PLCSIM.UnitTest.png" alt="PLCSIM UnitTest">
+      <div><p class="product-name">PLCSIM UnitTest</p><h1>Evidence analysis</h1></div>
+    </div>
+  </header>
+  <div class="help-layout">
+    <nav class="help-navigation" aria-label="Help topics">
+      <h2>Help topics</h2>
+      <ol><li><a href="index.html">Overview</a></li>
+        <li><a href="workflow.html">Session setup</a></li>
+        <li><a href="operation.html">Test execution</a></li>
+        <li><a aria-current="page" href="analysis.html">Evidence analysis</a></li>
+        <li><a href="diagnostics.html">Status and recovery</a></li>
+        <li><a href="settings.html">Settings</a></li>
+        <li><a href="configuration.html">Configuration authoring</a></li>
+        <li><a href="ci-integration.html">CI integration</a></li></ol>
+    </nav>
+    <main>
+<h2>Purpose</h2>
+<p>Evidence analysis helps identify PLC-side UnitTest implementation and lifecycle problems without manually reading the complete event stream. It evaluates retained structured application and PLC evidence only when requested and does not change workflow, PLC, or EventBuffer state.</p>
+
+<h2>Open an analysis</h2>
+<p>Use <strong>View &gt; Analyze Current Run...</strong>, <strong>Analyze PLC Lifecycle...</strong>, or <strong>Analyze Communication Health...</strong>. The Run Result header opens the current Run analysis directly. A selected diagnostic can open the most closely correlated analysis through its Analyze action or context menu.</p>
+<p>One modeless Evidence Analysis window is reused. Its toolbar switches analysis type, refreshes the displayed report, and provides Copy, Export, Clear, and log access. The heading identifies which analysis is currently displayed.</p>
+<figure class="screenshot screenshot-wide">
+  <a href="assets/screenshots/evidence-analysis.png"><img src="assets/screenshots/evidence-analysis.png" alt="Run Analysis showing incomplete evidence, affected owners, suggested checks, and snapshot status"></a>
+  <figcaption>The analysis window separates findings, observed facts, and suggested checks. Open the image to inspect it at full size.</figcaption>
+</figure>
+
+<h2>Analysis types</h2>
+<dl>
+  <dt>Run Analysis</dt>
+  <dd>Examines one RunEpoch, its RunControl, Suites, TestCases, assertions, result propagation, completeness, and relevant PLC event trace.</dd>
+  <dt>PLC Lifecycle Analysis</dt>
+  <dd>Examines the latest correlated startup, Start, Reset, Abort, or PLC-reaction window and highlights owners or expected reactions involved in a lifecycle problem.</dd>
+  <dt>Communication Health Analysis</dt>
+  <dd>Examines communication and revalidation state, EventStream integrity, sequence gaps, lost events, and EventBuffer progress within the retained communication-health window.</dd>
+</dl>
+
+<h2>Read and refresh the report</h2>
+<p>The header shows focus, assessment, completeness, generation time, and activity range. The report separates observed facts, conclusions, suggested checks, and the retained activity trace. Suggested checks point to useful PLC integration locations; they do not claim knowledge of unobserved PLC-internal causes.</p>
+<p>The footer indicates whether the displayed immutable snapshot is current, whether relevant evidence arrived after generation, or whether the report belongs to a previous session. Application activity can make a displayed report stale; run the selected analysis again to create a new snapshot.</p>
+
+<h2>Copy, export, and clear</h2>
+<p><strong>Copy</strong> copies the displayed summary. <strong>Export</strong> writes one ZIP package from the same immutable snapshot. The package contains <code>analysis.md</code>, optional Run <code>hierarchy.json</code>, and ordered <code>events.ndjson</code> for deeper or automated diagnosis.</p>
+<p><strong>Clear</strong> removes the visible report. A completed retained trace is cleared with it; active capture continues. Clearing an analysis does not change workflow state, gates, logs, Run Results, or artifacts.</p>
+
+<div class="note"><strong>Deep diagnostics.</strong> Normal analysis does not require raw EventStream logging. If a report cannot localize an API, IPC, or worker failure, open the Access Profile Log from the analysis window or <strong>Help &gt; Logs</strong>. Enable Debug and raw access-profile event logging only for a focused reproduction.</div>
+
+    </main>
+  </div>
+  <footer class="site-footer">
+    <div class="footer-content">
+      <a href="https://www.lorenz-software.solutions/"><img src="assets/LogoLorenzSoftware.png" alt="Lorenz Software"></a>
+      <p>PLCSIM UnitTest offline help. <a href="license.html">License</a></p>
+    </div>
+  </footer>
+</body>
+</html>

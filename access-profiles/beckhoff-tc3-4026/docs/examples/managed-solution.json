@@ -1,0 +1,29 @@
+{
+  "version": 2,
+  "runtime": {
+    "provisioningMode": "UseExisting"
+  },
+  "project": {
+    "source": "C:\\CI\\workspace\\LibraryTests\\LibraryTests.sln"
+  },
+  "accessProfile": {
+    "id": "beckhoff-tc3-4026",
+    "version": "1.0.0",
+    "values": {
+      "plcRef": {
+        "id": "<PLC target id from discovery>"
+      },
+      "runtimeRef": {
+        "id": "192.0.2.10.1.1"
+      },
+      "unitTest": {
+        "runControl": "GVL_UnitTest.RunControl",
+        "eventBuffer": "GVL_UnitTest.EventStream",
+        "observationStrategy": "polling",
+        "monitoringIntervalMs": 10,
+        "drainIntervalMs": 1,
+        "maxEventsPerBatch": 32
+      }
+    }
+  }
+}

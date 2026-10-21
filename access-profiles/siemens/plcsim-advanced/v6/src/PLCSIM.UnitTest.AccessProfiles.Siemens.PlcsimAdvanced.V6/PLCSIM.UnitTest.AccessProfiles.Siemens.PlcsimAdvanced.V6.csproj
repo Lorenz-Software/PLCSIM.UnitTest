@@ -1,0 +1,39 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <Version>2.0.0</Version>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Include="manifest.json" CopyToOutputDirectory="PreserveNewest" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.Extensions.Logging.Abstractions" Version="8.0.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Reference Include="PLCSIM.UnitTest.AccessProfiles.Siemens.Contracts">
+      <HintPath>$(ContractArtifactsDir)PLCSIM.UnitTest.AccessProfiles.Siemens.Contracts.dll</HintPath>
+      <Private>true</Private>
+    </Reference>
+    <Reference Include="PLCSIM.UnitTest.Common">
+      <HintPath>$(ContractArtifactsDir)PLCSIM.UnitTest.Common.dll</HintPath>
+      <Private>true</Private>
+    </Reference>
+  </ItemGroup>
+
+  <PropertyGroup>
+    <PlcsimAdvancedV6WorkerProject>$(MSBuildProjectDirectory)\..\..\worker\PLCSIM.UnitTest.AccessProfiles.Siemens.PlcsimAdvanced.V6.Worker\PLCSIM.UnitTest.AccessProfiles.Siemens.PlcsimAdvanced.V6.Worker.csproj</PlcsimAdvancedV6WorkerProject>
+  </PropertyGroup>
+
+  <Target Name="CopyPlcsimAdvancedV6Worker" AfterTargets="Build">
+    <MSBuild Projects="$(PlcsimAdvancedV6WorkerProject)" Targets="Build" Properties="Configuration=$(Configuration)" />
+    <ItemGroup>
+      <PlcsimAdvancedV6WorkerOutput Include="$(MSBuildProjectDirectory)\..\..\worker\PLCSIM.UnitTest.AccessProfiles.Siemens.PlcsimAdvanced.V6.Worker\bin\$(Configuration)\net48\*.*" />
+    </ItemGroup>
+    <Copy SourceFiles="@(PlcsimAdvancedV6WorkerOutput)" DestinationFolder="$(TargetDir)" SkipUnchangedFiles="true" />
+  </Target>
+</Project>

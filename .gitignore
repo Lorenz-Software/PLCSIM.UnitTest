@@ -61,7 +61,7 @@ BenchmarkDotNet.Artifacts/
 # .NET Core
 project.lock.json
 project.fragment.lock.json
-artifacts/
+/artifacts/
 
 # ASP.NET Scaffolding
 ScaffoldingReadMe.txt
@@ -79,6 +79,7 @@ StyleCopReport.xml
 *.iobj
 *.pch
 *.pdb
+!lib/contracts/*.pdb
 *.ipdb
 *.pgc
 *.pgd
@@ -365,3 +366,6 @@ FodyWeavers.xsd
 PLCProject/*.backup/
 PLCProject/PlcSimCrossLink/
 *.bak
+
+# Temporary task analysis and verification output (not product source).
+/.tmp/

@@ -1,0 +1,14 @@
+{
+  "schemaVersion": 1,
+  "profile": {
+    "id": "siemens",
+    "version": "2.0.0",
+    "displayName": "Siemens Access Profile",
+    "description": "Siemens TIA Openness and PLCSIM Advanced access profile.",
+    "contractVersion": "2.0.0"
+  },
+  "entryPoint": {
+    "assembly": "PLCSIM.UnitTest.AccessProfiles.Siemens.dll",
+    "type": "PLCSIM.UnitTest.AccessProfiles.Siemens.SiemensAccessProfilePlugin"
+  }
+}

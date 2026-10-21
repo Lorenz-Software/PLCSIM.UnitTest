@@ -1,0 +1,35 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <Version>2.0.0</Version>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+  <ItemGroup>
+    <PackageReference Include="Microsoft.Extensions.Logging.Abstractions" Version="8.0.0" />
+  </ItemGroup>
+  <ItemGroup>
+    <InternalsVisibleTo Include="PLCSIM.UnitTest.Tests.AccessProfiles.Siemens.TiaOpenness.V19" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="manifest.json" CopyToOutputDirectory="PreserveNewest" />
+    <Reference Include="PLCSIM.UnitTest.AccessProfiles.Siemens.Contracts">
+      <HintPath>$(ContractArtifactsDir)PLCSIM.UnitTest.AccessProfiles.Siemens.Contracts.dll</HintPath>
+      <Private>true</Private>
+    </Reference>
+    <Reference Include="PLCSIM.UnitTest.Common">
+      <HintPath>$(ContractArtifactsDir)PLCSIM.UnitTest.Common.dll</HintPath>
+      <Private>true</Private>
+    </Reference>
+  </ItemGroup>
+  <PropertyGroup>
+    <TiaOpennessV19WorkerProject>$(MSBuildProjectDirectory)\..\..\worker\PLCSIM.UnitTest.AccessProfiles.Siemens.TiaOpenness.V19.Worker\PLCSIM.UnitTest.AccessProfiles.Siemens.TiaOpenness.V19.Worker.csproj</TiaOpennessV19WorkerProject>
+  </PropertyGroup>
+  <Target Name="CopyTiaOpennessV19Worker" AfterTargets="Build">
+    <MSBuild Projects="$(TiaOpennessV19WorkerProject)" Targets="Build" Properties="Configuration=$(Configuration)" />
+    <ItemGroup>
+      <TiaOpennessV19WorkerOutput Include="$(MSBuildProjectDirectory)\..\..\worker\PLCSIM.UnitTest.AccessProfiles.Siemens.TiaOpenness.V19.Worker\bin\$(Configuration)\net48\*.*" />
+    </ItemGroup>
+    <Copy SourceFiles="@(TiaOpennessV19WorkerOutput)" DestinationFolder="$(TargetDir)" SkipUnchangedFiles="true" />
+  </Target>
+</Project>

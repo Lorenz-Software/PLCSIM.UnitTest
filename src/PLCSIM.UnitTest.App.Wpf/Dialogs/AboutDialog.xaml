@@ -1,0 +1,112 @@
+<Window x:Class="PLCSIM.UnitTest.App.Wpf.Dialogs.AboutDialog"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="About PLCSIM UnitTest"
+        Width="480"
+        Height="334"
+        Icon="../Assets/PLCSIM.UnitTest.ico"
+        ResizeMode="NoResize"
+        WindowStartupLocation="CenterOwner"
+        FontFamily="Segoe UI"
+        FontSize="11">
+    <Grid Margin="18">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="78" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+            <Image Width="64"
+                   Height="64"
+                   HorizontalAlignment="Left"
+                   VerticalAlignment="Top"
+                   Source="pack://application:,,,/PLCSIM.UnitTest.App.Wpf;component/Assets/PLCSIM.UnitTest.png"
+                   Stretch="Uniform" />
+            <StackPanel Grid.Column="1">
+                <TextBlock FontSize="16"
+                           FontWeight="SemiBold"
+                           Text="PLCSIM UnitTest" />
+                <TextBlock Margin="0,4,0,0"
+                           Foreground="#374151"
+                           Text="{Binding VersionText}" />
+                <TextBlock Margin="0,8,0,0"
+                           Foreground="#6B7280"
+                           TextWrapping="Wrap"
+                           Text="Workbench for manual UnitTest preparation, execution, diagnostics, and result inspection." />
+            </StackPanel>
+        </Grid>
+
+        <Border Grid.Row="1"
+                Margin="0,16,0,0"
+                Padding="10,8"
+                Background="#F5F7FA"
+                BorderBrush="#D1D7E0"
+                BorderThickness="1">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="88" />
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="126" />
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                </Grid.RowDefinitions>
+
+                <TextBlock Foreground="#374151" Text="Publisher" />
+                <TextBlock Grid.Column="1">
+                    <Hyperlink NavigateUri="https://www.lorenz-software.solutions/"
+                               RequestNavigate="PublisherLink_RequestNavigate">Lorenz Software</Hyperlink>
+                </TextBlock>
+                <TextBlock Grid.Row="1" Margin="0,5,0,0" Foreground="#374151" Text="License" />
+                <TextBlock Grid.Row="1" Grid.Column="1" Margin="0,5,0,0" Foreground="#111827" Text="MIT License" />
+                <Border Grid.Column="2"
+                        Grid.RowSpan="2"
+                        HorizontalAlignment="Right"
+                        VerticalAlignment="Center"
+                        Padding="8,4"
+                        Background="#FFFFFF"
+                        BorderBrush="#D1D7E0"
+                        BorderThickness="1">
+                    <Image Width="104"
+                           Height="34"
+                           Source="pack://application:,,,/PLCSIM.UnitTest.App.Wpf;component/Assets/LogoLorenzSoftware.png"
+                           Stretch="Uniform" />
+                </Border>
+            </Grid>
+        </Border>
+
+        <TextBlock Grid.Row="2"
+                   Margin="0,12,0,0"
+                   Foreground="#6B7280"
+                   TextWrapping="Wrap"
+                   Text="Copyright (c) 2026 Lorenz Software. This application is distributed under the MIT License." />
+
+        <StackPanel Grid.Row="3"
+                    HorizontalAlignment="Right"
+                    Orientation="Horizontal">
+            <Button Width="142"
+                    Height="24"
+                    Margin="0,0,8,0"
+                    Click="ThirdPartyNoticesButton_Click"
+                    Content="Third-party notices..." />
+            <Button Width="94"
+                    Height="24"
+                    Margin="0,0,8,0"
+                    Click="LicenseButton_Click"
+                    Content="License..." />
+            <Button Width="78"
+                    Height="24"
+                    IsDefault="True"
+                    IsCancel="True"
+                    Click="OkButton_Click"
+                    Content="OK" />
+        </StackPanel>
+    </Grid>
+</Window>
