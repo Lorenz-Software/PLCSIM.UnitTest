@@ -1,0 +1,41 @@
+{
+  "schemaVersion": 1,
+  "info": {
+    "bindingKind": "tia-openness",
+    "bindingVersion": "2.0.0",
+    "displayName": "TIA Openness V20 Binding"
+  },
+  "entryPoint": {
+    "assembly": "PLCSIM.UnitTest.AccessProfiles.Siemens.TiaOpenness.V20.dll",
+    "typeName": "PLCSIM.UnitTest.AccessProfiles.Siemens.TiaOpenness.V20.TiaOpennessV20Binding"
+  },
+  "setup": {
+    "tiaOpennessAuthorizationProbe": true
+  },
+  "declaration": {
+    "accessApis": [
+      {
+        "kind": "tia-openness",
+        "productVersion": "20",
+        "accessApiVersion": "20"
+      }
+    ],
+    "projectSources": [
+      {
+        "kind": "tia-project",
+        "extension": ".ap20",
+        "version": "20",
+        "openMode": "DirectProject"
+      },
+      {
+        "kind": "tia-project",
+        "extension": ".zap20",
+        "version": "20",
+        "openMode": "RetrievedArchive"
+      }
+    ],
+    "runtimes": [],
+    "unitTestCommunicationContractVersions": [],
+    "unitTestEventStreamContractVersions": []
+  }
+}

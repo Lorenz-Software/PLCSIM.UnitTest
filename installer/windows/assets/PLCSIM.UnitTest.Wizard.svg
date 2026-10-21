@@ -1,0 +1,26 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 202 386" role="img" aria-labelledby="title desc">
+  <title id="title">PLCSIM UnitTest installer branding</title>
+  <desc id="desc">PLCSIM UnitTest product identity with Lorenz Software publisher branding.</desc>
+  <rect width="202" height="386" fill="#F7F8F4"/>
+  <rect width="4" height="386" fill="#7C8900"/>
+
+  <image x="25" y="24" width="152" height="152"
+         xlink:href="../../../src/PLCSIM.UnitTest.App.Wpf/Assets/PLCSIM.UnitTest.svg"/>
+
+  <path d="M28 204h52v-12h51v12h43"
+        fill="none" stroke="#707173" stroke-width="7"
+        stroke-linecap="round" stroke-linejoin="round"/>
+  <text x="101" y="237"
+        font-family="Segoe UI, sans-serif" font-size="10" font-weight="600"
+        letter-spacing="0" text-anchor="middle" fill="#626762">PLC UNIT TEST EXECUTION</text>
+
+  <line x1="25" y1="300" x2="177" y2="300" stroke="#DDE1D5"/>
+  <text x="101" y="322"
+        font-family="Segoe UI, sans-serif" font-size="8"
+        letter-spacing="0" text-anchor="middle" fill="#707570">Published by</text>
+  <image x="24" y="330" width="154" height="38" preserveAspectRatio="xMidYMid meet"
+         xlink:href="../../../src/PLCSIM.UnitTest.App.Wpf/Help/assets/LogoLorenzSoftware.png"/>
+  <text x="101" y="379"
+        font-family="Segoe UI, sans-serif" font-size="7"
+        letter-spacing="0" text-anchor="middle" fill="#707570">lorenz-software.solutions</text>
+</svg>

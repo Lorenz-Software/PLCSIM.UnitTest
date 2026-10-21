@@ -1,0 +1,6 @@
+{
+  "schemaVersion": 1,
+  "id": "default-fake-project",
+  "displayName": "Default Fake Project",
+  "description": "Default Siemens-independent fake project source for WPF and configuration-file development runs."
+}

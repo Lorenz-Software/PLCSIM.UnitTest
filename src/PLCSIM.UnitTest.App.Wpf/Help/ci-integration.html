@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>CI integration - PLCSIM UnitTest Help</title>
+  <link rel="stylesheet" href="assets/help.css">
+</head>
+<body>
+  <header class="site-header">
+    <div class="header-content">
+      <img class="product-logo" src="assets/PLCSIM.UnitTest.png" alt="PLCSIM UnitTest">
+      <div><p class="product-name">PLCSIM UnitTest</p><h1>CI integration</h1></div>
+    </div>
+  </header>
+  <div class="help-layout">
+    <nav class="help-navigation" aria-label="Help topics">
+      <h2>Help topics</h2>
+      <ol><li><a href="index.html">Overview</a></li>
+        <li><a href="workflow.html">Session setup</a></li>
+        <li><a href="operation.html">Test execution</a></li>
+        <li><a href="analysis.html">Evidence analysis</a></li>
+        <li><a href="diagnostics.html">Status and recovery</a></li>
+        <li><a href="settings.html">Settings</a></li>
+        <li><a href="configuration.html">Configuration authoring</a></li>
+        <li><a aria-current="page" href="ci-integration.html">CI integration</a></li></ol>
+    </nav>
+    <main>
+<h2>Execution model</h2>
+<p>CI runs use the command-line application on a self-managed Windows agent. Install PLCSIM UnitTest, the selected access profile and bindings, and all required vendor products before assigning jobs to that agent. Complete vendor authorization separately and register access profiles once under the same Windows account that executes the pipeline.</p>
+<p>Real-runtime jobs must be serialized per simulation and engineering environment. Do not allow independent jobs to control the same runtime, project, or vendor API session concurrently.</p>
+
+<h2>Provision the agent once</h2>
+<ol>
+  <li>Install a fixed application distribution and the required profile and binding components. The default CLI path is <code>C:\Program Files\PLCSIM.UnitTest\PLCSIM.UnitTest.App.Cli.exe</code>.</li>
+  <li>Install and license the required vendor products and complete their permissions and authorization setup according to the selected profile's packaged documentation.</li>
+  <li>Run <code>register-profiles</code> as the Windows account that executes the CI agent. Registration is per user, normally requires no UAC elevation, and is not performed by silent Setup.</li>
+  <li>Run <code>list-profiles</code> and <code>check-config</code> under that account before assigning jobs.</li>
+</ol>
+<p>Repeat the relevant checks after application, profile, or binding upgrades. Worker authorization must be renewed when its binary changes. Do not register profiles in every test job: registration changes persistent provisioning state and does not perform vendor authorization. The selected profile and binding documentation defines the applicable vendor requirements.</p>
+
+<h2>Pipeline flow</h2>
+<ol>
+  <li>Select output and collection paths specific to the current job/build attempt before running preflight.</li>
+  <li>Use <code>list-profiles</code> to verify the provisioned profile registry.</li>
+  <li>Use <code>check-config --file &lt;configuration&gt;</code> as the configuration preflight.</li>
+  <li>Use <code>run --file &lt;configuration&gt; --output &lt;junit-file&gt;</code> to execute the UnitTest.</li>
+  <li>Publish the JUnit file when it exists and preserve the CLI exit code as the authoritative job result.</li>
+</ol>
+<p>The console output is intended for people and must not be parsed as a machine contract. A completed test failure can still produce a valid JUnit artifact; an infrastructure failure may produce none.</p>
+<p><code>check-config</code> checks common JSON shape, registration currentness, and registered profile selection. It does not load the profile or validate profile-owned values and operational targets. Those checks occur during <code>run</code>.</p>
+<p>Execute the starters with PowerShell. Exit code <code>1</code> indicates a completed run with failed test evidence. The CLI removes an existing JUnit file only when <code>run</code> executes; a failed preflight never reaches that removal. Each starter therefore writes and publishes within the current job's directory rather than collecting earlier jobs' artifacts.</p>
+<p>The GitLab CI, GitHub Actions, Jenkins, and TeamCity starters include project-level serialization. For Azure Pipelines, use one usable parallel slot or an equivalent exclusive-resource mechanism. Project-level locks alone do not protect a runtime shared by several repositories; agent provisioning must prevent those concurrent jobs too.</p>
+
+<h2>Runtime intent and startup</h2>
+<p>Use <a href="configuration.html">configuration schema 2</a> with explicit <code>runtime.provisioningMode</code> set to <code>UseExisting</code> for an existing runtime. Omission means <code>CreateOwned</code>, including for legacy schema-1 files. Unsupported creation or managed project operations fail rather than switching modes. Runtime reuse still performs the CLI's project build and transfer; required target values and project-source restrictions belong to the profile configuration guide.</p>
+<p>The CLI waits for observed RunControl <code>Idle + Ready</code> before requesting UnitTest Start. The default initial deadline is 10 seconds after communication and monitoring are active. <code>--unittest-ready-timeout &lt;seconds&gt;</code> changes it using positive whole seconds. These are CLI options, not JSON configuration fields or WPF settings.</p>
+<p>Timeout normally exits with code <code>31</code> and bounded cleanup. <code>--reset-on-startup-timeout</code> explicitly enables one gated Reset after that deadline; the starters leave it disabled. Accepted Reset must be followed by <code>Idle + Ready</code> within <code>execution.timeouts.unitTestCommandReaction</code> (default 10 seconds). Explicit RunControl initialization errors or workflow failure stop without this recovery. There is no retry loop or automatic EventBuffer reset. A timeout does not prove that resetting the PLC is safe.</p>
+
+<h2>Optional evidence analysis</h2>
+<p>Add <code>--analysis-output &lt;directory&gt;</code> to <code>run</code> to retain an analysis package on failure. This includes failed tests, execution errors, timeout, cancellation and cleanup failure. Add <code>--analysis-on always</code> to include successful runs. Without an output directory, no analysis is exported. These options are specific to the CLI, not WPF settings or JSON configuration fields.</p>
+<pre><code>$jobResults = Join-Path "C:\ci\results" ([Guid]::NewGuid().ToString("N"))
+PLCSIM.UnitTest.App.Cli.exe run --file C:\ci\unittest.json --output (Join-Path $jobResults 'junit.xml') --analysis-output (Join-Path $jobResults 'analysis')</code></pre>
+<p>Publish only the directory selected for this invocation. In a CI starter, use its job/build-attempt directory and matching publication rules instead.</p>
+<p>The CLI selects exactly one report: <strong>Run Analysis</strong> when a RunEpoch exists (including partial runs); otherwise <strong>PLC Lifecycle Analysis</strong> for the latest requested PLC Start, Reset or UnitTest Start; otherwise <strong>Communication Health Analysis</strong> when trace evidence exists. A lifecycle command need not have been accepted or produced a response. Missing required evidence is reported explicitly without generating an empty package.</p>
+<p>Each export uses a unique <code>analysis-&lt;UTC timestamp&gt;-&lt;unique id&gt;</code> subdirectory below the current job's analysis directory, containing <code>run.zip</code>, <code>lifecycle.zip</code>, or <code>communication-health.zip</code>. As with <a href="analysis.html">WPF analysis exports</a>, the ZIP contains <code>analysis.md</code>, <code>events.ndjson</code>, and <code>hierarchy.json</code> where applicable. Read the summary first; keep the full package for investigating PLC-framework usage problems.</p>
+<p>The shipped starters enable failure-only export and collect ZIPs recursively even after a failed run. Use a clean or job-specific artifact directory: previous analysis packages are not deleted. A successful run normally has no ZIP; a separate configuration preflight failure does not execute <code>run</code> and cannot create one either.</p>
+<p>Analysis is captured before cleanup and written afterwards. It does not include cleanup evidence. Export errors appear on stderr without changing the test result, JUnit or primary exit code. Collection uses the bounded activity trace, requires no raw-event logging or extra PLC interaction, and may contain incomplete evidence. ZIP writing has an independent cooperative 10-second deadline. Forced termination or a permanently hung process cannot guarantee an export.</p>
+<p>If coordinated cleanup fails, its exit code <code>50</code> takes precedence over the earlier run outcome. Cleanup failure can trigger export of captured evidence, but its cause must be investigated in the job/application log.</p>
+<div class="note"><strong>Protect diagnostic artifacts.</strong> PLC payloads, assertion values, names, paths and diagnostic details can be sensitive. Restrict access and retention in CI and review packages before sharing them externally.</div>
+
+<h2>Configuration and diagnostics</h2>
+<p>Keep configuration files as protected CI inputs when they contain credentials. Prefer immutable project archives over direct engineering projects for unattended runs. The CLI performs bounded cleanup, but forced process or agent termination can still require manual runtime inspection before the next job.</p>
+<p>For failed infrastructure runs, retain the job log first. Access-profile logs from <code>%LOCALAPPDATA%\PLCSIM.UnitTest\logs</code> can be collected as restricted, short-lived diagnostic artifacts when required.</p>
+<p>Do not print configurations containing credentials or pass credentials as command-line arguments. Review shared log directories before publishing them; they may contain unrelated activity from the same Windows account.</p>
+
+<h2>Starter configurations</h2>
+<p>The installed <code>Examples\CI</code> directory contains the following editable starter files. This help chapter includes their usage guidance; <code>README.md</code> also accompanies the files for use outside the application.</p>
+<table><thead><tr><th>CI system</th><th>File</th></tr></thead><tbody>
+  <tr><td>GitLab CI</td><td><code>gitlab-ci.yml</code></td></tr>
+  <tr><td>GitHub Actions</td><td><code>github-actions.yml</code></td></tr>
+  <tr><td>Azure Pipelines</td><td><code>azure-pipelines.yml</code></td></tr>
+  <tr><td>Jenkins</td><td><code>Jenkinsfile</code></td></tr>
+  <tr><td>TeamCity</td><td><code>teamcity.kts</code></td></tr>
+</tbody></table>
+<p>Output and publication paths use <code>CI_JOB_ID</code> for GitLab CI, <code>github.run_id</code> plus <code>github.run_attempt</code> for GitHub, <code>BUILD_NUMBER</code> for Jenkins, <code>Build.BuildId</code> plus <code>System.JobAttempt</code> for Azure, and <code>teamcity.build.id</code> for TeamCity. Keep both paths aligned when adapting the starters. Multiple jobs, configurations, or repeated CLI invocations need separate result directories too.</p>
+<p>In the default installation, these files are below <code>C:\Program Files\PLCSIM.UnitTest\Examples\CI</code>. Profile configuration is documented at <code>profiles\&lt;profile package&gt;\docs\configuration.md</code> below the installation root; additional vendor setup and usage documentation lives with that profile. The starters contain pipeline examples, not vendor-independent runnable project configurations.</p>
+<div class="note"><strong>Starting points, not turnkey pipelines.</strong> Adapt paths, configuration, output locations, runner labels, agent capabilities, credentials, and vendor-specific preparation to the target environment.</div>
+
+    </main>
+  </div>
+  <footer class="site-footer">
+    <div class="footer-content">
+      <a href="https://www.lorenz-software.solutions/"><img src="assets/LogoLorenzSoftware.png" alt="Lorenz Software"></a>
+      <p>PLCSIM UnitTest offline help. <a href="license.html">License</a></p>
+    </div>
+  </footer>
+</body>
+</html>

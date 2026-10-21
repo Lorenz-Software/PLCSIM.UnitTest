@@ -1,0 +1,38 @@
+{
+  "schemaVersion": 1,
+  "info": {
+    "bindingKind": "tia-openness",
+    "bindingVersion": "1.0.0",
+    "displayName": "Fake TIA Openness Binding"
+  },
+  "entryPoint": {
+    "assembly": "PLCSIM.UnitTest.AccessProfiles.Siemens.TiaOpenness.Fake.dll",
+    "typeName": "PLCSIM.UnitTest.AccessProfiles.Siemens.TiaOpenness.Fake.FakeTiaOpennessBinding"
+  },
+  "declaration": {
+    "accessApis": [
+      {
+        "kind": "tia-openness",
+        "productVersion": "fake-21",
+        "accessApiVersion": "fake-21"
+      }
+    ],
+    "projectSources": [
+      {
+        "kind": "siemens-fake-project",
+        "extension": ".apf",
+        "version": "fake",
+        "openMode": "DirectProject"
+      },
+      {
+        "kind": "siemens-fake-project",
+        "extension": ".zapf",
+        "version": "fake",
+        "openMode": "RetrievedArchive"
+      }
+    ],
+    "runtimes": [],
+    "unitTestCommunicationContractVersions": [],
+    "unitTestEventStreamContractVersions": []
+  }
+}

@@ -1,0 +1,449 @@
+{
+  "schemaVersion": 1,
+  "licenses": [
+    {
+      "id": "MIT-Beckhoff",
+      "displayName": "MIT License",
+      "copyright": "Copyright (c) 2024 Beckhoff Automation GmbH & Co. KG",
+      "textFile": "texts/beckhoff-mit.txt",
+      "includeText": true,
+      "reason": "Preserve the original packaged copyright and permission notice with redistributed ADS libraries."
+    },
+    {
+      "id": "MIT-DotNet",
+      "displayName": "MIT License",
+      "copyright": "Copyright (c) .NET Foundation and Contributors",
+      "textFile": "texts/dotnet-mit.txt",
+      "includeText": true,
+      "reason": "Preserve copyright and permission notice with redistributed copies."
+    },
+    {
+      "id": "Apache-2.0",
+      "displayName": "Apache License 2.0",
+      "copyright": "Copyright (c) Serilog Contributors",
+      "textFile": "texts/apache-2.0.txt",
+      "includeText": true,
+      "reason": "Section 4(a) requires the license text; applicable NOTICE obligations are assessed per component."
+    },
+    {
+      "id": "Inno-Setup",
+      "displayName": "Inno Setup License",
+      "copyright": "Copyright (c) 1997-2026 Jordan Russell; portions copyright (c) 2000-2026 Martijn Laan",
+      "textFile": null,
+      "includeText": false,
+      "reason": "Binary redistribution retains existing embedded copyright and website notices; a separate full license copy is not required."
+    }
+  ],
+  "packages": [
+    {
+      "id": "Beckhoff.TwinCAT.Ads",
+      "versions": [
+        "7.0.389"
+      ],
+      "license": "MIT-Beckhoff",
+      "projectUrl": "https://www.nuget.org/packages/Beckhoff.TwinCAT.Ads/7.0.389",
+      "additionalTextFiles": [],
+      "noticeReview": "Original MIT License.md is identical across the four ADS 7.0.389 packages; no separate NOTICE file."
+    },
+    {
+      "id": "Beckhoff.TwinCAT.Ads.Abstractions",
+      "versions": [
+        "7.0.389"
+      ],
+      "license": "MIT-Beckhoff",
+      "projectUrl": "https://www.nuget.org/packages/Beckhoff.TwinCAT.Ads.Abstractions/7.0.389",
+      "additionalTextFiles": [],
+      "noticeReview": "Original MIT License.md is identical across the four ADS 7.0.389 packages; no separate NOTICE file."
+    },
+    {
+      "id": "Beckhoff.TwinCAT.Ads.ConfigurationProviders",
+      "versions": [
+        "7.0.389"
+      ],
+      "license": "MIT-Beckhoff",
+      "projectUrl": "https://www.nuget.org/packages/Beckhoff.TwinCAT.Ads.ConfigurationProviders/7.0.389",
+      "additionalTextFiles": [],
+      "noticeReview": "Original MIT License.md is identical across the four ADS 7.0.389 packages; no separate NOTICE file."
+    },
+    {
+      "id": "Beckhoff.TwinCAT.Ads.Server",
+      "versions": [
+        "7.0.389"
+      ],
+      "license": "MIT-Beckhoff",
+      "projectUrl": "https://www.nuget.org/packages/Beckhoff.TwinCAT.Ads.Server/7.0.389",
+      "additionalTextFiles": [],
+      "noticeReview": "Original MIT License.md is identical across the four ADS 7.0.389 packages; no separate NOTICE file."
+    },
+    {
+      "id": "Microsoft.Extensions.Configuration",
+      "versions": [
+        "8.0.0"
+      ],
+      "license": "MIT-DotNet",
+      "projectUrl": "https://github.com/dotnet/runtime",
+      "additionalTextFiles": [],
+      "noticeReview": "MIT managed library and selected Windows runtime assets reviewed; runtime-wide notices do not add applicable texts for this payload."
+    },
+    {
+      "id": "Microsoft.Extensions.Configuration.Abstractions",
+      "versions": [
+        "8.0.0"
+      ],
+      "license": "MIT-DotNet",
+      "projectUrl": "https://github.com/dotnet/runtime",
+      "additionalTextFiles": [],
+      "noticeReview": "MIT managed library and selected Windows runtime assets reviewed; runtime-wide notices do not add applicable texts for this payload."
+    },
+    {
+      "id": "System.ComponentModel.Composition",
+      "versions": [
+        "8.0.0"
+      ],
+      "license": "MIT-DotNet",
+      "projectUrl": "https://github.com/dotnet/runtime",
+      "additionalTextFiles": [],
+      "noticeReview": "MIT managed library and selected Windows runtime assets reviewed; runtime-wide notices do not add applicable texts for this payload."
+    },
+    {
+      "id": "System.Diagnostics.EventLog",
+      "versions": [
+        "8.0.1"
+      ],
+      "license": "MIT-DotNet",
+      "projectUrl": "https://github.com/dotnet/runtime",
+      "additionalTextFiles": [],
+      "noticeReview": "MIT managed library and selected Windows runtime assets reviewed; runtime-wide notices do not add applicable texts for this payload."
+    },
+    {
+      "id": "System.Reactive",
+      "versions": [
+        "6.1.0"
+      ],
+      "license": "MIT-DotNet",
+      "projectUrl": "https://github.com/dotnet/reactive",
+      "additionalTextFiles": [],
+      "noticeReview": "MIT text at the package source revision matches the canonical .NET MIT text; no additional NOTICE."
+    },
+    {
+      "id": "System.ServiceProcess.ServiceController",
+      "versions": [
+        "8.0.1"
+      ],
+      "license": "MIT-DotNet",
+      "projectUrl": "https://github.com/dotnet/runtime",
+      "additionalTextFiles": [],
+      "noticeReview": "MIT managed library and selected Windows runtime assets reviewed; runtime-wide notices do not add applicable texts for this payload."
+    },
+    {
+      "id": "Microsoft.Bcl.AsyncInterfaces",
+      "versions": [
+        "8.0.0"
+      ],
+      "license": "MIT-DotNet",
+      "projectUrl": "https://github.com/dotnet/runtime",
+      "additionalTextFiles": [],
+      "noticeReview": "MIT managed library; no applicable additional notice identified for the selected assemblies. See README.md for review scope."
+    },
+    {
+      "id": "Microsoft.Extensions.DependencyInjection.Abstractions",
+      "versions": [
+        "8.0.0",
+        "8.0.2"
+      ],
+      "license": "MIT-DotNet",
+      "projectUrl": "https://github.com/dotnet/runtime",
+      "additionalTextFiles": [],
+      "noticeReview": "MIT managed library; no applicable additional notice identified for the selected assemblies. See README.md for review scope."
+    },
+    {
+      "id": "Microsoft.Extensions.DependencyInjection",
+      "versions": [
+        "8.0.0"
+      ],
+      "license": "MIT-DotNet",
+      "projectUrl": "https://github.com/dotnet/runtime",
+      "additionalTextFiles": [],
+      "noticeReview": "MIT managed library; no applicable additional notice identified for the selected assemblies. See README.md for review scope."
+    },
+    {
+      "id": "Microsoft.Extensions.Logging.Abstractions",
+      "versions": [
+        "8.0.0",
+        "8.0.3"
+      ],
+      "license": "MIT-DotNet",
+      "projectUrl": "https://github.com/dotnet/runtime",
+      "additionalTextFiles": [],
+      "noticeReview": "MIT managed library; no applicable additional notice identified for the selected assemblies. See README.md for review scope."
+    },
+    {
+      "id": "Microsoft.Extensions.Logging",
+      "versions": [
+        "8.0.0"
+      ],
+      "license": "MIT-DotNet",
+      "projectUrl": "https://github.com/dotnet/runtime",
+      "additionalTextFiles": [],
+      "noticeReview": "MIT managed library; no applicable additional notice identified for the selected assemblies. See README.md for review scope."
+    },
+    {
+      "id": "Microsoft.Extensions.Options",
+      "versions": [
+        "8.0.0"
+      ],
+      "license": "MIT-DotNet",
+      "projectUrl": "https://github.com/dotnet/runtime",
+      "additionalTextFiles": [],
+      "noticeReview": "MIT managed library; no applicable additional notice identified for the selected assemblies. See README.md for review scope."
+    },
+    {
+      "id": "Microsoft.Extensions.Primitives",
+      "versions": [
+        "8.0.0"
+      ],
+      "license": "MIT-DotNet",
+      "projectUrl": "https://github.com/dotnet/runtime",
+      "additionalTextFiles": [],
+      "noticeReview": "MIT managed library; no applicable additional notice identified for the selected assemblies. See README.md for review scope."
+    },
+    {
+      "id": "Microsoft.NETCore.Platforms",
+      "versions": [
+        "1.1.0"
+      ],
+      "license": "MIT-DotNet",
+      "projectUrl": "https://github.com/dotnet/core",
+      "additionalTextFiles": [],
+      "noticeReview": "Build/reference assets; no runtime binary selected for current release payloads."
+    },
+    {
+      "id": "NETStandard.Library",
+      "versions": [
+        "2.0.3"
+      ],
+      "license": "MIT-DotNet",
+      "projectUrl": "https://github.com/dotnet/standard",
+      "additionalTextFiles": [],
+      "noticeReview": "Build/reference assets; no runtime binary selected for current release payloads."
+    },
+    {
+      "id": "System.Buffers",
+      "versions": [
+        "4.5.1"
+      ],
+      "license": "MIT-DotNet",
+      "projectUrl": "https://github.com/dotnet/runtime",
+      "additionalTextFiles": [],
+      "noticeReview": "MIT managed library; no applicable additional notice identified for the selected assemblies. See README.md for review scope."
+    },
+    {
+      "id": "System.CommandLine",
+      "versions": [
+        "2.0.10"
+      ],
+      "license": "MIT-DotNet",
+      "projectUrl": "https://github.com/dotnet/command-line-api",
+      "additionalTextFiles": [],
+      "noticeReview": "MIT managed library; no applicable additional notice identified for the selected assemblies. See README.md for review scope."
+    },
+    {
+      "id": "System.Diagnostics.DiagnosticSource",
+      "versions": [
+        "8.0.1"
+      ],
+      "license": "MIT-DotNet",
+      "projectUrl": "https://github.com/dotnet/runtime",
+      "additionalTextFiles": [],
+      "noticeReview": "MIT managed library. SIMD hex decoding notices concern SYSTEM_PRIVATE_CORELIB-only code, not this assembly."
+    },
+    {
+      "id": "System.Memory",
+      "versions": [
+        "4.5.5"
+      ],
+      "license": "MIT-DotNet",
+      "projectUrl": "https://github.com/dotnet/runtime",
+      "additionalTextFiles": [],
+      "noticeReview": "MIT managed library; no applicable additional notice identified for the selected assemblies. See README.md for review scope."
+    },
+    {
+      "id": "System.Numerics.Vectors",
+      "versions": [
+        "4.4.0"
+      ],
+      "license": "MIT-DotNet",
+      "projectUrl": "https://github.com/dotnet/runtime",
+      "additionalTextFiles": [],
+      "noticeReview": "MIT managed vectors/facade; does not redistribute the native runtime math implementations."
+    },
+    {
+      "id": "System.Numerics.Vectors",
+      "versions": [
+        "4.5.0"
+      ],
+      "license": "MIT-DotNet",
+      "projectUrl": "https://github.com/dotnet/runtime",
+      "additionalTextFiles": [],
+      "noticeReview": "MIT managed vectors/facade; does not redistribute the native runtime math implementations."
+    },
+    {
+      "id": "System.Runtime.CompilerServices.Unsafe",
+      "versions": [
+        "4.5.3"
+      ],
+      "license": "MIT-DotNet",
+      "projectUrl": "https://github.com/dotnet/runtime",
+      "additionalTextFiles": [],
+      "noticeReview": "MIT managed library; no applicable additional notice identified for the selected assemblies. See README.md for review scope."
+    },
+    {
+      "id": "System.Runtime.CompilerServices.Unsafe",
+      "versions": [
+        "6.0.0"
+      ],
+      "license": "MIT-DotNet",
+      "projectUrl": "https://github.com/dotnet/runtime",
+      "additionalTextFiles": [],
+      "noticeReview": "MIT managed library; no applicable additional notice identified for the selected assemblies. See README.md for review scope."
+    },
+    {
+      "id": "System.Security.Cryptography.ProtectedData",
+      "versions": [
+        "8.0.0"
+      ],
+      "license": "MIT-DotNet",
+      "projectUrl": "https://github.com/dotnet/runtime",
+      "additionalTextFiles": [],
+      "noticeReview": "MIT managed library; no applicable additional notice identified for the selected assemblies. See README.md for review scope."
+    },
+    {
+      "id": "System.Threading.Channels",
+      "versions": [
+        "8.0.0"
+      ],
+      "license": "MIT-DotNet",
+      "projectUrl": "https://github.com/dotnet/runtime",
+      "additionalTextFiles": [],
+      "noticeReview": "MIT managed library; no applicable additional notice identified for the selected assemblies. See README.md for review scope."
+    },
+    {
+      "id": "System.Threading.Tasks.Extensions",
+      "versions": [
+        "4.5.4"
+      ],
+      "license": "MIT-DotNet",
+      "projectUrl": "https://github.com/dotnet/runtime",
+      "additionalTextFiles": [],
+      "noticeReview": "MIT managed library; no applicable additional notice identified for the selected assemblies. See README.md for review scope."
+    },
+    {
+      "id": "System.ValueTuple",
+      "versions": [
+        "4.5.0"
+      ],
+      "license": "MIT-DotNet",
+      "projectUrl": "https://github.com/dotnet/runtime",
+      "additionalTextFiles": [],
+      "noticeReview": "MIT managed library; no applicable additional notice identified for the selected assemblies. See README.md for review scope."
+    },
+    {
+      "id": "Serilog",
+      "versions": [
+        "3.1.1"
+      ],
+      "license": "Apache-2.0",
+      "projectUrl": "https://github.com/serilog/serilog",
+      "additionalTextFiles": [],
+      "noticeReview": "Package contains no separate NOTICE file; preserve its declared license and copyright."
+    },
+    {
+      "id": "Serilog",
+      "versions": [
+        "4.4.0"
+      ],
+      "license": "Apache-2.0",
+      "projectUrl": "https://github.com/serilog/serilog",
+      "additionalTextFiles": [],
+      "noticeReview": "Package contains no separate NOTICE file; preserve its declared license and copyright."
+    },
+    {
+      "id": "Serilog.Extensions.Logging",
+      "versions": [
+        "8.0.0"
+      ],
+      "license": "Apache-2.0",
+      "projectUrl": "https://github.com/serilog/serilog-extensions-logging",
+      "additionalTextFiles": [],
+      "noticeReview": "Package contains no separate NOTICE file; preserve its declared license and copyright."
+    },
+    {
+      "id": "Serilog.Sinks.Async",
+      "versions": [
+        "2.1.0"
+      ],
+      "license": "Apache-2.0",
+      "projectUrl": "https://github.com/serilog/serilog-sinks-async",
+      "additionalTextFiles": [],
+      "noticeReview": "Package contains no separate NOTICE file; preserve its declared license and copyright."
+    },
+    {
+      "id": "Serilog.Sinks.File",
+      "versions": [
+        "5.0.0"
+      ],
+      "license": "Apache-2.0",
+      "projectUrl": "https://github.com/serilog/serilog-sinks-file",
+      "additionalTextFiles": [],
+      "noticeReview": "Package contains no separate NOTICE file; preserve its declared license and copyright."
+    },
+    {
+      "id": "Serilog.Sinks.File",
+      "versions": [
+        "6.0.0"
+      ],
+      "license": "Apache-2.0",
+      "projectUrl": "https://github.com/serilog/serilog-sinks-file",
+      "additionalTextFiles": [],
+      "noticeReview": "Package contains no separate NOTICE file; preserve its declared license and copyright."
+    },
+    {
+      "id": "Serilog.Sinks.File",
+      "versions": [
+        "7.0.0"
+      ],
+      "license": "Apache-2.0",
+      "projectUrl": "https://github.com/serilog/serilog-sinks-file",
+      "additionalTextFiles": [],
+      "noticeReview": "Package contains no separate NOTICE file; preserve its declared license and copyright."
+    }
+  ],
+  "externalPrerequisites": [
+    {
+      "id": "Microsoft.VisualStudio.Interop",
+      "suppliedBy": "Installed Beckhoff TcXaeShell",
+      "redistributed": false,
+      "noticeReview": "Official interop assembly referenced with Private=false and EmbedInteropTypes=false. Loaded from the user's licensed XAE installation for engineering only; neither the assembly nor embedded interop types are included in the profile package. No upstream license text is copied for this non-redistributed prerequisite. Reassess before any redistribution."
+    },
+    {
+      "id": "Beckhoff.TwinCAT.Xae.AutomationInterface",
+      "suppliedBy": "Installed Beckhoff TwinCAT XAE 4026",
+      "redistributed": false,
+      "noticeReview": "Native Automation Interface accessed through late-bound COM in the installed XAE host. The licensed TwinCAT engineering installation remains required. No TCatSysManagerLib wrapper, type library or generated/embedded Beckhoff interface metadata is shipped. No upstream license text is copied for this non-redistributed prerequisite. Review applicable permissions and notices before any future vendor binary or generated metadata redistribution."
+    }
+  ],
+  "installerComponents": [
+    {
+      "id": "Inno Setup 6",
+      "license": "Inno-Setup",
+      "projectUrl": "https://jrsoftware.org/isinfo.php"
+    }
+  ],
+  "embeddedComponents": [
+    {
+      "id": ".NET Windows executable host (framework-dependent .NET 8)",
+      "license": "MIT-DotNet",
+      "projectUrl": "https://github.com/dotnet/core/blob/main/license-information-windows.md"
+    }
+  ]
+}

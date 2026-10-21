@@ -1,0 +1,23 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="PLCSIM.UnitTest.AccessProfiles.Siemens.Contracts">
+      <HintPath>$(ContractArtifactsDir)PLCSIM.UnitTest.AccessProfiles.Siemens.Contracts.dll</HintPath>
+      <Private>true</Private>
+    </Reference>
+    <Reference Include="PLCSIM.UnitTest.Common">
+      <HintPath>$(ContractArtifactsDir)PLCSIM.UnitTest.Common.dll</HintPath>
+      <Private>true</Private>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <InternalsVisibleTo Include="PLCSIM.UnitTest.Tests.AccessProfiles.Siemens.TiaOpenness.Fake" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="manifest.json" CopyToOutputDirectory="PreserveNewest" />
+  </ItemGroup>
+</Project>

@@ -1,0 +1,29 @@
+// Starter pipeline for a pre-provisioned self-managed Windows agent.
+pipeline {
+    agent { label 'windows && plcsim' }
+    options {
+        disableConcurrentBuilds()
+    }
+    environment {
+        PLCSIM_UNITTEST_CLI = 'C:\\Program Files\\PLCSIM.UnitTest\\PLCSIM.UnitTest.App.Cli.exe'
+        PLCSIM_UNITTEST_CONFIG = "${WORKSPACE}\\ci\\plcsim-unittest.json"
+        PLCSIM_UNITTEST_JUNIT = "${WORKSPACE}\\artifacts\\plcsim-unittest\\${BUILD_NUMBER}\\plcsim-unittest.xml"
+        PLCSIM_UNITTEST_ANALYSIS = "${WORKSPACE}\\artifacts\\plcsim-unittest\\${BUILD_NUMBER}\\analysis"
+    }
+    stages {
+        stage('PLCSIM UnitTest') {
+            steps {
+                powershell '& $env:PLCSIM_UNITTEST_CLI list-profiles; if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }'
+                powershell '& $env:PLCSIM_UNITTEST_CLI check-config --file $env:PLCSIM_UNITTEST_CONFIG; if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }'
+                powershell '& $env:PLCSIM_UNITTEST_CLI run --file $env:PLCSIM_UNITTEST_CONFIG --output $env:PLCSIM_UNITTEST_JUNIT --analysis-output $env:PLCSIM_UNITTEST_ANALYSIS; exit $LASTEXITCODE'
+            }
+        }
+    }
+    post {
+        always {
+            junit allowEmptyResults: true, testResults: "artifacts/plcsim-unittest/${BUILD_NUMBER}/plcsim-unittest.xml"
+            archiveArtifacts allowEmptyArchive: true, artifacts: "artifacts/plcsim-unittest/${BUILD_NUMBER}/plcsim-unittest.xml"
+            archiveArtifacts allowEmptyArchive: true, artifacts: "artifacts/plcsim-unittest/${BUILD_NUMBER}/analysis/**/*.zip"
+        }
+    }
+}

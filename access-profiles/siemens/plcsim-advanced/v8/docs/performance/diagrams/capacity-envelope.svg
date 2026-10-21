@@ -1,0 +1,112 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1120" height="650" viewBox="0 0 1120 650" role="img" aria-labelledby="title desc">
+<title id="title">PLCSIM Advanced V8 measured maximum EventBuffer backlog</title>
+<desc id="desc">Maximum backlog for polling and PLC-cycle observation at configured PLC minimum cycle times of 1, 5, 10, and 15 milliseconds. All measured runs completed without lost events.</desc>
+<rect width="1120" height="650" fill="#ffffff"/>
+<text x="56" y="48" font-family="Segoe UI,Arial,sans-serif" font-size="25" font-weight="700" fill="#17212b">Measured V8 EventBuffer backlog envelope</text>
+<text x="56" y="78" font-family="Segoe UI,Arial,sans-serif" font-size="14" fill="#4f5e6b">Maximum observed backlog, 10 runs per point, Release build, 479 events/run, drain 1 ms, batch 32</text>
+<text x="313" y="112" text-anchor="middle" font-family="Segoe UI,Arial,sans-serif" font-size="17" font-weight="600" fill="#17212b">Polling</text>
+<line x1="78" y1="520" x2="548" y2="520" stroke="#dce2e7" stroke-width="1"/>
+<text x="68" y="525" text-anchor="end" font-family="Segoe UI,Arial,sans-serif" font-size="12" fill="#5f6d78">0</text>
+<line x1="78" y1="422.5" x2="548" y2="422.5" stroke="#dce2e7" stroke-width="1"/>
+<text x="68" y="427.5" text-anchor="end" font-family="Segoe UI,Arial,sans-serif" font-size="12" fill="#5f6d78">32</text>
+<line x1="78" y1="325" x2="548" y2="325" stroke="#dce2e7" stroke-width="1"/>
+<text x="68" y="330" text-anchor="end" font-family="Segoe UI,Arial,sans-serif" font-size="12" fill="#5f6d78">64</text>
+<line x1="78" y1="227.5" x2="548" y2="227.5" stroke="#dce2e7" stroke-width="1"/>
+<text x="68" y="232.5" text-anchor="end" font-family="Segoe UI,Arial,sans-serif" font-size="12" fill="#5f6d78">96</text>
+<line x1="78" y1="130" x2="548" y2="130" stroke="#dce2e7" stroke-width="1"/>
+<text x="68" y="135" text-anchor="end" font-family="Segoe UI,Arial,sans-serif" font-size="12" fill="#5f6d78">128</text>
+<line x1="78" y1="130" x2="78" y2="520" stroke="#667582"/>
+<line x1="78" y1="520" x2="548" y2="520" stroke="#667582"/>
+<text x="78" y="544" text-anchor="middle" font-family="Segoe UI,Arial,sans-serif" font-size="12" fill="#45535f">5</text>
+<text x="195.5" y="544" text-anchor="middle" font-family="Segoe UI,Arial,sans-serif" font-size="12" fill="#45535f">10</text>
+<text x="313" y="544" text-anchor="middle" font-family="Segoe UI,Arial,sans-serif" font-size="12" fill="#45535f">25</text>
+<text x="430.5" y="544" text-anchor="middle" font-family="Segoe UI,Arial,sans-serif" font-size="12" fill="#45535f">50</text>
+<text x="548" y="544" text-anchor="middle" font-family="Segoe UI,Arial,sans-serif" font-size="12" fill="#45535f">100</text>
+<path d="M78.0,258.0 L195.5,258.0 L313.0,258.0 L430.5,248.8 L548.0,160.5" fill="none" stroke="#c2413a" stroke-width="2.5" stroke-linejoin="round"/>
+<circle cx="78" cy="257.96875" r="4" fill="#c2413a"><title>1 ms PLC minimum cycle: backlog 86</title></circle>
+<circle cx="195.5" cy="257.96875" r="4" fill="#c2413a"><title>1 ms PLC minimum cycle: backlog 86</title></circle>
+<circle cx="313" cy="257.96875" r="4" fill="#c2413a"><title>1 ms PLC minimum cycle: backlog 86</title></circle>
+<circle cx="430.5" cy="248.828125" r="4" fill="#c2413a"><title>1 ms PLC minimum cycle: backlog 89</title></circle>
+<circle cx="548" cy="160.46875" r="4" fill="#c2413a"><title>1 ms PLC minimum cycle: backlog 118</title></circle>
+<path d="M78.0,382.9 L195.5,376.8 L313.0,385.9 L430.5,349.4 L548.0,258.0" fill="none" stroke="#d18b00" stroke-width="2.5" stroke-linejoin="round"/>
+<circle cx="78" cy="382.890625" r="4" fill="#d18b00"><title>5 ms PLC minimum cycle: backlog 45</title></circle>
+<circle cx="195.5" cy="376.796875" r="4" fill="#d18b00"><title>5 ms PLC minimum cycle: backlog 47</title></circle>
+<circle cx="313" cy="385.9375" r="4" fill="#d18b00"><title>5 ms PLC minimum cycle: backlog 44</title></circle>
+<circle cx="430.5" cy="349.375" r="4" fill="#d18b00"><title>5 ms PLC minimum cycle: backlog 56</title></circle>
+<circle cx="548" cy="257.96875" r="4" fill="#d18b00"><title>5 ms PLC minimum cycle: backlog 86</title></circle>
+<path d="M78.0,449.9 L195.5,440.8 L313.0,434.7 L430.5,401.2 L548.0,385.9" fill="none" stroke="#167d78" stroke-width="2.5" stroke-linejoin="round"/>
+<circle cx="78" cy="449.921875" r="4" fill="#167d78"><title>10 ms PLC minimum cycle: backlog 23</title></circle>
+<circle cx="195.5" cy="440.78125" r="4" fill="#167d78"><title>10 ms PLC minimum cycle: backlog 26</title></circle>
+<circle cx="313" cy="434.6875" r="4" fill="#167d78"><title>10 ms PLC minimum cycle: backlog 28</title></circle>
+<circle cx="430.5" cy="401.171875" r="4" fill="#167d78"><title>10 ms PLC minimum cycle: backlog 39</title></circle>
+<circle cx="548" cy="385.9375" r="4" fill="#167d78"><title>10 ms PLC minimum cycle: backlog 44</title></circle>
+<path d="M78.0,459.1 L195.5,462.1 L313.0,446.9 L430.5,434.7 L548.0,395.1" fill="none" stroke="#3366a8" stroke-width="2.5" stroke-linejoin="round"/>
+<circle cx="78" cy="459.0625" r="4" fill="#3366a8"><title>15 ms PLC minimum cycle: backlog 20</title></circle>
+<circle cx="195.5" cy="462.109375" r="4" fill="#3366a8"><title>15 ms PLC minimum cycle: backlog 19</title></circle>
+<circle cx="313" cy="446.875" r="4" fill="#3366a8"><title>15 ms PLC minimum cycle: backlog 24</title></circle>
+<circle cx="430.5" cy="434.6875" r="4" fill="#3366a8"><title>15 ms PLC minimum cycle: backlog 28</title></circle>
+<circle cx="548" cy="395.078125" r="4" fill="#3366a8"><title>15 ms PLC minimum cycle: backlog 41</title></circle>
+<text x="313" y="572" text-anchor="middle" font-family="Segoe UI,Arial,sans-serif" font-size="13" fill="#45535f">Monitoring interval (ms)</text>
+<text x="855" y="112" text-anchor="middle" font-family="Segoe UI,Arial,sans-serif" font-size="17" font-weight="600" fill="#17212b">PLC-cycle observation</text>
+<line x1="620" y1="520" x2="1090" y2="520" stroke="#dce2e7" stroke-width="1"/>
+<text x="610" y="525" text-anchor="end" font-family="Segoe UI,Arial,sans-serif" font-size="12" fill="#5f6d78">0</text>
+<line x1="620" y1="422.5" x2="1090" y2="422.5" stroke="#dce2e7" stroke-width="1"/>
+<text x="610" y="427.5" text-anchor="end" font-family="Segoe UI,Arial,sans-serif" font-size="12" fill="#5f6d78">32</text>
+<line x1="620" y1="325" x2="1090" y2="325" stroke="#dce2e7" stroke-width="1"/>
+<text x="610" y="330" text-anchor="end" font-family="Segoe UI,Arial,sans-serif" font-size="12" fill="#5f6d78">64</text>
+<line x1="620" y1="227.5" x2="1090" y2="227.5" stroke="#dce2e7" stroke-width="1"/>
+<text x="610" y="232.5" text-anchor="end" font-family="Segoe UI,Arial,sans-serif" font-size="12" fill="#5f6d78">96</text>
+<line x1="620" y1="130" x2="1090" y2="130" stroke="#dce2e7" stroke-width="1"/>
+<text x="610" y="135" text-anchor="end" font-family="Segoe UI,Arial,sans-serif" font-size="12" fill="#5f6d78">128</text>
+<line x1="620" y1="130" x2="620" y2="520" stroke="#667582"/>
+<line x1="620" y1="520" x2="1090" y2="520" stroke="#667582"/>
+<text x="620" y="544" text-anchor="middle" font-family="Segoe UI,Arial,sans-serif" font-size="12" fill="#45535f">unthrottled</text>
+<text x="714" y="544" text-anchor="middle" font-family="Segoe UI,Arial,sans-serif" font-size="12" fill="#45535f">5</text>
+<text x="808" y="544" text-anchor="middle" font-family="Segoe UI,Arial,sans-serif" font-size="12" fill="#45535f">10</text>
+<text x="902" y="544" text-anchor="middle" font-family="Segoe UI,Arial,sans-serif" font-size="12" fill="#45535f">25</text>
+<text x="996" y="544" text-anchor="middle" font-family="Segoe UI,Arial,sans-serif" font-size="12" fill="#45535f">50</text>
+<text x="1090" y="544" text-anchor="middle" font-family="Segoe UI,Arial,sans-serif" font-size="12" fill="#45535f">100</text>
+<path d="M620.0,285.4 L714.0,285.4 L808.0,258.0 L902.0,258.0 L996.0,209.2 L1090.0,203.1" fill="none" stroke="#c2413a" stroke-width="2.5" stroke-linejoin="round"/>
+<circle cx="620" cy="285.390625" r="4" fill="#c2413a"><title>1 ms PLC minimum cycle: backlog 77</title></circle>
+<circle cx="714" cy="285.390625" r="4" fill="#c2413a"><title>1 ms PLC minimum cycle: backlog 77</title></circle>
+<circle cx="808" cy="257.96875" r="4" fill="#c2413a"><title>1 ms PLC minimum cycle: backlog 86</title></circle>
+<circle cx="902" cy="257.96875" r="4" fill="#c2413a"><title>1 ms PLC minimum cycle: backlog 86</title></circle>
+<circle cx="996" cy="209.21875" r="4" fill="#c2413a"><title>1 ms PLC minimum cycle: backlog 102</title></circle>
+<circle cx="1090" cy="203.125" r="4" fill="#c2413a"><title>1 ms PLC minimum cycle: backlog 104</title></circle>
+<path d="M620.0,376.8 L714.0,376.8 L808.0,382.9 L902.0,382.9 L996.0,349.4 L1090.0,300.6" fill="none" stroke="#d18b00" stroke-width="2.5" stroke-linejoin="round"/>
+<circle cx="620" cy="376.796875" r="4" fill="#d18b00"><title>5 ms PLC minimum cycle: backlog 47</title></circle>
+<circle cx="714" cy="376.796875" r="4" fill="#d18b00"><title>5 ms PLC minimum cycle: backlog 47</title></circle>
+<circle cx="808" cy="382.890625" r="4" fill="#d18b00"><title>5 ms PLC minimum cycle: backlog 45</title></circle>
+<circle cx="902" cy="382.890625" r="4" fill="#d18b00"><title>5 ms PLC minimum cycle: backlog 45</title></circle>
+<circle cx="996" cy="349.375" r="4" fill="#d18b00"><title>5 ms PLC minimum cycle: backlog 56</title></circle>
+<circle cx="1090" cy="300.625" r="4" fill="#d18b00"><title>5 ms PLC minimum cycle: backlog 72</title></circle>
+<path d="M620.0,449.9 L714.0,449.9 L808.0,446.9 L902.0,434.7 L996.0,395.1 L1090.0,385.9" fill="none" stroke="#167d78" stroke-width="2.5" stroke-linejoin="round"/>
+<circle cx="620" cy="449.921875" r="4" fill="#167d78"><title>10 ms PLC minimum cycle: backlog 23</title></circle>
+<circle cx="714" cy="449.921875" r="4" fill="#167d78"><title>10 ms PLC minimum cycle: backlog 23</title></circle>
+<circle cx="808" cy="446.875" r="4" fill="#167d78"><title>10 ms PLC minimum cycle: backlog 24</title></circle>
+<circle cx="902" cy="434.6875" r="4" fill="#167d78"><title>10 ms PLC minimum cycle: backlog 28</title></circle>
+<circle cx="996" cy="395.078125" r="4" fill="#167d78"><title>10 ms PLC minimum cycle: backlog 41</title></circle>
+<circle cx="1090" cy="385.9375" r="4" fill="#167d78"><title>10 ms PLC minimum cycle: backlog 44</title></circle>
+<path d="M620.0,459.1 L714.0,459.1 L808.0,459.1 L902.0,446.9 L996.0,428.6 L1090.0,428.6" fill="none" stroke="#3366a8" stroke-width="2.5" stroke-linejoin="round"/>
+<circle cx="620" cy="459.0625" r="4" fill="#3366a8"><title>15 ms PLC minimum cycle: backlog 20</title></circle>
+<circle cx="714" cy="459.0625" r="4" fill="#3366a8"><title>15 ms PLC minimum cycle: backlog 20</title></circle>
+<circle cx="808" cy="459.0625" r="4" fill="#3366a8"><title>15 ms PLC minimum cycle: backlog 20</title></circle>
+<circle cx="902" cy="446.875" r="4" fill="#3366a8"><title>15 ms PLC minimum cycle: backlog 24</title></circle>
+<circle cx="996" cy="428.59375" r="4" fill="#3366a8"><title>15 ms PLC minimum cycle: backlog 30</title></circle>
+<circle cx="1090" cy="428.59375" r="4" fill="#3366a8"><title>15 ms PLC minimum cycle: backlog 30</title></circle>
+<text x="855" y="572" text-anchor="middle" font-family="Segoe UI,Arial,sans-serif" font-size="13" fill="#45535f">Monitoring interval (ms)</text>
+<text x="20" y="325" transform="rotate(-90 20 325)" text-anchor="middle" font-family="Segoe UI,Arial,sans-serif" font-size="13" fill="#45535f">Maximum observed backlog</text>
+<line x1="250" y1="598" x2="278" y2="598" stroke="#c2413a" stroke-width="3"/>
+<circle cx="264" cy="598" r="4" fill="#c2413a"/>
+<text x="286" y="603" font-family="Segoe UI,Arial,sans-serif" font-size="13" fill="#34424d">1 ms PLC minimum cycle</text>
+<line x1="455" y1="598" x2="483" y2="598" stroke="#d18b00" stroke-width="3"/>
+<circle cx="469" cy="598" r="4" fill="#d18b00"/>
+<text x="491" y="603" font-family="Segoe UI,Arial,sans-serif" font-size="13" fill="#34424d">5 ms PLC minimum cycle</text>
+<line x1="660" y1="598" x2="688" y2="598" stroke="#167d78" stroke-width="3"/>
+<circle cx="674" cy="598" r="4" fill="#167d78"/>
+<text x="696" y="603" font-family="Segoe UI,Arial,sans-serif" font-size="13" fill="#34424d">10 ms PLC minimum cycle</text>
+<line x1="865" y1="598" x2="893" y2="598" stroke="#3366a8" stroke-width="3"/>
+<circle cx="879" cy="598" r="4" fill="#3366a8"/>
+<text x="901" y="603" font-family="Segoe UI,Arial,sans-serif" font-size="13" fill="#34424d">15 ms PLC minimum cycle</text>
+<text x="560" y="633" text-anchor="middle" font-family="Segoe UI,Arial,sans-serif" font-size="12" fill="#6a7781">All 440 runs completed Passed with 0 lost events. This is measured workload evidence, not a capacity guarantee.</text>
+</svg>

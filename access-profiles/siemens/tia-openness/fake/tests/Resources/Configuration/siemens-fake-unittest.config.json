@@ -1,0 +1,46 @@
+{
+  "version": 1,
+  "project": {
+    "source": "..\\FakeProjects\\siemens-fake-project.apf"
+  },
+  "accessProfile": {
+    "id": "siemens",
+    "version": "2.0.0",
+    "values": {
+      "plcRef": {
+        "id": "siemens-fake-plc"
+      },
+      "runtimeRef": {
+        "instanceName": "SiemensFakeRuntime",
+        "cpuType": "s7-1500"
+      },
+      "unitTest": {
+        "runControl": "DB_UnitTestRunControl",
+        "eventBuffer": "DB_UnitTestEventBuffer",
+        "observationStrategy": "polling",
+        "monitoringIntervalMs": 10,
+        "drainIntervalMs": 1,
+        "maxEventsPerBatch": 32
+      },
+      "cleanup": {
+        "runtime": "release"
+      }
+    }
+  },
+  "execution": {
+    "timeouts": {
+      "projectPrepare": "00:01:00",
+      "buildTransfer": "00:10:00",
+      "runtimePrepare": "00:01:00",
+      "plcCommand": "00:00:10",
+      "plcStartReaction": "00:00:30",
+      "plcStopReaction": "00:00:30",
+      "communicationPrepare": "00:00:30",
+      "communicationRevalidation": "00:00:30",
+      "unitTestCommand": "00:00:03",
+      "unitTestCommandReaction": "00:00:10",
+      "testRun": "00:02:00",
+      "finalEvent": "00:00:10"
+    }
+  }
+}

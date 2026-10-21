@@ -1,0 +1,71 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <ItemGroup>
+    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.10.0" />
+    <PackageReference Include="xunit" Version="2.9.0" />
+    <PackageReference Include="xunit.runner.visualstudio" Version="2.8.2" />
+    <Reference Include="PLCSIM.UnitTest.Common">
+      <HintPath>$(ContractArtifactsDir)PLCSIM.UnitTest.Common.dll</HintPath>
+      <Private>true</Private>
+    </Reference>
+    <Reference Include="PLCSIM.UnitTest.Common.Application">
+      <HintPath>$(ContractArtifactsDir)PLCSIM.UnitTest.Common.Application.dll</HintPath>
+      <Private>true</Private>
+    </Reference>
+    <Reference Include="PLCSIM.UnitTest.AccessProfiles.Siemens.Contracts">
+      <HintPath>$(ContractArtifactsDir)PLCSIM.UnitTest.AccessProfiles.Siemens.Contracts.dll</HintPath>
+      <Private>true</Private>
+    </Reference>
+    <ProjectReference Include="..\..\..\src\PLCSIM.UnitTest.Core\PLCSIM.UnitTest.Core.csproj" />
+    <ProjectReference Include="..\src\PLCSIM.UnitTest.AccessProfiles.Siemens\PLCSIM.UnitTest.AccessProfiles.Siemens.csproj" />
+    <ProjectReference Include="..\tia-openness\fake\src\PLCSIM.UnitTest.AccessProfiles.Siemens.TiaOpenness.Fake\PLCSIM.UnitTest.AccessProfiles.Siemens.TiaOpenness.Fake.csproj" />
+    <ProjectReference Include="..\plcsim-advanced\fake\src\PLCSIM.UnitTest.AccessProfiles.Siemens.PlcsimAdvanced.Fake\PLCSIM.UnitTest.AccessProfiles.Siemens.PlcsimAdvanced.Fake.csproj" />
+    <ProjectReference Include="..\..\..\tests\PLCSIM.UnitTest.Testing\PLCSIM.UnitTest.Testing.csproj" />
+  </ItemGroup>
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+    <IsTestProject>true</IsTestProject>
+    <AssemblyName>PLCSIM.UnitTest.Tests.AccessProfiles.Siemens</AssemblyName>
+  </PropertyGroup>
+  <Target Name="StageSiemensAccessProfileConformancePackage" AfterTargets="Build">
+    <PropertyGroup>
+      <_SiemensConformanceRoot>$(OutDir)conformance-profiles\</_SiemensConformanceRoot>
+      <_SiemensConformancePackageDir>$(_SiemensConformanceRoot)siemens\</_SiemensConformancePackageDir>
+      <_SiemensConformanceBindingDir>$(_SiemensConformancePackageDir)lib\bindings\</_SiemensConformanceBindingDir>
+      <_SiemensProfileSourceDir>$(RepoRoot)access-profiles\siemens\src\PLCSIM.UnitTest.AccessProfiles.Siemens\</_SiemensProfileSourceDir>
+      <_FakeTiaSourceDir>$(RepoRoot)access-profiles\siemens\tia-openness\fake\src\PLCSIM.UnitTest.AccessProfiles.Siemens.TiaOpenness.Fake\</_FakeTiaSourceDir>
+      <_FakePlcsimSourceDir>$(RepoRoot)access-profiles\siemens\plcsim-advanced\fake\src\PLCSIM.UnitTest.AccessProfiles.Siemens.PlcsimAdvanced.Fake\</_FakePlcsimSourceDir>
+      <_FakeProjectSource>$(RepoRoot)access-profiles\siemens\tia-openness\fake\tests\Resources\FakeProjects\siemens-fake-project.apf</_FakeProjectSource>
+    </PropertyGroup>
+    <MakeDir Directories="$(_SiemensConformancePackageDir)" />
+    <MakeDir Directories="$(_SiemensConformancePackageDir)docs" />
+    <MakeDir Directories="$(_SiemensConformanceBindingDir)tia-openness-fake" />
+    <MakeDir Directories="$(_SiemensConformanceBindingDir)plcsim-advanced-fake" />
+    <MakeDir Directories="$(_SiemensConformancePackageDir)projects" />
+    <Copy
+      SourceFiles="$(OutDir)PLCSIM.UnitTest.AccessProfiles.Siemens.dll;$(OutDir)PLCSIM.UnitTest.AccessProfiles.Siemens.Contracts.dll"
+      DestinationFolder="$(_SiemensConformancePackageDir)"
+      SkipUnchangedFiles="true" />
+    <Copy
+      SourceFiles="$(_SiemensProfileSourceDir)manifest.json"
+      DestinationFolder="$(_SiemensConformancePackageDir)"
+      SkipUnchangedFiles="true" />
+    <Copy
+      SourceFiles="$(RepoRoot)access-profiles\siemens\docs\configuration.md"
+      DestinationFolder="$(_SiemensConformancePackageDir)docs"
+      SkipUnchangedFiles="true" />
+    <Copy
+      SourceFiles="$(OutDir)PLCSIM.UnitTest.AccessProfiles.Siemens.TiaOpenness.Fake.dll;$(_FakeTiaSourceDir)manifest.json"
+      DestinationFolder="$(_SiemensConformanceBindingDir)tia-openness-fake"
+      SkipUnchangedFiles="true" />
+    <Copy
+      SourceFiles="$(OutDir)PLCSIM.UnitTest.AccessProfiles.Siemens.PlcsimAdvanced.Fake.dll;$(_FakePlcsimSourceDir)manifest.json"
+      DestinationFolder="$(_SiemensConformanceBindingDir)plcsim-advanced-fake"
+      SkipUnchangedFiles="true" />
+    <Copy
+      SourceFiles="$(_FakeProjectSource)"
+      DestinationFolder="$(_SiemensConformancePackageDir)projects"
+      SkipUnchangedFiles="true" />
+  </Target>
+</Project>

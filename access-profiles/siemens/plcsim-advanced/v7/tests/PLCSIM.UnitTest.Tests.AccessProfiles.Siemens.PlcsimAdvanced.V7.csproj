@@ -1,0 +1,54 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <ItemGroup>
+    <Compile Remove="worker\**\*.cs" />
+    <None Remove="worker\**\*" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="..\worker\shared\EventBufferPollingSnapshotClassifier.cs" Link="WorkerShared\EventBufferPollingSnapshotClassifier.cs" />
+    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.10.0" />
+    <PackageReference Include="xunit" Version="2.9.0" />
+    <PackageReference Include="xunit.runner.visualstudio" Version="2.8.2" />
+    <Reference Include="PLCSIM.UnitTest.Common">
+      <HintPath>$(ContractArtifactsDir)PLCSIM.UnitTest.Common.dll</HintPath>
+      <Private>true</Private>
+    </Reference>
+    <Reference Include="PLCSIM.UnitTest.Common.Application">
+      <HintPath>$(ContractArtifactsDir)PLCSIM.UnitTest.Common.Application.dll</HintPath>
+      <Private>true</Private>
+    </Reference>
+    <Reference Include="PLCSIM.UnitTest.AccessProfiles.Siemens.Contracts">
+      <HintPath>$(ContractArtifactsDir)PLCSIM.UnitTest.AccessProfiles.Siemens.Contracts.dll</HintPath>
+      <Private>true</Private>
+    </Reference>
+    <ProjectReference Include="..\src\PLCSIM.UnitTest.AccessProfiles.Siemens.PlcsimAdvanced.V7\PLCSIM.UnitTest.AccessProfiles.Siemens.PlcsimAdvanced.V7.csproj" />
+  </ItemGroup>
+
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+    <IsTestProject>true</IsTestProject>
+    <AssemblyName>PLCSIM.UnitTest.Tests.AccessProfiles.Siemens.PlcsimAdvanced.V7</AssemblyName>
+  </PropertyGroup>
+
+  <Target Name="BuildPlcsimAdvancedV7Worker" BeforeTargets="Build">
+    <MSBuild
+      Projects="..\worker\PLCSIM.UnitTest.AccessProfiles.Siemens.PlcsimAdvanced.V7.Worker\PLCSIM.UnitTest.AccessProfiles.Siemens.PlcsimAdvanced.V7.Worker.csproj"
+      Targets="Build"
+      Properties="Configuration=$(Configuration)" />
+    <MSBuild
+      Projects="worker\ValidationWorker\PLCSIM.UnitTest.AccessProfiles.Siemens.PlcsimAdvanced.V7.ValidationWorker.csproj"
+      Targets="Build"
+      Properties="Configuration=$(Configuration)" />
+  </Target>
+
+  <Target Name="CopyPlcsimAdvancedV7Worker" AfterTargets="Build">
+    <ItemGroup>
+      <PlcsimAdvancedV7WorkerOutput Include="..\worker\PLCSIM.UnitTest.AccessProfiles.Siemens.PlcsimAdvanced.V7.Worker\bin\$(Configuration)\net48\*.*" />
+    </ItemGroup>
+    <Copy
+      SourceFiles="@(PlcsimAdvancedV7WorkerOutput)"
+      DestinationFolder="$(TargetDir)"
+      SkipUnchangedFiles="true" />
+  </Target>
+</Project>

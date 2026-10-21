@@ -1,0 +1,24 @@
+# Starter configuration for a pre-provisioned self-managed Windows runner.
+variables:
+  PLCSIM_UNITTEST_CLI: 'C:\Program Files\PLCSIM.UnitTest\PLCSIM.UnitTest.App.Cli.exe'
+
+plcsim-unit-test:
+  stage: test
+  tags: [windows, plcsim]
+  resource_group: plcsim-unittest-runtime
+  script:
+    - |
+      $jobResults = Join-Path $env:CI_PROJECT_DIR "artifacts\plcsim-unittest\$env:CI_JOB_ID"
+      $env:PLCSIM_UNITTEST_CONFIG = Join-Path $env:CI_PROJECT_DIR 'ci\plcsim-unittest.json'
+      $env:PLCSIM_UNITTEST_JUNIT = Join-Path $jobResults 'plcsim-unittest.xml'
+      $env:PLCSIM_UNITTEST_ANALYSIS = Join-Path $jobResults 'analysis'
+    - '& $env:PLCSIM_UNITTEST_CLI list-profiles; if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }'
+    - '& $env:PLCSIM_UNITTEST_CLI check-config --file $env:PLCSIM_UNITTEST_CONFIG; if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }'
+    - '& $env:PLCSIM_UNITTEST_CLI run --file $env:PLCSIM_UNITTEST_CONFIG --output $env:PLCSIM_UNITTEST_JUNIT --analysis-output $env:PLCSIM_UNITTEST_ANALYSIS; exit $LASTEXITCODE'
+  artifacts:
+    when: always
+    reports:
+      junit: artifacts/plcsim-unittest/$CI_JOB_ID/plcsim-unittest.xml
+    paths:
+      - artifacts/plcsim-unittest/$CI_JOB_ID/plcsim-unittest.xml
+      - artifacts/plcsim-unittest/$CI_JOB_ID/analysis/**/*.zip

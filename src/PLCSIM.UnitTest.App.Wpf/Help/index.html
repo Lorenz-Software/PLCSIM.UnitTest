@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Application overview - PLCSIM UnitTest Help</title>
+  <link rel="stylesheet" href="assets/help.css">
+</head>
+<body>
+  <header class="site-header">
+    <div class="header-content">
+      <img class="product-logo" src="assets/PLCSIM.UnitTest.png" alt="PLCSIM UnitTest">
+      <div><p class="product-name">PLCSIM UnitTest</p><h1>Application overview</h1></div>
+    </div>
+  </header>
+  <div class="help-layout">
+    <nav class="help-navigation" aria-label="Help topics">
+      <h2>Help topics</h2>
+      <ol><li><a aria-current="page" href="index.html">Overview</a></li>
+        <li><a href="workflow.html">Session setup</a></li>
+        <li><a href="operation.html">Test execution</a></li>
+        <li><a href="analysis.html">Evidence analysis</a></li>
+        <li><a href="diagnostics.html">Status and recovery</a></li>
+        <li><a href="settings.html">Settings</a></li>
+        <li><a href="configuration.html">Configuration authoring</a></li>
+        <li><a href="ci-integration.html">CI integration</a></li></ol>
+    </nav>
+    <main>
+<h2>Application purpose</h2>
+<p>The PLCSIM UnitTest WPF application is the manual and diagnostic workbench for preparing a PLC runtime target, controlling PLC-side UnitTests, observing their evidence, and inspecting the resulting test report. The companion CLI uses the shared workflow for unattended execution and CI.</p>
+<p>The application itself remains independent of vendor APIs. Installed access profiles provide project, runtime, PLC, and UnitTest communication capabilities.</p>
+<figure class="screenshot screenshot-wide">
+  <img src="assets/screenshots/application-overview.png" alt="The complete PLCSIM UnitTest workbench">
+  <figcaption>The workbench keeps session setup on the left, operational status at the top, results in the center, evidence at the bottom, and the selected context in the status line.</figcaption>
+</figure>
+<h2>User interface</h2>
+<dl class="area-list">
+  <dt>Session sidebar</dt>
+  <dd>The four-step setup selects the project and profile, PLC/runtime targets, profile configuration, and finally exposes test controls.</dd>
+  <dt>Status badges</dt>
+  <dd>Runtime Setup, PLC, Communication, Event Stream Monitor, and Run Control show separate aspects of current readiness.</dd>
+  <dt>Main content</dt>
+  <dd>Run Result and Test Result Artifact present the latest reconstructed UnitTest result and generated JUnit XML.</dd>
+  <dt>Output, Diagnostics, and Analysis</dt>
+  <dd>Output records chronological workflow progress. Diagnostics retain structured warnings and errors. Analysis creates an on-demand compact summary and an immutable ZIP handoff from retained structured evidence.</dd>
+  <dt>Status line</dt>
+  <dd>The footer identifies the selected profile, project, PLC target, runtime target, and current application activity.</dd>
+</dl>
+<h2>Help contents</h2>
+<p>This help describes common application behavior. The installed <code>profiles\&lt;profile package&gt;\docs\configuration.md</code> defines the selected profile's configuration fields. Its other packaged documentation describes supported project sources, vendor setup, runtime restrictions, and validation evidence. Those details differ between profiles.</p>
+<ul>
+  <li>Use <a href="workflow.html">Session setup</a> to choose an entry path and prepare a session.</li>
+  <li>Use <a href="operation.html">Test execution</a> for PLC control, UnitTest runs, results, and repeated debugging.</li>
+  <li>Use <a href="analysis.html">Evidence analysis</a> to diagnose PLC-side UnitTest integration and lifecycle problems.</li>
+  <li>Use <a href="ci-integration.html">CI integration</a> to provision a Windows agent and adapt the installed pipeline starters.</li>
+  <li>Use <a href="diagnostics.html">Status and recovery</a> when interpreting readiness or recovering a session.</li>
+  <li>Use <a href="configuration.html">Configuration authoring</a> when creating a JSON file for WPF import or CI execution.</li>
+</ul>
+
+    </main>
+  </div>
+  <footer class="site-footer">
+    <div class="footer-content">
+      <a href="https://www.lorenz-software.solutions/"><img src="assets/LogoLorenzSoftware.png" alt="Lorenz Software"></a>
+      <p>PLCSIM UnitTest offline help. <a href="license.html">License</a></p>
+    </div>
+  </footer>
+</body>
+</html>

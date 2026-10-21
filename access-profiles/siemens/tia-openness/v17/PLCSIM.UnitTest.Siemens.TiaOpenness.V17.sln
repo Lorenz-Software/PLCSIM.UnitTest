@@ -1,0 +1,30 @@
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.0.31903.59
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PLCSIM.UnitTest.AccessProfiles.Siemens.TiaOpenness.V17", "src\PLCSIM.UnitTest.AccessProfiles.Siemens.TiaOpenness.V17\PLCSIM.UnitTest.AccessProfiles.Siemens.TiaOpenness.V17.csproj", "{C73A1D67-19D0-4A94-BA8E-6B5E89E7AA17}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PLCSIM.UnitTest.AccessProfiles.Siemens.TiaOpenness.V17.Worker", "worker\PLCSIM.UnitTest.AccessProfiles.Siemens.TiaOpenness.V17.Worker\PLCSIM.UnitTest.AccessProfiles.Siemens.TiaOpenness.V17.Worker.csproj", "{F17E43A2-6B40-4B51-9D37-2D6C87E19A04}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PLCSIM.UnitTest.Tests.AccessProfiles.Siemens.TiaOpenness.V17", "tests\PLCSIM.UnitTest.Tests.AccessProfiles.Siemens.TiaOpenness.V17.csproj", "{2D6E9817-AC53-47D8-B164-71F0C8A3259E}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{C73A1D67-19D0-4A94-BA8E-6B5E89E7AA17}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C73A1D67-19D0-4A94-BA8E-6B5E89E7AA17}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C73A1D67-19D0-4A94-BA8E-6B5E89E7AA17}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C73A1D67-19D0-4A94-BA8E-6B5E89E7AA17}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F17E43A2-6B40-4B51-9D37-2D6C87E19A04}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F17E43A2-6B40-4B51-9D37-2D6C87E19A04}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F17E43A2-6B40-4B51-9D37-2D6C87E19A04}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F17E43A2-6B40-4B51-9D37-2D6C87E19A04}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2D6E9817-AC53-47D8-B164-71F0C8A3259E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2D6E9817-AC53-47D8-B164-71F0C8A3259E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2D6E9817-AC53-47D8-B164-71F0C8A3259E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2D6E9817-AC53-47D8-B164-71F0C8A3259E}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+EndGlobal

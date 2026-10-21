@@ -1,0 +1,78 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1000" height="640" viewBox="0 0 1000 640" role="img" aria-labelledby="title desc">
+<title id="title">PLCSIM Advanced V8 adaptive EventStream payload-read duration</title>
+<desc id="desc">Mean and p95 payload-read duration for controlled batches from 1 through 192 events, a separate 255-event saturation boundary, a linear operating-range fit, and natural 32-event reference observations.</desc>
+<rect width="1000" height="640" fill="#ffffff"/>
+<text x="54" y="45" font-family="Segoe UI,Arial,sans-serif" font-size="25" font-weight="700" fill="#17212b">Adaptive V8 payload-read cost</text>
+<text x="54" y="75" font-family="Segoe UI,Arial,sans-serif" font-size="14" fill="#4f5e6b">Release build, 1 ms PLC minimum cycle, unthrottled PLC-cycle observation, raw logging disabled</text>
+<line x1="82" y1="530" x2="932" y2="530" stroke="#dce2e7"/>
+<text x="70" y="535" text-anchor="end" font-family="Segoe UI,Arial,sans-serif" font-size="12" fill="#5f6d78">0</text>
+<line x1="82" y1="483.3333333333333" x2="932" y2="483.3333333333333" stroke="#dce2e7"/>
+<text x="70" y="488.3333333333333" text-anchor="end" font-family="Segoe UI,Arial,sans-serif" font-size="12" fill="#5f6d78">100</text>
+<line x1="82" y1="436.6666666666667" x2="932" y2="436.6666666666667" stroke="#dce2e7"/>
+<text x="70" y="441.6666666666667" text-anchor="end" font-family="Segoe UI,Arial,sans-serif" font-size="12" fill="#5f6d78">200</text>
+<line x1="82" y1="390" x2="932" y2="390" stroke="#dce2e7"/>
+<text x="70" y="395" text-anchor="end" font-family="Segoe UI,Arial,sans-serif" font-size="12" fill="#5f6d78">300</text>
+<line x1="82" y1="343.33333333333337" x2="932" y2="343.33333333333337" stroke="#dce2e7"/>
+<text x="70" y="348.33333333333337" text-anchor="end" font-family="Segoe UI,Arial,sans-serif" font-size="12" fill="#5f6d78">400</text>
+<line x1="82" y1="296.66666666666663" x2="932" y2="296.66666666666663" stroke="#dce2e7"/>
+<text x="70" y="301.66666666666663" text-anchor="end" font-family="Segoe UI,Arial,sans-serif" font-size="12" fill="#5f6d78">500</text>
+<line x1="82" y1="250" x2="932" y2="250" stroke="#dce2e7"/>
+<text x="70" y="255" text-anchor="end" font-family="Segoe UI,Arial,sans-serif" font-size="12" fill="#5f6d78">600</text>
+<line x1="82" y1="203.33333333333331" x2="932" y2="203.33333333333331" stroke="#dce2e7"/>
+<text x="70" y="208.33333333333331" text-anchor="end" font-family="Segoe UI,Arial,sans-serif" font-size="12" fill="#5f6d78">700</text>
+<line x1="82" y1="156.66666666666669" x2="932" y2="156.66666666666669" stroke="#dce2e7"/>
+<text x="70" y="161.66666666666669" text-anchor="end" font-family="Segoe UI,Arial,sans-serif" font-size="12" fill="#5f6d78">800</text>
+<line x1="82" y1="110" x2="932" y2="110" stroke="#dce2e7"/>
+<text x="70" y="115" text-anchor="end" font-family="Segoe UI,Arial,sans-serif" font-size="12" fill="#5f6d78">900</text>
+<line x1="82" y1="110" x2="82" y2="530" stroke="#edf0f2"/>
+<text x="82" y="554" text-anchor="middle" font-family="Segoe UI,Arial,sans-serif" font-size="12" fill="#45535f">0</text>
+<line x1="188.66666666666669" y1="110" x2="188.66666666666669" y2="530" stroke="#edf0f2"/>
+<text x="188.66666666666669" y="554" text-anchor="middle" font-family="Segoe UI,Arial,sans-serif" font-size="12" fill="#45535f">32</text>
+<line x1="295.33333333333337" y1="110" x2="295.33333333333337" y2="530" stroke="#edf0f2"/>
+<text x="295.33333333333337" y="554" text-anchor="middle" font-family="Segoe UI,Arial,sans-serif" font-size="12" fill="#45535f">64</text>
+<line x1="508.6666666666667" y1="110" x2="508.6666666666667" y2="530" stroke="#edf0f2"/>
+<text x="508.6666666666667" y="554" text-anchor="middle" font-family="Segoe UI,Arial,sans-serif" font-size="12" fill="#45535f">128</text>
+<line x1="722" y1="110" x2="722" y2="530" stroke="#edf0f2"/>
+<text x="722" y="554" text-anchor="middle" font-family="Segoe UI,Arial,sans-serif" font-size="12" fill="#45535f">192</text>
+<line x1="932" y1="110" x2="932" y2="530" stroke="#edf0f2"/>
+<text x="932" y="554" text-anchor="middle" font-family="Segoe UI,Arial,sans-serif" font-size="12" fill="#45535f">255</text>
+<line x1="82" y1="110" x2="82" y2="530" stroke="#667582"/>
+<line x1="82" y1="530" x2="932" y2="530" stroke="#667582"/>
+<path d="M85.3,526.8 L88.7,525.9 L95.3,523.8 L108.7,520.7 L135.3,512.1 L188.7,496.0 L295.3,466.9 L508.7,398.8 L722.0,340.2" fill="none" stroke="#167d78" stroke-width="2.5"/>
+<path d="M85.3,526.0 L88.7,525.3 L95.3,521.4 L108.7,518.2 L135.3,511.1 L188.7,484.6 L295.3,449.9 L508.7,370.7 L722.0,306.1" fill="none" stroke="#d18b00" stroke-width="2.5"/>
+<circle cx="85.33333333333333" cy="526.76264" r="4" fill="#167d78"><title>1 events mean: 6.94 ms</title></circle>
+<circle cx="85.33333333333333" cy="525.9879733333333" r="4" fill="#d18b00"><title>1 events p95: 8.60 ms</title></circle>
+<circle cx="88.66666666666667" cy="525.89898" r="4" fill="#167d78"><title>2 events mean: 8.79 ms</title></circle>
+<circle cx="88.66666666666667" cy="525.3335666666667" r="4" fill="#d18b00"><title>2 events p95: 10.00 ms</title></circle>
+<circle cx="95.33333333333333" cy="523.77238" r="4" fill="#167d78"><title>4 events mean: 13.34 ms</title></circle>
+<circle cx="95.33333333333333" cy="521.35584" r="4" fill="#d18b00"><title>4 events p95: 18.52 ms</title></circle>
+<circle cx="108.66666666666667" cy="520.6612533333333" r="4" fill="#167d78"><title>8 events mean: 20.01 ms</title></circle>
+<circle cx="108.66666666666667" cy="518.2428" r="4" fill="#d18b00"><title>8 events p95: 25.19 ms</title></circle>
+<circle cx="135.33333333333334" cy="512.1070666666667" r="4" fill="#167d78"><title>16 events mean: 38.34 ms</title></circle>
+<circle cx="135.33333333333334" cy="511.0789066666667" r="4" fill="#d18b00"><title>16 events p95: 40.55 ms</title></circle>
+<circle cx="188.66666666666669" cy="495.9740733333333" r="4" fill="#167d78"><title>32 events mean: 72.91 ms</title></circle>
+<circle cx="188.66666666666669" cy="484.60178" r="4" fill="#d18b00"><title>32 events p95: 97.28 ms</title></circle>
+<circle cx="295.33333333333337" cy="466.87801333333334" r="4" fill="#167d78"><title>64 events mean: 135.26 ms</title></circle>
+<circle cx="295.33333333333337" cy="449.8602666666667" r="4" fill="#d18b00"><title>64 events p95: 171.73 ms</title></circle>
+<circle cx="508.6666666666667" cy="398.81220666666667" r="4" fill="#167d78"><title>128 events mean: 281.12 ms</title></circle>
+<circle cx="508.6666666666667" cy="370.7185933333334" r="4" fill="#d18b00"><title>128 events p95: 341.32 ms</title></circle>
+<circle cx="722" cy="340.1501066666667" r="4" fill="#167d78"><title>192 events mean: 406.82 ms</title></circle>
+<circle cx="722" cy="306.1413533333333" r="4" fill="#d18b00"><title>192 events p95: 479.70 ms</title></circle>
+<path d="M82,527.9406 L722,338.79499999999996" fill="none" stroke="#3366a8" stroke-width="2" stroke-dasharray="8 6"/>
+<circle cx="932" cy="240.7956533333333" r="6" fill="#c2413a"><title>255-event boundary mean: 619.72 ms</title></circle>
+<circle cx="932" cy="115.77747333333332" r="6" fill="#c2413a" stroke="#ffffff" stroke-width="2"><title>255-event boundary p95: 887.62 ms</title></circle>
+<path d="M188.66666666666669,485.88138 L195.66666666666669,492.88138 L188.66666666666669,499.88138 L181.66666666666669,492.88138 Z" fill="#6d4aa2"><title>Natural 32-event mean: 79.54 ms</title></path>
+<text x="507" y="584" text-anchor="middle" font-family="Segoe UI,Arial,sans-serif" font-size="13" fill="#45535f">Events read in one payload operation</text>
+<text x="20" y="320" transform="rotate(-90 20 320)" text-anchor="middle" font-family="Segoe UI,Arial,sans-serif" font-size="13" fill="#45535f">Payload-read duration (ms)</text>
+<circle cx="74" cy="603" r="5" fill="#167d78"/>
+<text x="85" y="608" font-family="Segoe UI,Arial,sans-serif" font-size="12" fill="#34424d">Mean</text>
+<circle cx="147" cy="603" r="5" fill="#d18b00"/>
+<text x="158" y="608" font-family="Segoe UI,Arial,sans-serif" font-size="12" fill="#34424d">p95</text>
+<circle cx="213.5" cy="603" r="5" fill="#3366a8"/>
+<text x="224.5" y="608" font-family="Segoe UI,Arial,sans-serif" font-size="12" fill="#34424d">Linear fit, 1-192 events</text>
+<circle cx="416.5" cy="603" r="5" fill="#c2413a"/>
+<text x="427.5" y="608" font-family="Segoe UI,Arial,sans-serif" font-size="12" fill="#34424d">255-event boundary</text>
+<circle cx="580.5" cy="603" r="5" fill="#6d4aa2"/>
+<text x="591.5" y="608" font-family="Segoe UI,Arial,sans-serif" font-size="12" fill="#34424d">Natural 32-event mean</text>
+<text x="700" y="102" font-family="Segoe UI,Arial,sans-serif" font-size="12" fill="#3366a8">4.413 + 2.111 ms/event, R2 = 0.9878</text>
+</svg>

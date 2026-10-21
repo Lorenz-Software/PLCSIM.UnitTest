@@ -1,0 +1,42 @@
+# Copy to .github/workflows/plcsim-unit-test.yml and adapt paths and labels.
+name: PLCSIM UnitTest
+
+concurrency:
+  group: plcsim-unittest-runtime
+  cancel-in-progress: false
+
+on:
+  workflow_dispatch:
+  push:
+
+jobs:
+  plcsim-unit-test:
+    runs-on: [self-hosted, Windows, plcsim]
+    env:
+      PLCSIM_UNITTEST_CLI: 'C:\Program Files\PLCSIM.UnitTest\PLCSIM.UnitTest.App.Cli.exe'
+      PLCSIM_UNITTEST_CONFIG: '${{ github.workspace }}\ci\plcsim-unittest.json'
+      PLCSIM_UNITTEST_JUNIT: '${{ github.workspace }}\artifacts\plcsim-unittest\${{ github.run_id }}-${{ github.run_attempt }}\plcsim-unittest.xml'
+      PLCSIM_UNITTEST_ANALYSIS: '${{ github.workspace }}\artifacts\plcsim-unittest\${{ github.run_id }}-${{ github.run_attempt }}\analysis'
+    steps:
+      - uses: actions/checkout@v4
+      - name: Inspect registered profiles
+        shell: pwsh
+        run: '& $env:PLCSIM_UNITTEST_CLI list-profiles; exit $LASTEXITCODE'
+      - name: Check configuration
+        shell: pwsh
+        run: '& $env:PLCSIM_UNITTEST_CLI check-config --file $env:PLCSIM_UNITTEST_CONFIG; exit $LASTEXITCODE'
+      - name: Run PLC UnitTests
+        shell: pwsh
+        run: '& $env:PLCSIM_UNITTEST_CLI run --file $env:PLCSIM_UNITTEST_CONFIG --output $env:PLCSIM_UNITTEST_JUNIT --analysis-output $env:PLCSIM_UNITTEST_ANALYSIS; exit $LASTEXITCODE'
+      - name: Upload JUnit artifact
+        if: always() && hashFiles(format('artifacts/plcsim-unittest/{0}-{1}/plcsim-unittest.xml', github.run_id, github.run_attempt)) != ''
+        uses: actions/upload-artifact@v4
+        with:
+          name: plcsim-unittest-junit
+          path: artifacts/plcsim-unittest/${{ github.run_id }}-${{ github.run_attempt }}/plcsim-unittest.xml
+      - name: Upload evidence analysis
+        if: always() && hashFiles(format('artifacts/plcsim-unittest/{0}-{1}/analysis/**/*.zip', github.run_id, github.run_attempt)) != ''
+        uses: actions/upload-artifact@v4
+        with:
+          name: plcsim-unittest-analysis
+          path: artifacts/plcsim-unittest/${{ github.run_id }}-${{ github.run_attempt }}/analysis/**/*.zip

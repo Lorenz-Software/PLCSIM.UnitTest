@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Settings - PLCSIM UnitTest Help</title>
+  <link rel="stylesheet" href="assets/help.css">
+</head>
+<body>
+  <header class="site-header">
+    <div class="header-content">
+      <img class="product-logo" src="assets/PLCSIM.UnitTest.png" alt="PLCSIM UnitTest">
+      <div><p class="product-name">PLCSIM UnitTest</p><h1>Settings</h1></div>
+    </div>
+  </header>
+  <div class="help-layout">
+    <nav class="help-navigation" aria-label="Help topics">
+      <h2>Help topics</h2>
+      <ol><li><a href="index.html">Overview</a></li>
+        <li><a href="workflow.html">Session setup</a></li>
+        <li><a href="operation.html">Test execution</a></li>
+        <li><a href="analysis.html">Evidence analysis</a></li>
+        <li><a href="diagnostics.html">Status and recovery</a></li>
+        <li><a aria-current="page" href="settings.html">Settings</a></li>
+        <li><a href="configuration.html">Configuration authoring</a></li>
+        <li><a href="ci-integration.html">CI integration</a></li></ol>
+    </nav>
+    <main>
+<h2>Settings scope</h2>
+<p>Open <strong>Tools &gt; Settings...</strong> to configure application-level defaults and file/logging policy. Settings initialize new sessions; they do not replace the selected profile's configuration or the current session choices.</p>
+
+<h2>General</h2>
+<figure class="screenshot screenshot-settings">
+  <img src="assets/screenshots/settings-general.png" alt="General settings">
+  <figcaption>General contains defaults that influence new manual sessions.</figcaption>
+</figure>
+<table>
+  <thead><tr><th>Setting</th><th>Description</th></tr></thead>
+  <tbody>
+    <tr><td>Build and download project by default</td><td>Initializes the Step 1 project-handling choice for new manual sessions and imported drafts. The checkbox remains editable. Load UnitTest always uses application-managed project handling.</td></tr>
+  </tbody>
+</table>
+
+<h2>Timeouts</h2>
+<p>Values are entered in seconds and define application-owned overall operation or observation boundaries. Imported configuration and current-session overrides take precedence where supported.</p>
+<figure class="screenshot screenshot-settings">
+  <img src="assets/screenshots/settings-timeouts.png" alt="Timeout settings">
+  <figcaption>Timeout defaults are grouped by the operation or observation they bound.</figcaption>
+</figure>
+<h3>Setup</h3>
+<table>
+  <thead><tr><th>Setting</th><th>Description</th></tr></thead>
+  <tbody>
+    <tr><td>Project prepare</td><td>Limits opening or refreshing the selected project and preparing its target context.</td></tr>
+    <tr><td>Build and transfer</td><td>Limits the combined project build and download operation.</td></tr>
+    <tr><td>Runtime prepare</td><td>Limits preparation of the selected or newly created runtime target.</td></tr>
+    <tr><td>Communication prepare</td><td>Limits establishment of UnitTest communication after the PLC becomes usable.</td></tr>
+  </tbody>
+</table>
+<h3>PLC control</h3>
+<table>
+  <thead><tr><th>Setting</th><th>Description</th></tr></thead>
+  <tbody>
+    <tr><td>PLC command</td><td>Limits the API call used to submit a PLC start or stop command.</td></tr>
+    <tr><td>PLC start reaction</td><td>Limits monitoring for an observed PLC state compatible with a successful start request.</td></tr>
+    <tr><td>PLC stop reaction</td><td>Limits monitoring for an observed PLC state compatible with a successful stop request.</td></tr>
+  </tbody>
+</table>
+<h3>UnitTest execution</h3>
+<table>
+  <thead><tr><th>Setting</th><th>Description</th></tr></thead>
+  <tbody>
+    <tr><td>UnitTest command</td><td>Limits submission of a Start, Abort, or Reset command to the PLC-side UnitTest application.</td></tr>
+    <tr><td>UnitTest reaction</td><td>Limits monitoring for evidence that the PLC-side application reacted to the submitted command.</td></tr>
+    <tr><td>Test run</td><td>Limits observation of an active RunControl epoch until completion.</td></tr>
+    <tr><td>Final event evidence</td><td>Limits the final wait for result and aggregation events after completion has been observed.</td></tr>
+  </tbody>
+</table>
+<h3>Recovery</h3>
+<table>
+  <thead><tr><th>Setting</th><th>Description</th></tr></thead>
+  <tbody>
+    <tr><td>Communication revalidation</td><td>Limits how long stale UnitTest communication may recover before it becomes invalid. A value of zero disables this terminal timeout.</td></tr>
+  </tbody>
+</table>
+
+<h2>Files and logging</h2>
+<figure class="screenshot screenshot-settings">
+  <img src="assets/screenshots/settings-files-logging.png" alt="Files and logging settings">
+  <figcaption>Files and Logging controls result artifacts and diagnostic logs.</figcaption>
+</figure>
+<h3>Output</h3>
+<table>
+  <thead><tr><th>Setting</th><th>Description</th></tr></thead>
+  <tbody>
+    <tr><td>Output directory</td><td>Defines the base directory for generated test-result artifacts. The default is <code>%LOCALAPPDATA%\PLCSIM.UnitTest\artifacts</code>. The resolved path is shown below the editor.</td></tr>
+    <tr><td>Test result file name</td><td>Defines the file name used for the generated JUnit XML artifact.</td></tr>
+  </tbody>
+</table>
+<h3>Logging</h3>
+<table>
+  <thead><tr><th>Setting</th><th>Description</th></tr></thead>
+  <tbody>
+    <tr><td>Log directory</td><td>Defines the directory containing application, access-profile, and worker logs. The resolved path is shown below the editor.</td></tr>
+    <tr><td>Retention days</td><td>Defines how long eligible log files are retained.</td></tr>
+    <tr><td>Application log level</td><td>Controls diagnostic detail emitted by the WPF application and shared application services.</td></tr>
+    <tr><td>Access profile log level</td><td>Controls diagnostic detail emitted by access profiles. Their internal workers inherit this level unless another host explicitly overrides it.</td></tr>
+    <tr><td>Log raw access-profile events</td><td>Adds raw event evidence for focused troubleshooting. The option is available only when the access-profile log level is Debug.</td></tr>
+  </tbody>
+</table>
+<div class="note"><strong>Restart boundary.</strong> Logging-path and logging-policy changes apply on the next application start. Commands opening the current log continue to target the active startup log.</div>
+
+    </main>
+  </div>
+  <footer class="site-footer">
+    <div class="footer-content">
+      <a href="https://www.lorenz-software.solutions/"><img src="assets/LogoLorenzSoftware.png" alt="Lorenz Software"></a>
+      <p>PLCSIM UnitTest offline help. <a href="license.html">License</a></p>
+    </div>
+  </footer>
+</body>
+</html>

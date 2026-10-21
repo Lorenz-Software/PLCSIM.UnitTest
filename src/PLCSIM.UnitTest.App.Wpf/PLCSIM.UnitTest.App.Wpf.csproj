@@ -1,0 +1,38 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <ItemGroup>
+    <None Include="..\..\LICENSE" Link="LICENSE.txt" CopyToOutputDirectory="PreserveNewest" CopyToPublishDirectory="PreserveNewest" />
+    <None Include="Help\**\*.*">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </None>
+    <Resource Include="Assets\LogoLorenzSoftware.png" />
+    <Resource Include="Assets\PLCSIM.UnitTest.ico" />
+    <Resource Include="Assets\PLCSIM.UnitTest.png" />
+    <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="8.0.0" />
+    <PackageReference Include="Microsoft.Extensions.Logging" Version="8.0.0" />
+    <PackageReference Include="Serilog.Extensions.Logging" Version="8.0.0" />
+    <PackageReference Include="Serilog.Sinks.File" Version="5.0.0" />
+    <Reference Include="PLCSIM.UnitTest.Common">
+      <HintPath>$(ContractArtifactsDir)PLCSIM.UnitTest.Common.dll</HintPath>
+      <Private>true</Private>
+    </Reference>
+    <Reference Include="PLCSIM.UnitTest.Common.Application">
+      <HintPath>$(ContractArtifactsDir)PLCSIM.UnitTest.Common.Application.dll</HintPath>
+      <Private>true</Private>
+    </Reference>
+    <ProjectReference Include="..\PLCSIM.UnitTest.Core\PLCSIM.UnitTest.Core.csproj" />
+    <ProjectReference Include="..\PLCSIM.UnitTest.Exporters.JUnit\PLCSIM.UnitTest.Exporters.JUnit.csproj" />
+  </ItemGroup>
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <Version>2.0.0</Version>
+    <TargetFramework>net8.0-windows</TargetFramework>
+    <ApplicationIcon>Assets\PLCSIM.UnitTest.ico</ApplicationIcon>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <UseWPF>true</UseWPF>
+  </PropertyGroup>
+  <Target Name="GenerateDevelopmentNotices" AfterTargets="Build" Condition="'$(DesignTimeBuild)' != 'true' and '$(Configuration)' == 'Debug'">
+    <Exec Command="powershell.exe -NoProfile -ExecutionPolicy Bypass -File &quot;$(MSBuildProjectDirectory)\..\..\tools\new-third-party-notices.ps1&quot; -AssetFiles &quot;$(ProjectAssetsFile)&quot; -IncludeDotNetHost -OutputPath &quot;$(TargetDir)THIRD-PARTY-NOTICES.txt&quot;" />
+  </Target>
+</Project>

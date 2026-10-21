@@ -1,0 +1,1511 @@
+<Window x:Class="PLCSIM.UnitTest.App.Wpf.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:viewModels="clr-namespace:PLCSIM.UnitTest.App.Wpf.ViewModels"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        mc:Ignorable="d"
+        Title="PLCSIM UnitTest"
+        Icon="Assets/PLCSIM.UnitTest.ico"
+        Height="864"
+        Width="1416"
+        MinHeight="680"
+        MinWidth="1180"
+        FontFamily="Segoe UI"
+        FontSize="11">
+    <Window.Resources>
+        <Style TargetType="{x:Type ComboBoxItem}">
+            <Setter Property="HorizontalContentAlignment" Value="Left" />
+            <Setter Property="VerticalContentAlignment" Value="Center" />
+        </Style>
+        <Style x:Key="StepHeader" TargetType="Button">
+            <Setter Property="BorderBrush" Value="#B8C0CC" />
+            <Setter Property="BorderThickness" Value="1" />
+            <Setter Property="Padding" Value="8,5" />
+            <Setter Property="Margin" Value="0,0,0,4" />
+            <Setter Property="HorizontalContentAlignment" Value="Stretch" />
+            <Setter Property="Background" Value="#F5F7FA" />
+            <Setter Property="Cursor" Value="Arrow" />
+            <Setter Property="ToolTipService.ShowOnDisabled" Value="True" />
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border x:Name="Chrome"
+                                Background="{TemplateBinding Background}"
+                                BorderBrush="{TemplateBinding BorderBrush}"
+                                BorderThickness="{TemplateBinding BorderThickness}"
+                                Padding="{TemplateBinding Padding}">
+                            <ContentPresenter HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+                                              VerticalAlignment="Center" />
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <MultiTrigger>
+                                <MultiTrigger.Conditions>
+                                    <Condition Property="IsEnabled" Value="True" />
+                                    <Condition Property="IsMouseOver" Value="True" />
+                                </MultiTrigger.Conditions>
+                                <Setter TargetName="Chrome" Property="BorderBrush" Value="#7EA6E8" />
+                                <Setter TargetName="Chrome" Property="Background" Value="#EAF2FF" />
+                            </MultiTrigger>
+                            <Trigger Property="IsEnabled" Value="True">
+                                <Setter Property="Cursor" Value="Hand" />
+                            </Trigger>
+                            <Trigger Property="IsKeyboardFocused" Value="True">
+                                <Setter TargetName="Chrome" Property="BorderBrush" Value="#2F80ED" />
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+        <Style x:Key="StepInputLabel" TargetType="TextBlock">
+            <Setter Property="Margin" Value="0,7,0,2" />
+            <Setter Property="Foreground" Value="#374151" />
+        </Style>
+        <Style x:Key="StepTextBox" TargetType="TextBox">
+            <Setter Property="Height" Value="22" />
+            <Setter Property="Padding" Value="4,1" />
+            <Setter Property="VerticalContentAlignment" Value="Center" />
+        </Style>
+        <Style x:Key="Step3InputLabel" TargetType="TextBlock" BasedOn="{StaticResource StepInputLabel}">
+            <Setter Property="Margin" Value="0,4,0,2" />
+        </Style>
+        <Style x:Key="CommunicationPrepareTimeoutField" TargetType="Border">
+            <Setter Property="Background" Value="Transparent" />
+            <Setter Property="BorderBrush" Value="Transparent" />
+            <Style.Triggers>
+                <DataTrigger Binding="{Binding IsCommunicationPrepareTimeoutValid}" Value="False">
+                    <Setter Property="Background" Value="#FFF4F2" />
+                    <Setter Property="BorderBrush" Value="#C2413B" />
+                </DataTrigger>
+            </Style.Triggers>
+        </Style>
+        <Style x:Key="CommunicationRevalidationTimeoutField" TargetType="Border">
+            <Setter Property="Background" Value="Transparent" />
+            <Setter Property="BorderBrush" Value="Transparent" />
+            <Style.Triggers>
+                <DataTrigger Binding="{Binding IsCommunicationRevalidationTimeoutValid}" Value="False">
+                    <Setter Property="Background" Value="#FFF4F2" />
+                    <Setter Property="BorderBrush" Value="#C2413B" />
+                </DataTrigger>
+            </Style.Triggers>
+        </Style>
+        <Style x:Key="CommunicationPrepareTimeoutLabel"
+               TargetType="TextBlock"
+               BasedOn="{StaticResource Step3InputLabel}">
+            <Style.Triggers>
+                <DataTrigger Binding="{Binding IsCommunicationPrepareTimeoutValid}" Value="False">
+                    <Setter Property="Foreground" Value="#B42318" />
+                </DataTrigger>
+            </Style.Triggers>
+        </Style>
+        <Style x:Key="CommunicationRevalidationTimeoutLabel"
+               TargetType="TextBlock"
+               BasedOn="{StaticResource Step3InputLabel}">
+            <Style.Triggers>
+                <DataTrigger Binding="{Binding IsCommunicationRevalidationTimeoutValid}" Value="False">
+                    <Setter Property="Foreground" Value="#B42318" />
+                </DataTrigger>
+            </Style.Triggers>
+        </Style>
+        <Style x:Key="StepComboBox" TargetType="ComboBox">
+            <Setter Property="Height" Value="22" />
+            <Setter Property="Padding" Value="4,0" />
+            <Setter Property="VerticalContentAlignment" Value="Center" />
+            <Setter Property="HorizontalContentAlignment" Value="Left" />
+            <Setter Property="ItemContainerStyle">
+                <Setter.Value>
+                    <Style TargetType="{x:Type ComboBoxItem}">
+                        <Setter Property="HorizontalContentAlignment" Value="Left" />
+                        <Setter Property="VerticalContentAlignment" Value="Center" />
+                    </Style>
+                </Setter.Value>
+            </Setter>
+        </Style>
+        <Style x:Key="MutedText" TargetType="TextBlock">
+            <Setter Property="Foreground" Value="#6B7280" />
+            <Setter Property="FontSize" Value="10" />
+            <Setter Property="TextWrapping" Value="Wrap" />
+        </Style>
+        <Style x:Key="StatusBadge" TargetType="Border">
+            <Setter Property="BorderBrush" Value="#C2CAD5" />
+            <Setter Property="BorderThickness" Value="1" />
+            <Setter Property="Padding" Value="5,2" />
+            <Setter Property="Margin" Value="0,0,6,0" />
+            <Setter Property="Width" Value="96" />
+            <Setter Property="Height" Value="34" />
+            <Setter Property="Background" Value="#FFFFFF" />
+        </Style>
+        <Style x:Key="StatusLabel" TargetType="TextBlock">
+            <Setter Property="Foreground" Value="#6B7280" />
+            <Setter Property="FontSize" Value="9" />
+            <Setter Property="TextTrimming" Value="CharacterEllipsis" />
+        </Style>
+        <Style x:Key="StatusValue" TargetType="TextBlock">
+            <Setter Property="Foreground" Value="#111827" />
+            <Setter Property="FontSize" Value="10" />
+            <Setter Property="TextTrimming" Value="CharacterEllipsis" />
+            <Setter Property="VerticalAlignment" Value="Center" />
+        </Style>
+        <Style x:Key="FooterStatusText" TargetType="TextBlock">
+            <Setter Property="Foreground" Value="#5F6B7A" />
+            <Setter Property="FontSize" Value="10" />
+            <Setter Property="VerticalAlignment" Value="Center" />
+            <Setter Property="TextTrimming" Value="CharacterEllipsis" />
+        </Style>
+        <Style x:Key="FooterStatusLabel" TargetType="TextBlock" BasedOn="{StaticResource FooterStatusText}">
+            <Setter Property="Foreground" Value="#7A8696" />
+            <Setter Property="Margin" Value="0,0,4,0" />
+        </Style>
+        <Style x:Key="FooterStatusValue" TargetType="TextBlock" BasedOn="{StaticResource FooterStatusText}">
+            <Setter Property="Foreground" Value="#374151" />
+        </Style>
+        <Style x:Key="FooterStatusField" TargetType="Grid">
+            <Setter Property="Height" Value="22" />
+            <Setter Property="VerticalAlignment" Value="Center" />
+        </Style>
+        <Style x:Key="FooterStatusSeparator" TargetType="Border">
+            <Setter Property="Width" Value="1" />
+            <Setter Property="Height" Value="14" />
+            <Setter Property="Margin" Value="10,0" />
+            <Setter Property="Background" Value="#C9D1DC" />
+            <Setter Property="VerticalAlignment" Value="Center" />
+        </Style>
+        <Style x:Key="VerticalWorkbenchSplitter" TargetType="GridSplitter">
+            <Setter Property="Width" Value="3" />
+            <Setter Property="HorizontalAlignment" Value="Stretch" />
+            <Setter Property="Background" Value="#EEF1F5" />
+            <Setter Property="BorderBrush" Value="#B8C0CC" />
+            <Setter Property="BorderThickness" Value="0" />
+        </Style>
+        <Style x:Key="HorizontalWorkbenchSplitter" TargetType="GridSplitter">
+            <Setter Property="Height" Value="3" />
+            <Setter Property="HorizontalAlignment" Value="Stretch" />
+            <Setter Property="Background" Value="#FFFFFF" />
+            <Setter Property="BorderBrush" Value="#B8C0CC" />
+            <Setter Property="BorderThickness" Value="0,1,0,0" />
+        </Style>
+        <Style x:Key="VerticalContentSplitter" TargetType="GridSplitter">
+            <Setter Property="Width" Value="3" />
+            <Setter Property="HorizontalAlignment" Value="Stretch" />
+            <Setter Property="Background" Value="#FFFFFF" />
+            <Setter Property="BorderBrush" Value="#B8C0CC" />
+            <Setter Property="BorderThickness" Value="1,0,0,0" />
+        </Style>
+        <Style x:Key="CompactGridHeader" TargetType="{x:Type GridViewColumnHeader}">
+            <Setter Property="Height" Value="22" />
+            <Setter Property="Padding" Value="5,0" />
+            <Setter Property="FontSize" Value="10" />
+            <Setter Property="FontWeight" Value="SemiBold" />
+            <Setter Property="Foreground" Value="#4B5563" />
+            <Setter Property="Background" Value="#F5F7FA" />
+            <Setter Property="BorderBrush" Value="#D8DEE8" />
+            <Setter Property="BorderThickness" Value="0,0,1,1" />
+            <Setter Property="HorizontalContentAlignment" Value="Left" />
+            <Setter Property="VerticalContentAlignment" Value="Center" />
+        </Style>
+        <Style x:Key="CompactDiagnosticRow" TargetType="{x:Type ListViewItem}">
+            <Setter Property="MinHeight" Value="20" />
+            <Setter Property="Height" Value="20" />
+            <Setter Property="Padding" Value="0" />
+            <Setter Property="FontSize" Value="10" />
+            <Setter Property="Foreground" Value="#374151" />
+            <Setter Property="HorizontalContentAlignment" Value="Stretch" />
+            <Setter Property="VerticalContentAlignment" Value="Center" />
+            <Setter Property="BorderBrush" Value="#EEF1F5" />
+            <Setter Property="BorderThickness" Value="0,0,0,1" />
+        </Style>
+        <Style x:Key="DiagnosticDetailLabel" TargetType="TextBlock">
+            <Setter Property="Foreground" Value="#6B7280" />
+            <Setter Property="FontSize" Value="10" />
+            <Setter Property="Margin" Value="0,0,0,4" />
+        </Style>
+        <Style x:Key="DiagnosticDetailValue" TargetType="TextBlock">
+            <Setter Property="Foreground" Value="#374151" />
+            <Setter Property="FontSize" Value="10" />
+            <Setter Property="TextWrapping" Value="Wrap" />
+            <Setter Property="Margin" Value="0,0,0,8" />
+        </Style>
+        <DataTemplate x:Key="DiagnosticCellTemplate">
+            <TextBlock Margin="5,0"
+                       VerticalAlignment="Center"
+                       Text="{Binding}"
+                       TextTrimming="CharacterEllipsis" />
+        </DataTemplate>
+        <Style x:Key="CompactButton" TargetType="Button">
+            <Setter Property="Height" Value="22" />
+            <Setter Property="Padding" Value="10,0" />
+            <Setter Property="VerticalContentAlignment" Value="Center" />
+            <Setter Property="ToolTipService.ShowOnDisabled" Value="True" />
+        </Style>
+        <Style x:Key="StepBrowseButton" TargetType="Button" BasedOn="{StaticResource CompactButton}">
+            <Setter Property="Width" Value="28" />
+            <Setter Property="Padding" Value="0" />
+        </Style>
+        <Style x:Key="ActivityCancelButton" TargetType="Button">
+            <Setter Property="Width" Value="18" />
+            <Setter Property="Height" Value="18" />
+            <Setter Property="Padding" Value="0" />
+            <Setter Property="Margin" Value="5,0,0,0" />
+            <Setter Property="VerticalAlignment" Value="Center" />
+            <Setter Property="Background" Value="Transparent" />
+            <Setter Property="BorderBrush" Value="Transparent" />
+            <Setter Property="Foreground" Value="#59616D" />
+            <Setter Property="FontFamily" Value="Segoe MDL2 Assets" />
+            <Setter Property="FontSize" Value="10" />
+        </Style>
+        <Style x:Key="HelpButton" TargetType="Button">
+            <Setter Property="Width" Value="18" />
+            <Setter Property="Height" Value="18" />
+            <Setter Property="Padding" Value="0" />
+            <Setter Property="Margin" Value="5,0,0,0" />
+            <Setter Property="VerticalAlignment" Value="Center" />
+            <Setter Property="HorizontalAlignment" Value="Left" />
+            <Setter Property="Background" Value="Transparent" />
+            <Setter Property="BorderBrush" Value="Transparent" />
+            <Setter Property="BorderThickness" Value="1" />
+            <Setter Property="Foreground" Value="#475569" />
+            <Setter Property="FontFamily" Value="Segoe UI" />
+            <Setter Property="FontSize" Value="9" />
+            <Setter Property="FontWeight" Value="Normal" />
+            <Setter Property="Content" Value="?" />
+            <Setter Property="Cursor" Value="Help" />
+            <Setter Property="IsTabStop" Value="False" />
+            <Setter Property="ToolTipService.InitialShowDelay" Value="250" />
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border x:Name="Chrome"
+                                Width="{TemplateBinding Width}"
+                                Height="{TemplateBinding Height}"
+                                Background="{TemplateBinding Background}"
+                                BorderBrush="{TemplateBinding BorderBrush}"
+                                BorderThickness="{TemplateBinding BorderThickness}"
+                                CornerRadius="9">
+                            <Grid>
+                                <Ellipse x:Name="IconCircle"
+                                         Width="14"
+                                         Height="14"
+                                         HorizontalAlignment="Center"
+                                         VerticalAlignment="Center"
+                                         Fill="Transparent"
+                                         Stroke="#8C98A8"
+                                         StrokeThickness="1" />
+                                <TextBlock x:Name="IconText"
+                                           HorizontalAlignment="Center"
+                                           VerticalAlignment="Center"
+                                           Margin="0,-1,0,0"
+                                           FontFamily="{TemplateBinding FontFamily}"
+                                           FontSize="{TemplateBinding FontSize}"
+                                           FontWeight="SemiBold"
+                                           Foreground="{TemplateBinding Foreground}"
+                                           Text="{TemplateBinding Content}" />
+                            </Grid>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter TargetName="Chrome" Property="Background" Value="#EAF2FF" />
+                                <Setter TargetName="Chrome" Property="BorderBrush" Value="#8FB3F4" />
+                                <Setter TargetName="IconCircle" Property="Stroke" Value="#3B73D9" />
+                                <Setter TargetName="IconText" Property="Foreground" Value="#255DB8" />
+                            </Trigger>
+                            <Trigger Property="IsPressed" Value="True">
+                                <Setter TargetName="Chrome" Property="Background" Value="#D8E7FF" />
+                                <Setter TargetName="Chrome" Property="BorderBrush" Value="#3B73D9" />
+                                <Setter TargetName="IconCircle" Property="Stroke" Value="#255DB8" />
+                            </Trigger>
+                            <Trigger Property="IsKeyboardFocused" Value="True">
+                                <Setter TargetName="Chrome" Property="BorderBrush" Value="#3B73D9" />
+                            </Trigger>
+                            <Trigger Property="IsEnabled" Value="False">
+                                <Setter TargetName="Chrome" Property="Opacity" Value="0.45" />
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+    </Window.Resources>
+
+    <DockPanel Background="#F3F4F6">
+        <Menu DockPanel.Dock="Top">
+            <MenuItem Header="_File">
+                <MenuItem Header="Load UnitTest..." Command="{Binding LoadUnitTestFileCommand}" />
+                <MenuItem Header="Import Configuration..." Command="{Binding ImportConfigurationFileCommand}" />
+                <Separator />
+                <MenuItem Header="End Session" Command="{Binding EndSessionCommand}" />
+                <Separator />
+                <MenuItem Header="Exit" Click="ExitMenuItem_Click" />
+            </MenuItem>
+            <MenuItem Header="_Run">
+                <MenuItem Header="Start PLC" Command="{Binding StartPlcCommand}" />
+                <MenuItem Header="Stop PLC" Command="{Binding StopPlcCommand}" />
+                <Separator />
+                <MenuItem Header="Start UnitTest" Command="{Binding StartUnitTestCommand}" />
+                <MenuItem Header="Abort UnitTest" Command="{Binding AbortUnitTestCommand}" />
+                <MenuItem Header="Reset UnitTest" Command="{Binding ResetUnitTestCommand}" />
+            </MenuItem>
+            <MenuItem Header="_View">
+                <MenuItem Header="Clear Run Result" Command="{Binding ClearRunResultCommand}" />
+                <Separator />
+                <MenuItem Header="Clear Output" Command="{Binding ClearOutputCommand}" />
+                <MenuItem Header="Clear Diagnostics" Command="{Binding ClearDiagnosticsCommand}" />
+                <Separator />
+                <MenuItem Header="Open Test Result Artifact" Command="{Binding OpenTestResultArtifactCommand}" />
+                <MenuItem Header="Open Output Folder" Command="{Binding OpenOutputFolderCommand}" />
+                <Separator />
+                <MenuItem Header="Analyze Current Run..." Command="{Binding AnalyzeCurrentRunCommand}" />
+                <MenuItem Header="Analyze PLC Lifecycle..." Command="{Binding AnalyzeLifecycleCommand}" />
+                <MenuItem Header="Analyze Communication Health..." Command="{Binding AnalyzeCommunicationSessionCommand}" />
+            </MenuItem>
+            <MenuItem Header="_Tools">
+                <MenuItem Header="Refresh Profile Registrations" Command="{Binding RefreshProfileRegistrationsCommand}" />
+                <MenuItem Header="Reconnect Runtime"
+                          Command="{Binding ReconnectRuntimeCommand}"
+                          ToolTip="{Binding ReconnectRuntimeGateStatus}" />
+                <Separator />
+                <MenuItem Header="Settings..." Command="{Binding OpenSettingsCommand}" />
+            </MenuItem>
+            <MenuItem Header="_Help">
+                <MenuItem Header="Help Contents" Click="HelpContentsMenuItem_Click" />
+                <Separator />
+                <MenuItem Header="Logs">
+                    <MenuItem Header="Open Application Log" Command="{Binding OpenApplicationLogCommand}" />
+                    <MenuItem Header="Open Access Profile Log" Command="{Binding OpenAccessProfileLogCommand}" />
+                    <Separator />
+                    <MenuItem Header="Open Log Folder" Command="{Binding OpenLogFolderCommand}" />
+                </MenuItem>
+                <Separator />
+                <MenuItem Header="About" Click="AboutMenuItem_Click" />
+            </MenuItem>
+        </Menu>
+
+        <Border DockPanel.Dock="Bottom"
+                Height="24"
+                Padding="10,0"
+                Background="#EEF1F5"
+                BorderBrush="#B8C0CC"
+                BorderThickness="0,1,0,0">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="170" />
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="*" MinWidth="220" />
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="190" />
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="200" />
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="250" />
+                </Grid.ColumnDefinitions>
+
+                <Grid Grid.Column="0" Style="{StaticResource FooterStatusField}">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto" />
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
+                    <TextBlock Grid.Column="0" Style="{StaticResource FooterStatusLabel}" Text="Profile:" />
+                    <TextBlock Grid.Column="1"
+                               Style="{StaticResource FooterStatusValue}"
+                               Text="{Binding ProfileStatus}"
+                               ToolTip="{Binding ProfileStatus}" />
+                </Grid>
+                <Border Grid.Column="1" Style="{StaticResource FooterStatusSeparator}" />
+                <Grid Grid.Column="2" Style="{StaticResource FooterStatusField}">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto" />
+                        <ColumnDefinition Width="Auto" />
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
+                    <TextBlock Grid.Column="0" Style="{StaticResource FooterStatusLabel}" Text="Project:" />
+                    <TextBlock Grid.Column="1"
+                               Margin="0,0,6,0"
+                               FontFamily="Segoe MDL2 Assets"
+                               FontSize="12"
+                               Foreground="#59616D"
+                               HorizontalAlignment="Center"
+                               VerticalAlignment="Center"
+                               Text="&#xE72E;"
+                               ToolTip="Project file locked by application"
+                               Visibility="{Binding ProjectLockIconVisibility}" />
+                    <TextBlock Grid.Column="2"
+                               Style="{StaticResource FooterStatusValue}"
+                               Text="{Binding ProjectStatus}"
+                               ToolTip="{Binding ProjectStatus}" />
+                </Grid>
+                <Border Grid.Column="3" Style="{StaticResource FooterStatusSeparator}" />
+                <Grid Grid.Column="4" Style="{StaticResource FooterStatusField}">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto" />
+                        <ColumnDefinition Width="12" />
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
+                    <TextBlock Grid.Column="0" Style="{StaticResource FooterStatusLabel}" Text="PLC:" />
+                    <Ellipse Grid.Column="1" Width="7" Height="7" VerticalAlignment="Center" Fill="{Binding PlcStatusBrush}" />
+                    <TextBlock Grid.Column="2"
+                               Style="{StaticResource FooterStatusValue}"
+                               Text="{Binding PlcStatus}"
+                               ToolTip="{Binding PlcStatus}" />
+                </Grid>
+                <Border Grid.Column="5" Style="{StaticResource FooterStatusSeparator}" />
+                <Grid Grid.Column="6" Style="{StaticResource FooterStatusField}">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto" />
+                        <ColumnDefinition Width="12" />
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
+                    <TextBlock Grid.Column="0" Style="{StaticResource FooterStatusLabel}" Text="Runtime:" />
+                    <Ellipse Grid.Column="1" Width="7" Height="7" VerticalAlignment="Center" Fill="{Binding RuntimeStatusBrush}" />
+                    <TextBlock Grid.Column="2"
+                               Style="{StaticResource FooterStatusValue}"
+                               Text="{Binding RuntimeStatus}"
+                               ToolTip="{Binding RuntimeStatus}" />
+                </Grid>
+                <Border Grid.Column="7" Style="{StaticResource FooterStatusSeparator}" />
+                <Grid Grid.Column="8" Style="{StaticResource FooterStatusField}">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto" />
+                        <ColumnDefinition Width="Auto" />
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="Auto" />
+                    </Grid.ColumnDefinitions>
+                    <Viewbox Grid.Column="0"
+                             Width="12"
+                             Height="12"
+                             Margin="0,0,7,0"
+                             HorizontalAlignment="Left"
+                             VerticalAlignment="Center">
+                        <Canvas Width="12" Height="12">
+                            <Path Stroke="#2F80ED"
+                                  StrokeThickness="2"
+                                  StrokeStartLineCap="Round"
+                                  StrokeEndLineCap="Round"
+                                  Data="M 6,1 A 5,5 0 1 1 1,6"
+                                  RenderTransformOrigin="0.5,0.5">
+                                <Path.Style>
+                                    <Style TargetType="Path">
+                                        <Setter Property="Opacity" Value="0" />
+                                        <Style.Triggers>
+                                            <DataTrigger Binding="{Binding ActivityIndicatorActive}" Value="True">
+                                                <Setter Property="Opacity" Value="1" />
+                                                <DataTrigger.EnterActions>
+                                                    <BeginStoryboard x:Name="ActivityRotation">
+                                                        <Storyboard RepeatBehavior="Forever">
+                                                            <DoubleAnimation Storyboard.TargetProperty="(Path.RenderTransform).(RotateTransform.Angle)"
+                                                                             From="0"
+                                                                             To="360"
+                                                                             Duration="0:0:0.9" />
+                                                        </Storyboard>
+                                                    </BeginStoryboard>
+                                                </DataTrigger.EnterActions>
+                                                <DataTrigger.ExitActions>
+                                                    <StopStoryboard BeginStoryboardName="ActivityRotation" />
+                                                </DataTrigger.ExitActions>
+                                            </DataTrigger>
+                                        </Style.Triggers>
+                                    </Style>
+                                </Path.Style>
+                                <Path.RenderTransform>
+                                    <RotateTransform />
+                                </Path.RenderTransform>
+                            </Path>
+                        </Canvas>
+                    </Viewbox>
+                    <TextBlock Grid.Column="1" Style="{StaticResource FooterStatusLabel}" Text="Activity:" />
+                    <TextBlock Grid.Column="2"
+                               Style="{StaticResource FooterStatusValue}"
+                               Text="{Binding ActiveOperation}"
+                               ToolTip="{Binding ActiveOperation}" />
+                    <Button Grid.Column="3"
+                            Style="{StaticResource ActivityCancelButton}"
+                            Command="{Binding CancelCurrentOperationCommand}"
+                            Content="&#xE711;"
+                            ToolTip="Cancel current operation"
+                            Visibility="{Binding CancelCurrentOperationVisibility}" />
+                </Grid>
+            </Grid>
+        </Border>
+
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="290" MinWidth="280" />
+                <ColumnDefinition Width="4" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+
+            <Border Grid.Column="0" Background="#EEF1F5" BorderBrush="#B8C0CC" BorderThickness="0,0,1,0">
+                <Grid Margin="14,12">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="*" />
+                        <RowDefinition Height="Auto" />
+                    </Grid.RowDefinitions>
+
+                    <TextBlock FontSize="14" FontWeight="SemiBold" Text="Session" />
+
+                    <StackPanel Grid.Row="1" Margin="0,12,0,0">
+                        <Button Style="{StaticResource StepHeader}"
+                                Background="{Binding Step1HeaderBackground}"
+                                Command="{Binding ReturnToStep1Command}"
+                                ToolTip="{Binding ReturnToStep1GateStatus}">
+                            <DockPanel>
+                                <Ellipse DockPanel.Dock="Left" Width="10" Height="10" Fill="{Binding Step1MarkerFill}" Margin="0,0,8,0" />
+                                <TextBlock FontWeight="{Binding Step1HeaderWeight}" Text="1 Project / Profile" />
+                            </DockPanel>
+                        </Button>
+                        <Button Style="{StaticResource StepHeader}"
+                                Background="{Binding Step2HeaderBackground}"
+                                Command="{Binding ReturnToStep2Command}"
+                                ToolTip="{Binding ReturnToStep2GateStatus}">
+                            <DockPanel>
+                                <Ellipse DockPanel.Dock="Left" Width="10" Height="10" Fill="{Binding Step2MarkerFill}" Margin="0,0,8,0" />
+                                <TextBlock FontWeight="{Binding Step2HeaderWeight}" Text="2 PLC / Runtime / Communication" />
+                            </DockPanel>
+                        </Button>
+                        <Button Style="{StaticResource StepHeader}"
+                                Background="{Binding Step3HeaderBackground}"
+                                Command="{Binding ReturnToStep3Command}"
+                                ToolTip="{Binding ReturnToStep3GateStatus}">
+                            <DockPanel>
+                                <Ellipse DockPanel.Dock="Left" Width="10" Height="10" Fill="{Binding Step3MarkerFill}" Margin="0,0,8,0" />
+                                <TextBlock FontWeight="{Binding Step3HeaderWeight}" Text="3 Profile configuration" />
+                            </DockPanel>
+                        </Button>
+                        <Button Style="{StaticResource StepHeader}"
+                                Background="{Binding Step4HeaderBackground}"
+                                IsEnabled="False">
+                            <DockPanel>
+                                <Ellipse DockPanel.Dock="Left" Width="10" Height="10" Fill="{Binding Step4MarkerFill}" Margin="0,0,8,0" />
+                                <TextBlock FontWeight="{Binding Step4HeaderWeight}" Text="4 Operation / Test Run" />
+                            </DockPanel>
+                        </Button>
+                    </StackPanel>
+
+                    <ScrollViewer Grid.Row="2"
+                                  Margin="0,16,0,8"
+                                  Padding="0,0,6,0"
+                                  VerticalScrollBarVisibility="Auto">
+                        <StackPanel>
+                            <StackPanel Visibility="{Binding Step1PanelVisibility}">
+                            <TextBlock Style="{StaticResource MutedText}" Text="STEP 1 INPUT" />
+                            <CheckBox Margin="0,4,0,10"
+                                      IsChecked="{Binding BuildAndDownloadProject}"
+                                      Content="Build and download project" />
+                            <TextBlock Style="{StaticResource StepInputLabel}" Text="Project source" />
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*" />
+                                    <ColumnDefinition Width="34" />
+                                    <ColumnDefinition Width="34" />
+                                </Grid.ColumnDefinitions>
+                                <TextBox Grid.Column="0"
+                                         Style="{StaticResource StepTextBox}"
+                                         Text="{Binding ProjectSource, UpdateSourceTrigger=PropertyChanged}"
+                                         IsReadOnly="True"
+                                         />
+                                <Button Grid.Column="1"
+                                        Style="{StaticResource StepBrowseButton}"
+                                        Margin="6,0,0,0"
+                                        Command="{Binding BrowseProjectSourceCommand}"
+                                        Content="..."
+                                        ToolTip="Browse for a project file" />
+                                <Button Grid.Column="2"
+                                        Style="{StaticResource CompactButton}"
+                                        Margin="6,0,0,0"
+                                        Padding="0"
+                                        Command="{Binding ClearProjectSourceCommand}"
+                                        FontFamily="Segoe MDL2 Assets"
+                                        Content="&#xE711;"
+                                        ToolTip="Clear the selected project file" />
+                            </Grid>
+
+                            <TextBlock Style="{StaticResource StepInputLabel}" Text="Access profile" />
+                            <ComboBox ItemsSource="{Binding AvailableAccessProfiles}"
+                                      Style="{StaticResource StepComboBox}"
+                                      SelectedItem="{Binding SelectedAccessProfile}"
+                                      DisplayMemberPath="DisplayName"
+                                      ToolTip="{Binding SelectedAccessProfile.Description}" />
+                            <Border Margin="0,7,0,0"
+                                    Padding="7,6"
+                                    Background="#FFFBEB"
+                                    BorderBrush="#F2C94C"
+                                    BorderThickness="1"
+                                    CornerRadius="2"
+                                    Visibility="{Binding ProfileRegistrationNoticeVisibility}">
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="Auto" />
+                                        <ColumnDefinition Width="*" />
+                                        <ColumnDefinition Width="Auto" />
+                                    </Grid.ColumnDefinitions>
+                                    <TextBlock VerticalAlignment="Top"
+                                               FontFamily="Segoe MDL2 Assets"
+                                               FontSize="12"
+                                               Foreground="#B7791F"
+                                               Text="&#xE7BA;" />
+                                    <TextBlock Grid.Column="1"
+                                               Margin="6,0,8,0"
+                                               VerticalAlignment="Center"
+                                               Foreground="#6B4F00"
+                                               Text="{Binding ProfileRegistrationNotice}"
+                                               TextWrapping="Wrap" />
+                                    <Button Grid.Column="2"
+                                            MinWidth="82"
+                                            Style="{StaticResource CompactButton}"
+                                            Command="{Binding RefreshProfileRegistrationsCommand}"
+                                            Content="Register now"
+                                            Visibility="{Binding ProfileRegistrationActionVisibility}" />
+                                </Grid>
+                            </Border>
+                            </StackPanel>
+
+                            <StackPanel Visibility="{Binding Step2PanelVisibility}">
+
+                            <StackPanel Orientation="Horizontal">
+                                <TextBlock Style="{StaticResource MutedText}" Text="STEP 2 INPUT" />
+                                <Button Style="{StaticResource HelpButton}"
+                                        Content="i"
+                                        ToolTip="{Binding Step2Status}" />
+                            </StackPanel>
+                            <StackPanel Visibility="{Binding ManagedProjectControlsVisibility}">
+                                <TextBlock Style="{StaticResource StepInputLabel}" Text="PLC" />
+                                <ComboBox ItemsSource="{Binding ProjectTargets}"
+                                          Style="{StaticResource StepComboBox}"
+                                          IsEnabled="{Binding Step2InputsEnabled}"
+                                          SelectedItem="{Binding SelectedProjectTarget}"
+                                          DisplayMemberPath="DisplayName" />
+                            </StackPanel>
+                            <TextBlock Style="{StaticResource StepInputLabel}" Text="Runtime target" />
+                            <ComboBox ItemsSource="{Binding RuntimeTargets}"
+                                      Style="{StaticResource StepComboBox}"
+                                      IsEnabled="{Binding Step2InputsEnabled}"
+                                      SelectedItem="{Binding SelectedRuntimeTarget}">
+                                <ComboBox.ItemTemplate>
+                                    <DataTemplate>
+                                        <StackPanel>
+                                            <Separator x:Name="CreateOwnedSeparator"
+                                                       Margin="0,2,0,3"
+                                                       Visibility="Collapsed" />
+                                            <TextBlock Text="{Binding DisplayName}" />
+                                        </StackPanel>
+                                        <DataTemplate.Triggers>
+                                            <MultiDataTrigger>
+                                                <MultiDataTrigger.Conditions>
+                                                    <Condition Binding="{Binding CreatesOwnedRuntime}" Value="True" />
+                                                    <Condition Binding="{Binding RelativeSource={RelativeSource AncestorType={x:Type ComboBoxItem}}, Path=IsVisible}"
+                                                               Value="True" />
+                                                </MultiDataTrigger.Conditions>
+                                                <Setter TargetName="CreateOwnedSeparator" Property="Visibility" Value="Visible" />
+                                            </MultiDataTrigger>
+                                        </DataTemplate.Triggers>
+                                    </DataTemplate>
+                                </ComboBox.ItemTemplate>
+                            </ComboBox>
+                            </StackPanel>
+
+                            <StackPanel Visibility="{Binding Step3PanelVisibility}">
+                                <StackPanel Orientation="Horizontal">
+                                    <TextBlock Style="{StaticResource MutedText}" Text="STEP 3 PROFILE CONFIGURATION" />
+                                    <Button Style="{StaticResource HelpButton}"
+                                            Content="i"
+                                            ToolTip="{Binding ProfileConfiguration.Status}" />
+                                </StackPanel>
+                                <ItemsControl Margin="0,4,0,0" ItemsSource="{Binding ProfileConfiguration.Fields}">
+                                    <ItemsControl.ItemTemplate>
+                                        <DataTemplate>
+                                            <Border x:Name="FieldChrome"
+                                                    Margin="-6,0,0,3"
+                                                    Padding="6,0,0,3"
+                                                    Background="Transparent"
+                                                    BorderBrush="Transparent"
+                                                    BorderThickness="2,0,0,0"
+                                                    ToolTip="{Binding ValidationMessage}">
+                                                <StackPanel>
+                                                    <TextBlock x:Name="FieldLabel"
+                                                               Style="{StaticResource Step3InputLabel}"
+                                                               Text="{Binding DisplayName}" />
+                                                    <CheckBox Margin="0,0,0,4"
+                                                              Content="Override default"
+                                                              IsChecked="{Binding IsSet}"
+                                                              Visibility="{Binding OptionalToggleVisibility}" />
+                                                    <ComboBox Style="{StaticResource StepComboBox}"
+                                                              ItemsSource="{Binding AllowedValues}"
+                                                              SelectedItem="{Binding SelectedAllowedValue}"
+                                                              DisplayMemberPath="DisplayName"
+                                                              IsEnabled="{Binding IsInputEnabled}"
+                                                              Visibility="{Binding AllowedValuesVisibility}" />
+                                                    <CheckBox IsThreeState="False"
+                                                              IsChecked="{Binding BooleanValue}"
+                                                              IsEnabled="{Binding IsInputEnabled}"
+                                                              Visibility="{Binding BooleanVisibility}" />
+                                                    <TextBox Style="{StaticResource StepTextBox}"
+                                                             Text="{Binding Value, UpdateSourceTrigger=PropertyChanged}"
+                                                             TextAlignment="{Binding TextAlignment}"
+                                                             IsEnabled="{Binding IsInputEnabled}"
+                                                             Visibility="{Binding TextVisibility}" />
+                                                </StackPanel>
+                                            </Border>
+                                            <DataTemplate.Triggers>
+                                                <DataTrigger Binding="{Binding IsValid}" Value="False">
+                                                    <Setter TargetName="FieldChrome" Property="Background" Value="#FFF4F2" />
+                                                    <Setter TargetName="FieldChrome" Property="BorderBrush" Value="#C2413B" />
+                                                    <Setter TargetName="FieldLabel" Property="Foreground" Value="#B42318" />
+                                                </DataTrigger>
+                                            </DataTemplate.Triggers>
+                                        </DataTemplate>
+                                    </ItemsControl.ItemTemplate>
+                                </ItemsControl>
+                                <StackPanel Margin="0,6,0,2" Orientation="Horizontal">
+                                    <TextBlock Style="{StaticResource MutedText}" Text="SESSION SETTINGS" />
+                                    <Button Style="{StaticResource HelpButton}"
+                                            Content="i"
+                                            ToolTip="{Binding SessionSettingsStatus}" />
+                                </StackPanel>
+                                <Border Margin="-6,0,0,3"
+                                        Padding="6,0,0,3"
+                                        BorderThickness="2,0,0,0"
+                                        Style="{StaticResource CommunicationPrepareTimeoutField}"
+                                        ToolTip="{Binding CommunicationPrepareTimeoutValidationMessage}">
+                                    <StackPanel>
+                                        <TextBlock Style="{StaticResource CommunicationPrepareTimeoutLabel}"
+                                                   Text="Communication preparation timeout" />
+                                        <TextBox Style="{StaticResource StepTextBox}"
+                                                 TextAlignment="Right"
+                                                 Text="{Binding CommunicationPrepareTimeoutSeconds, UpdateSourceTrigger=PropertyChanged}" />
+                                    </StackPanel>
+                                </Border>
+                                <Border Margin="-6,0,0,3"
+                                        Padding="6,0,0,3"
+                                        BorderThickness="2,0,0,0"
+                                        Style="{StaticResource CommunicationRevalidationTimeoutField}"
+                                        ToolTip="{Binding CommunicationRevalidationTimeoutValidationMessage}">
+                                    <StackPanel>
+                                        <TextBlock Style="{StaticResource CommunicationRevalidationTimeoutLabel}"
+                                                   Text="Communication revalidation timeout" />
+                                        <TextBox Style="{StaticResource StepTextBox}"
+                                                 TextAlignment="Right"
+                                                 Text="{Binding CommunicationRevalidationTimeoutSeconds, UpdateSourceTrigger=PropertyChanged}" />
+                                    </StackPanel>
+                                </Border>
+                            </StackPanel>
+
+                            <StackPanel Visibility="{Binding Step4PanelVisibility}">
+                            <TextBlock Style="{StaticResource MutedText}" Text="STEP 4 ACTIONS" />
+
+                            <TextBlock Margin="0,12,0,4" Style="{StaticResource MutedText}" Text="PLC CONTROL" />
+                            <UniformGrid Columns="2">
+                                <Button Style="{StaticResource CompactButton}"
+                                        Content="Start PLC"
+                                        Command="{Binding StartPlcCommand}"
+                                        ToolTip="{Binding StartPlcGateStatus}" />
+                                <Button Margin="6,0,0,0"
+                                        Style="{StaticResource CompactButton}"
+                                        Content="Stop PLC"
+                                        Command="{Binding StopPlcCommand}"
+                                        ToolTip="{Binding StopPlcGateStatus}" />
+                            </UniformGrid>
+
+                            <TextBlock Margin="0,12,0,4" Style="{StaticResource MutedText}" Text="TEST RUN" />
+                            <UniformGrid Columns="3">
+                                <Button Style="{StaticResource CompactButton}"
+                                        Content="Start"
+                                        Command="{Binding StartUnitTestCommand}"
+                                        ToolTip="{Binding StartUnitTestGateStatus}" />
+                                <Button Margin="6,0,0,0"
+                                        Style="{StaticResource CompactButton}"
+                                        Content="Abort"
+                                        Command="{Binding AbortUnitTestCommand}"
+                                        ToolTip="{Binding AbortUnitTestGateStatus}" />
+                                <Button Margin="6,0,0,0"
+                                        Style="{StaticResource CompactButton}"
+                                        Content="Reset"
+                                        Command="{Binding ResetUnitTestCommand}"
+                                        ToolTip="{Binding ResetUnitTestGateStatus}" />
+                            </UniformGrid>
+                            </StackPanel>
+                        </StackPanel>
+                    </ScrollViewer>
+
+                    <StackPanel Grid.Row="3">
+                        <Button Margin="0,0,0,8"
+                                Style="{StaticResource CompactButton}"
+                                HorizontalAlignment="Stretch"
+                                Command="{Binding ResetEventBufferCommand}"
+                                Content="Reset Event Buffer"
+                                ToolTip="{Binding ResetEventBufferGateStatus}"
+                                Visibility="{Binding Step4PanelVisibility}" />
+
+                        <Button Margin="0,0,0,8"
+                                Style="{StaticResource CompactButton}"
+                                HorizontalAlignment="Stretch"
+                                Command="{Binding ReconnectRuntimeCommand}"
+                                Content="Reconnect Runtime"
+                                ToolTip="{Binding ReconnectRuntimeGateStatus}"
+                                Visibility="{Binding Step4PanelVisibility}" />
+
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="8" />
+                                <ColumnDefinition Width="*" />
+                            </Grid.ColumnDefinitions>
+
+                        <Button Grid.Column="0"
+                                Style="{StaticResource CompactButton}"
+                                HorizontalAlignment="Stretch"
+                                Command="{Binding ReturnToStep1Command}"
+                                Content="Back"
+                                ToolTip="{Binding ReturnToStep1GateStatus}"
+                                Visibility="{Binding Step2PanelVisibility}" />
+
+                        <Button Grid.Column="0"
+                                Style="{StaticResource CompactButton}"
+                                HorizontalAlignment="Stretch"
+                                Command="{Binding ReturnToStep2Command}"
+                                Content="Back"
+                                ToolTip="{Binding ReturnToStep2GateStatus}"
+                                Visibility="{Binding Step3PanelVisibility}" />
+
+                        <Button Grid.Column="0"
+                                Style="{StaticResource CompactButton}"
+                                HorizontalAlignment="Stretch"
+                                Command="{Binding ReturnToStep3Command}"
+                                Content="Back"
+                                ToolTip="{Binding ReturnToStep3GateStatus}"
+                                Visibility="{Binding Step4PanelVisibility}" />
+
+                        <Button Grid.Column="2"
+                                Style="{StaticResource CompactButton}"
+                                HorizontalAlignment="Stretch"
+                                Command="{Binding LoadStep1Command}"
+                                Content="Next"
+                                ToolTip="{Binding Step1GateStatus}"
+                                Visibility="{Binding Step1PanelVisibility}" />
+
+                        <Button Grid.Column="2"
+                                Style="{StaticResource CompactButton}"
+                                HorizontalAlignment="Stretch"
+                                Command="{Binding ConfigureStep2Command}"
+                                Content="Next"
+                                ToolTip="{Binding Step2GateStatus}"
+                                Visibility="{Binding Step2PanelVisibility}" />
+
+                        <Button Grid.Column="2"
+                                Style="{StaticResource CompactButton}"
+                                HorizontalAlignment="Stretch"
+                                Command="{Binding ConfigureProfileCommand}"
+                                Content="Next"
+                                ToolTip="{Binding Step3GateStatus}"
+                                Visibility="{Binding Step3PanelVisibility}" />
+
+                        <Button Grid.Column="2"
+                                Style="{StaticResource CompactButton}"
+                                HorizontalAlignment="Stretch"
+                                Command="{Binding EndSessionCommand}"
+                                Content="End Session"
+                                ToolTip="{Binding EndSessionGateStatus}"
+                                Visibility="{Binding Step4PanelVisibility}" />
+                        </Grid>
+                    </StackPanel>
+                </Grid>
+            </Border>
+
+            <GridSplitter Grid.Column="1" Style="{StaticResource VerticalWorkbenchSplitter}" />
+
+            <Grid Grid.Column="2" Background="White">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="44" />
+                    <RowDefinition Height="*" />
+                    <RowDefinition Height="4" />
+                    <RowDefinition Height="150" />
+                </Grid.RowDefinitions>
+
+                <Border Grid.Row="0" Background="#EEF1F5" BorderBrush="#B8C0CC" BorderThickness="0,0,0,1" Padding="6,4">
+                    <ScrollViewer HorizontalScrollBarVisibility="Disabled"
+                                  VerticalScrollBarVisibility="Disabled">
+                        <StackPanel Orientation="Horizontal">
+                            <Border Width="132" Style="{StaticResource StatusBadge}" ToolTip="Runtime setup status for project preparation, runtime preparation, and project transfer.">
+                                <Grid>
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="13" />
+                                        <RowDefinition Height="*" />
+                                    </Grid.RowDefinitions>
+                                    <TextBlock Style="{StaticResource StatusLabel}" Text="Runtime Setup" />
+                                    <Ellipse Grid.Row="0" Width="7" Height="7" HorizontalAlignment="Right" VerticalAlignment="Center" Fill="{Binding PreparationStatusBrush}" />
+                                    <TextBlock Grid.Row="1" Style="{StaticResource StatusValue}" Text="{Binding PreparationStatus}" />
+                                </Grid>
+                            </Border>
+                            <Border Width="126" Style="{StaticResource StatusBadge}" ToolTip="PLC runtime state for the selected target.">
+                                <Grid>
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="13" />
+                                        <RowDefinition Height="*" />
+                                    </Grid.RowDefinitions>
+                                    <TextBlock Style="{StaticResource StatusLabel}" Text="PLC" />
+                                    <Ellipse Grid.Row="0" Width="7" Height="7" HorizontalAlignment="Right" VerticalAlignment="Center" Fill="{Binding PlcProcessStatusBrush}" />
+                                    <TextBlock Grid.Row="1" Style="{StaticResource StatusValue}" Text="{Binding PlcProcessStatus}" />
+                                </Grid>
+                            </Border>
+                            <Border Width="162" Style="{StaticResource StatusBadge}" ToolTip="UnitTest communication-session state for lifecycle commands and event-stream intake.">
+                                <Grid>
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="13" />
+                                        <RowDefinition Height="*" />
+                                    </Grid.RowDefinitions>
+                                    <TextBlock Style="{StaticResource StatusLabel}" Text="Communication" />
+                                    <Ellipse Grid.Row="0" Width="7" Height="7" HorizontalAlignment="Right" VerticalAlignment="Center" Fill="{Binding CommunicationStatusBrush}" />
+                                    <TextBlock Grid.Row="1" Style="{StaticResource StatusValue}" Text="{Binding CommunicationStatus}" />
+                                </Grid>
+                            </Border>
+                            <Border Width="126" Style="{StaticResource StatusBadge}" ToolTip="{Binding MonitoringStatusToolTip}">
+                                <Grid>
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="13" />
+                                        <RowDefinition Height="*" />
+                                    </Grid.RowDefinitions>
+                                    <TextBlock Style="{StaticResource StatusLabel}" Text="Event Stream Monitor" />
+                                    <Ellipse Grid.Row="0" Width="7" Height="7" HorizontalAlignment="Right" VerticalAlignment="Center" Fill="{Binding MonitoringStatusBrush}" />
+                                    <TextBlock Grid.Row="1" Style="{StaticResource StatusValue}" Text="{Binding MonitoringStatus}" />
+                                </Grid>
+                            </Border>
+                            <Border Width="132" Style="{StaticResource StatusBadge}" ToolTip="Current UnitTest Run Control lifecycle/readiness state.">
+                                <Grid>
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="13" />
+                                        <RowDefinition Height="*" />
+                                    </Grid.RowDefinitions>
+                                    <TextBlock Style="{StaticResource StatusLabel}" Text="Run Control" />
+                                    <Ellipse Grid.Row="0" Width="7" Height="7" HorizontalAlignment="Right" VerticalAlignment="Center" Fill="{Binding RunControlStatusBrush}">
+                                        <Ellipse.Style>
+                                            <Style TargetType="Ellipse">
+                                                <Setter Property="Opacity" Value="1" />
+                                                <Style.Triggers>
+                                                    <DataTrigger Binding="{Binding RunControlStatusViewState.IsAnimated}" Value="True">
+                                                        <DataTrigger.EnterActions>
+                                                            <BeginStoryboard x:Name="RunControlPulse">
+                                                                <Storyboard RepeatBehavior="Forever" AutoReverse="True">
+                                                                    <DoubleAnimation Storyboard.TargetProperty="Opacity" From="1" To="0.45" Duration="0:0:0.8" />
+                                                                </Storyboard>
+                                                            </BeginStoryboard>
+                                                        </DataTrigger.EnterActions>
+                                                        <DataTrigger.ExitActions>
+                                                            <StopStoryboard BeginStoryboardName="RunControlPulse" />
+                                                        </DataTrigger.ExitActions>
+                                                    </DataTrigger>
+                                                </Style.Triggers>
+                                            </Style>
+                                        </Ellipse.Style>
+                                    </Ellipse>
+                                    <TextBlock Grid.Row="1" Style="{StaticResource StatusValue}" Text="{Binding RunControlStatus}" />
+                                </Grid>
+                            </Border>
+                        </StackPanel>
+                    </ScrollViewer>
+                </Border>
+
+                <TabControl Grid.Row="1" Margin="8">
+                    <TabItem Header="Run Result">
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="420" />
+                                <ColumnDefinition Width="4" />
+                                <ColumnDefinition Width="*" />
+                            </Grid.ColumnDefinitions>
+                            <Grid Grid.Column="0" Margin="4">
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="Auto" />
+                                    <RowDefinition Height="Auto" />
+                                    <RowDefinition Height="*" />
+                                </Grid.RowDefinitions>
+                                <DockPanel Margin="4,3,4,2">
+                                    <StackPanel DockPanel.Dock="Right" Orientation="Horizontal">
+                                        <StackPanel Margin="0,0,10,0"
+                                                    VerticalAlignment="Center"
+                                                    Orientation="Horizontal"
+                                                    ToolTip="{Binding RunResultLostEventsToolTip}"
+                                                    Visibility="{Binding RunResultLostEventsVisibility}">
+                                            <TextBlock Margin="0,0,4,0"
+                                                       VerticalAlignment="Center"
+                                                       FontFamily="Segoe MDL2 Assets"
+                                                       FontSize="13"
+                                                       Foreground="#B7791F"
+                                                       Text="&#xE7BA;" />
+                                            <TextBlock VerticalAlignment="Center"
+                                                       FontSize="11"
+                                                       FontWeight="SemiBold"
+                                                       Foreground="#8A5A00"
+                                                       Text="{Binding RunResultLostEventsText}" />
+                                        </StackPanel>
+                                        <Button MinWidth="64"
+                                                Margin="0,0,8,0"
+                                                Padding="7,2"
+                                                Content="Analyze"
+                                                Command="{Binding AnalyzeCurrentRunCommand}" />
+                                        <Border Padding="6,1"
+                                                MinWidth="128"
+                                                BorderBrush="#C9D1DC"
+                                                BorderThickness="1"
+                                                Background="#F5F7FA"
+                                                CornerRadius="2">
+                                            <TextBlock HorizontalAlignment="Center"
+                                                       Style="{StaticResource MutedText}"
+                                                       Text="{Binding RunResultStatus}"
+                                                       TextTrimming="CharacterEllipsis" />
+                                        </Border>
+                                    </StackPanel>
+                                    <TextBlock DockPanel.Dock="Left" FontSize="12" FontWeight="SemiBold" Text="Run tree" />
+                                </DockPanel>
+                                <Grid Grid.Row="1" Margin="4,3,4,0">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="*" />
+                                        <ColumnDefinition Width="68" />
+                                        <ColumnDefinition Width="58" />
+                                    </Grid.ColumnDefinitions>
+                                    <TextBlock Style="{StaticResource MutedText}" Text="Name" />
+                                    <TextBlock Grid.Column="1" Style="{StaticResource MutedText}" Text="Result" />
+                                    <TextBlock Grid.Column="2" Style="{StaticResource MutedText}" Text="Time" />
+                                </Grid>
+                                <Border Grid.Row="2"
+                                        Margin="4,2,4,4"
+                                        BorderBrush="#C2CAD5"
+                                        BorderThickness="1"
+                                        Background="White">
+                                    <ListBox ItemsSource="{Binding RunResultRows}"
+                                             SelectedItem="{Binding SelectedRunResultNode, Mode=TwoWay}"
+                                             BorderThickness="0"
+                                             Background="White"
+                                             ScrollViewer.VerticalScrollBarVisibility="Auto"
+                                             ScrollViewer.HorizontalScrollBarVisibility="Disabled">
+                                        <ListBox.ContextMenu>
+                                            <ContextMenu>
+                                                <MenuItem Header="Analyze Run"
+                                                          Command="{Binding PlacementTarget.DataContext.AnalyzeCurrentRunCommand, RelativeSource={RelativeSource AncestorType={x:Type ContextMenu}}}" />
+                                                <Separator />
+                                                <MenuItem Header="Clear Run Result"
+                                                          Command="{Binding PlacementTarget.DataContext.ClearRunResultCommand, RelativeSource={RelativeSource AncestorType={x:Type ContextMenu}}}" />
+                                            </ContextMenu>
+                                        </ListBox.ContextMenu>
+                                        <ListBox.ItemContainerStyle>
+                                            <Style TargetType="{x:Type ListBoxItem}">
+                                                <Setter Property="HorizontalContentAlignment" Value="Stretch" />
+                                                <Setter Property="Padding" Value="0" />
+                                            </Style>
+                                        </ListBox.ItemContainerStyle>
+                                        <ListBox.ItemTemplate>
+                                            <DataTemplate DataType="{x:Type viewModels:RunResultNodeViewModel}">
+                                                <Grid MinHeight="19"
+                                                      Margin="2,0"
+                                                      ToolTip="{Binding StatusToolTip}"
+                                                      MouseLeftButtonDown="RunResultRow_MouseLeftButtonDown">
+                                                    <Grid.ColumnDefinitions>
+                                                        <ColumnDefinition Width="*" />
+                                                        <ColumnDefinition Width="68" />
+                                                        <ColumnDefinition Width="58" />
+                                                    </Grid.ColumnDefinitions>
+                                                    <DockPanel Margin="{Binding IndentMargin}">
+                                                        <Button DockPanel.Dock="Left"
+                                                                Width="14"
+                                                                Height="16"
+                                                                Padding="0"
+                                                                Margin="0,0,2,0"
+                                                                BorderThickness="0"
+                                                                Background="Transparent"
+                                                                Visibility="{Binding ExpanderVisibility}"
+                                                                Tag="{Binding}"
+                                                                Click="RunResultExpander_Click">
+                                                            <Path Width="9"
+                                                                  Height="9"
+                                                                  HorizontalAlignment="Center"
+                                                                  VerticalAlignment="Center"
+                                                                  Stretch="Uniform"
+                                                                  Fill="#8A94A6"
+                                                                  Data="{Binding ExpanderIconData}" />
+                                                        </Button>
+                                                        <Ellipse DockPanel.Dock="Left"
+                                                                 Width="7"
+                                                                 Height="7"
+                                                                 Margin="0,0,7,0"
+                                                                 VerticalAlignment="Center"
+                                                                 Fill="{Binding StatusBrush}" />
+                                                        <Grid>
+                                                            <Grid.ColumnDefinitions>
+                                                                <ColumnDefinition Width="*" />
+                                                                <ColumnDefinition Width="Auto" />
+                                                            </Grid.ColumnDefinitions>
+                                                            <TextBlock VerticalAlignment="Center"
+                                                                       Text="{Binding DisplayName}"
+                                                                       TextTrimming="CharacterEllipsis" />
+                                                            <TextBlock Grid.Column="1"
+                                                                       Margin="5,0,2,0"
+                                                                       VerticalAlignment="Center"
+                                                                       FontFamily="Segoe MDL2 Assets"
+                                                                       FontSize="11"
+                                                                       Foreground="#B7791F"
+                                                                       Text="&#xE7BA;"
+                                                                       Visibility="{Binding EvidenceWarningVisibility}" />
+                                                        </Grid>
+                                                    </DockPanel>
+                                                    <TextBlock Grid.Column="1"
+                                                               VerticalAlignment="Center"
+                                                               Foreground="#374151"
+                                                               Text="{Binding PresentationResult}"
+                                                               TextTrimming="CharacterEllipsis" />
+                                                    <TextBlock Grid.Column="2"
+                                                               VerticalAlignment="Center"
+                                                               Foreground="#6B7280"
+                                                               Text="{Binding Runtime}"
+                                                               TextTrimming="CharacterEllipsis" />
+                                                </Grid>
+                                            </DataTemplate>
+                                        </ListBox.ItemTemplate>
+                                    </ListBox>
+                                </Border>
+                            </Grid>
+                            <GridSplitter Grid.Column="1" Style="{StaticResource VerticalContentSplitter}" />
+                            <Grid Grid.Column="2" Margin="4">
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="Auto" />
+                                    <RowDefinition Height="Auto" />
+                                    <RowDefinition Height="*" />
+                                </Grid.RowDefinitions>
+                                <TextBlock Margin="4,3,4,2" FontSize="12" FontWeight="SemiBold" Text="Detail" />
+                                <Border Grid.Row="1"
+                                        Margin="4,3,4,4"
+                                        Padding="7,5"
+                                        BorderBrush="#C2CAD5"
+                                        BorderThickness="1"
+                                        Background="White">
+                                    <Grid>
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition Height="Auto" />
+                                            <RowDefinition Height="Auto" />
+                                            <RowDefinition Height="Auto" />
+                                        </Grid.RowDefinitions>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="84" />
+                                            <ColumnDefinition Width="*" />
+                                        </Grid.ColumnDefinitions>
+                                        <TextBlock Foreground="#374151" Text="Selection" />
+                                        <TextBlock Grid.Column="1" Foreground="#6B7280" Text="{Binding SelectedRunResultName}" />
+                                        <TextBlock Grid.Row="1" Margin="0,5,0,0" Foreground="#374151" Text="Result" />
+                                        <TextBlock Grid.Row="1" Grid.Column="1" Margin="0,5,0,0" Foreground="#6B7280" Text="{Binding SelectedRunResultResult}" />
+                                        <TextBlock Grid.Row="2" Margin="0,5,0,0" Foreground="#374151" Text="Timing" />
+                                        <TextBlock Grid.Row="2" Grid.Column="1" Margin="0,5,0,0" Foreground="#6B7280" Text="{Binding SelectedRunResultTiming}" />
+                                    </Grid>
+                                </Border>
+                                <Grid Grid.Row="2" Margin="4,0,4,4">
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="1*" />
+                                        <RowDefinition Height="5" />
+                                        <RowDefinition Height="1.35*" />
+                                    </Grid.RowDefinitions>
+                                    <Border Grid.Row="0"
+                                            Padding="7,5"
+                                            BorderBrush="#C2CAD5"
+                                            BorderThickness="1"
+                                            Background="White">
+                                        <StackPanel>
+                                            <TextBlock Foreground="#374151" Text="Summary" />
+                                            <TextBlock Margin="0,5,0,0"
+                                                       Style="{StaticResource MutedText}"
+                                                       Text="{Binding RunResultSummary}" />
+                                        </StackPanel>
+                                    </Border>
+                                    <Border Grid.Row="2"
+                                            Padding="7,5"
+                                            BorderBrush="#C2CAD5"
+                                            BorderThickness="1"
+                                            Background="White">
+                                        <Grid>
+                                            <Grid.RowDefinitions>
+                                                <RowDefinition Height="Auto" />
+                                                <RowDefinition Height="*" />
+                                            </Grid.RowDefinitions>
+                                            <DockPanel>
+                                                <TextBlock DockPanel.Dock="Left" Foreground="#374151" Text="Findings / evidence" />
+                                                <TextBlock Margin="8,0,0,0"
+                                                           Style="{StaticResource MutedText}"
+                                                           Text="{Binding SelectedRunResultFindingStatus}" />
+                                            </DockPanel>
+                                            <ListBox Grid.Row="1"
+                                                     Margin="0,5,0,0"
+                                                     ItemsSource="{Binding SelectedRunResultFindings}"
+                                                     BorderThickness="0"
+                                                     Background="White">
+                                                <ListBox.ItemTemplate>
+                                                    <DataTemplate DataType="{x:Type viewModels:RunResultFindingViewModel}">
+                                                        <Grid Margin="0,2,0,4">
+                                                            <Grid.ColumnDefinitions>
+                                                                <ColumnDefinition Width="10" />
+                                                                <ColumnDefinition Width="*" />
+                                                            </Grid.ColumnDefinitions>
+                                                            <Ellipse Width="7"
+                                                                     Height="7"
+                                                                     VerticalAlignment="Top"
+                                                                     Margin="0,4,0,0"
+                                                                     Fill="{Binding StatusBrush}" />
+                                                            <StackPanel Grid.Column="1">
+                                                                <TextBlock Foreground="#374151"
+                                                                           Text="{Binding Name}"
+                                                                           TextTrimming="CharacterEllipsis" />
+                                                                <TextBlock Margin="0,2,0,0"
+                                                                           Style="{StaticResource MutedText}"
+                                                                           Text="{Binding Message}"
+                                                                           TextWrapping="Wrap" />
+                                                                <TextBlock Margin="0,2,0,0"
+                                                                           Style="{StaticResource MutedText}"
+                                                                           Text="{Binding EvidenceReference}" />
+                                                            </StackPanel>
+                                                        </Grid>
+                                                    </DataTemplate>
+                                                </ListBox.ItemTemplate>
+                                            </ListBox>
+                                        </Grid>
+                                    </Border>
+                                </Grid>
+                            </Grid>
+                        </Grid>
+                    </TabItem>
+                    <TabItem Header="Test Result Artifact">
+                        <Grid Margin="8">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="*" />
+                            </Grid.RowDefinitions>
+                            <Border Padding="10,8"
+                                    BorderBrush="#C2CAD5"
+                                    BorderThickness="1"
+                                    Background="#F5F7FA">
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="*" />
+                                        <ColumnDefinition Width="Auto" />
+                                    </Grid.ColumnDefinitions>
+                                    <StackPanel>
+                                        <StackPanel Orientation="Horizontal">
+                                            <TextBlock FontSize="12"
+                                                       FontWeight="SemiBold"
+                                                       Foreground="#374151"
+                                                       VerticalAlignment="Center"
+                                                       Text="JUnit XML artifact" />
+                                            <Border Margin="8,0,0,0"
+                                                    Padding="6,1"
+                                                    BorderBrush="#C9D1DC"
+                                                    BorderThickness="1"
+                                                    Background="White"
+                                                    CornerRadius="2"
+                                                    VerticalAlignment="Center">
+                                                <TextBlock Style="{StaticResource MutedText}"
+                                                           Text="{Binding TestResultArtifactStatus}" />
+                                            </Border>
+                                        </StackPanel>
+                                    </StackPanel>
+                                    <StackPanel Grid.Column="1"
+                                                Orientation="Horizontal"
+                                                VerticalAlignment="Center">
+                                        <Button MinWidth="76"
+                                                Margin="8,0,0,0"
+                                                Padding="8,3"
+                                                Content="Open File"
+                                                Command="{Binding OpenTestResultArtifactCommand}" />
+                                        <Button MinWidth="86"
+                                                Margin="8,0,0,0"
+                                                Padding="8,3"
+                                                Content="Open Folder"
+                                                Command="{Binding OpenOutputFolderCommand}" />
+                                    </StackPanel>
+                                </Grid>
+                            </Border>
+                            <TextBox Grid.Row="1"
+                                     Margin="0,8,0,0"
+                                     Text="{Binding TestResultArtifactPreview, Mode=OneWay}"
+                                     IsReadOnly="True"
+                                     FontFamily="Cascadia Mono, Consolas, Courier New"
+                                     FontSize="10"
+                                     BorderBrush="#C2CAD5"
+                                     BorderThickness="1"
+                                     Padding="8"
+                                     TextWrapping="Wrap"
+                                     VerticalScrollBarVisibility="Auto"
+                                     HorizontalScrollBarVisibility="Disabled" />
+                        </Grid>
+                    </TabItem>
+                </TabControl>
+
+                <GridSplitter Grid.Row="2" Style="{StaticResource HorizontalWorkbenchSplitter}" />
+
+                <Grid Grid.Row="3" Margin="8,0,8,4">
+                    <TabControl SelectedIndex="{Binding SelectedEvidenceTabIndex, Mode=TwoWay}">
+                        <TabItem Header="Output">
+                            <TextBox x:Name="OutputTextBox"
+                                     Text="{Binding TerminalText, Mode=OneWay}"
+                                     IsReadOnly="True"
+                                     FontFamily="Cascadia Mono, Consolas, Courier New"
+                                     FontSize="10"
+                                     BorderThickness="0"
+                                     VerticalScrollBarVisibility="Auto"
+                                     HorizontalScrollBarVisibility="Auto"
+                                     TextChanged="OutputTextBox_TextChanged">
+                                <TextBox.ContextMenu>
+                                    <ContextMenu>
+                                        <MenuItem Header="Copy"
+                                                  Command="{x:Static ApplicationCommands.Copy}"
+                                                  CommandTarget="{Binding PlacementTarget, RelativeSource={RelativeSource AncestorType={x:Type ContextMenu}}}" />
+                                        <MenuItem Header="Select All"
+                                                  Command="{x:Static ApplicationCommands.SelectAll}"
+                                                  CommandTarget="{Binding PlacementTarget, RelativeSource={RelativeSource AncestorType={x:Type ContextMenu}}}" />
+                                        <Separator />
+                                        <MenuItem Header="Clear Output"
+                                                  Command="{Binding PlacementTarget.DataContext.ClearOutputCommand, RelativeSource={RelativeSource AncestorType={x:Type ContextMenu}}}" />
+                                    </ContextMenu>
+                                </TextBox.ContextMenu>
+                            </TextBox>
+                        </TabItem>
+                        <TabItem>
+                            <TabItem.Header>
+                                <StackPanel Orientation="Horizontal">
+                                    <TextBlock Text="Diagnostics" />
+                                    <Border Margin="6,0,0,0"
+                                            Padding="4,0"
+                                            MinWidth="18"
+                                            Height="16"
+                                            BorderBrush="#C9D1DC"
+                                            BorderThickness="1"
+                                            Background="#F5F7FA"
+                                            CornerRadius="8">
+                                        <StackPanel Orientation="Horizontal">
+                                            <Ellipse Width="6"
+                                                     Height="6"
+                                                     Margin="0,0,4,0"
+                                                     VerticalAlignment="Center"
+                                                     Fill="{Binding DiagnosticStatusBrush}" />
+                                            <TextBlock FontSize="10"
+                                                       Foreground="#4B5563"
+                                                       VerticalAlignment="Center"
+                                                       Text="{Binding DiagnosticBadgeText}" />
+                                        </StackPanel>
+                                    </Border>
+                                </StackPanel>
+                            </TabItem.Header>
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="2*" />
+                                    <ColumnDefinition Width="3" />
+                                    <ColumnDefinition Width="1*" />
+                                </Grid.ColumnDefinitions>
+                                <ListView Grid.Column="0"
+                                          ItemsSource="{Binding Diagnostics}"
+                                          SelectedItem="{Binding SelectedDiagnostic, Mode=TwoWay}"
+                                          BorderThickness="0"
+                                          Background="White"
+                                          ItemContainerStyle="{StaticResource CompactDiagnosticRow}">
+                                    <ListView.ContextMenu>
+                                        <ContextMenu>
+                                            <MenuItem Header="Analyze Related Evidence"
+                                                      Command="{Binding PlacementTarget.DataContext.AnalyzeSelectedDiagnosticCommand, RelativeSource={RelativeSource AncestorType={x:Type ContextMenu}}}" />
+                                            <Separator />
+                                            <MenuItem Header="Copy Diagnostic"
+                                                      Click="CopySelectedDiagnostic_Click"
+                                                      IsEnabled="{Binding PlacementTarget.DataContext.CanCopySelectedDiagnostic, RelativeSource={RelativeSource AncestorType={x:Type ContextMenu}}}" />
+                                            <MenuItem Header="Copy All Diagnostics"
+                                                      Click="CopyAllDiagnostics_Click"
+                                                      IsEnabled="{Binding PlacementTarget.DataContext.CanCopyAllDiagnostics, RelativeSource={RelativeSource AncestorType={x:Type ContextMenu}}}" />
+                                            <Separator />
+                                            <MenuItem Header="Clear Diagnostics"
+                                                      Command="{Binding PlacementTarget.DataContext.ClearDiagnosticsCommand, RelativeSource={RelativeSource AncestorType={x:Type ContextMenu}}}" />
+                                        </ContextMenu>
+                                    </ListView.ContextMenu>
+                                    <ListView.ItemTemplate>
+                                        <DataTemplate>
+                                            <Grid Height="20">
+                                                <Grid.ColumnDefinitions>
+                                                    <ColumnDefinition Width="18" />
+                                                    <ColumnDefinition Width="*" />
+                                                    <ColumnDefinition Width="118" />
+                                                    <ColumnDefinition Width="82" />
+                                                </Grid.ColumnDefinitions>
+                                                <Ellipse Grid.Column="0"
+                                                         Width="6"
+                                                         Height="6"
+                                                         Fill="{Binding SeverityBrush}"
+                                                         VerticalAlignment="Center"
+                                                         HorizontalAlignment="Center" />
+                                                <TextBlock Grid.Column="1"
+                                                           Margin="2,0,8,0"
+                                                           VerticalAlignment="Center"
+                                                           Text="{Binding Message}"
+                                                           TextTrimming="CharacterEllipsis" />
+                                                <TextBlock Grid.Column="2"
+                                                           Margin="0,0,6,0"
+                                                           Foreground="#6B7280"
+                                                           VerticalAlignment="Center"
+                                                           Text="{Binding Source}"
+                                                           TextTrimming="CharacterEllipsis" />
+                                                <TextBlock Grid.Column="3"
+                                                           Margin="0,0,6,0"
+                                                           Foreground="#6B7280"
+                                                           VerticalAlignment="Center"
+                                                           Text="{Binding LastSeen}"
+                                                           TextTrimming="CharacterEllipsis" />
+                                            </Grid>
+                                        </DataTemplate>
+                                    </ListView.ItemTemplate>
+                                </ListView>
+                                <GridSplitter Grid.Column="1" Style="{StaticResource VerticalContentSplitter}" />
+                                <Border Grid.Column="2"
+                                        Background="#F5F7FA"
+                                        BorderBrush="#E1E6ED"
+                                        BorderThickness="1,0,0,0"
+                                        Padding="12,8">
+                                    <ScrollViewer VerticalScrollBarVisibility="Auto"
+                                                  HorizontalScrollBarVisibility="Disabled">
+                                        <StackPanel>
+                                            <DockPanel>
+                                                <Button DockPanel.Dock="Right"
+                                                        MinWidth="64"
+                                                        Padding="7,2"
+                                                        Content="Analyze"
+                                                        Command="{Binding AnalyzeSelectedDiagnosticCommand}" />
+                                                <TextBlock VerticalAlignment="Center"
+                                                           FontSize="12"
+                                                           FontWeight="SemiBold"
+                                                           Foreground="#374151"
+                                                           Text="Diagnostic detail" />
+                                            </DockPanel>
+                                            <TextBlock Margin="0,10,0,0" Style="{StaticResource DiagnosticDetailLabel}" Text="Severity" />
+                                            <TextBlock Style="{StaticResource DiagnosticDetailValue}" Text="{Binding SelectedDiagnostic.Level, TargetNullValue=Select a diagnostic entry}" />
+                                            <TextBlock Style="{StaticResource DiagnosticDetailLabel}" Text="Last seen" />
+                                            <TextBlock Style="{StaticResource DiagnosticDetailValue}" Text="{Binding SelectedDiagnostic.LastSeenDetail, TargetNullValue=-}" />
+                                            <TextBlock Style="{StaticResource DiagnosticDetailLabel}" Text="Code" />
+                                            <TextBlock Style="{StaticResource DiagnosticDetailValue}" Text="{Binding SelectedDiagnostic.Code, TargetNullValue=-}" />
+                                            <TextBlock Style="{StaticResource DiagnosticDetailLabel}" Text="Category / phase" />
+                                            <TextBlock Style="{StaticResource DiagnosticDetailValue}">
+                                                <TextBlock.Text>
+                                                    <MultiBinding StringFormat="{}{0} / {1}">
+                                                        <Binding Path="SelectedDiagnostic.Category" TargetNullValue="-" />
+                                                        <Binding Path="SelectedDiagnostic.Phase" TargetNullValue="-" />
+                                                    </MultiBinding>
+                                                </TextBlock.Text>
+                                            </TextBlock>
+                                            <TextBlock Style="{StaticResource DiagnosticDetailLabel}" Text="Source" />
+                                            <TextBlock Style="{StaticResource DiagnosticDetailValue}" Text="{Binding SelectedDiagnostic.Source, TargetNullValue=-}" />
+                                            <TextBlock Style="{StaticResource DiagnosticDetailLabel}" Text="Message" />
+                                            <TextBlock Style="{StaticResource DiagnosticDetailValue}" Text="{Binding SelectedDiagnostic.Message, TargetNullValue=No diagnostic selected.}" />
+                                            <TextBlock Style="{StaticResource DiagnosticDetailLabel}" Text="Technical detail" />
+                                            <TextBlock Style="{StaticResource DiagnosticDetailValue}" Text="{Binding SelectedDiagnostic.TechnicalDetail, TargetNullValue=-}" />
+                                            <TextBlock Style="{StaticResource DiagnosticDetailLabel}" Text="Evidence" />
+                                            <TextBlock Style="{StaticResource DiagnosticDetailValue}" Text="{Binding SelectedDiagnostic.EvidenceReference, TargetNullValue=-}" />
+                                            <TextBlock Style="{StaticResource DiagnosticDetailLabel}" Text="Correlation" />
+                                            <TextBlock Style="{StaticResource DiagnosticDetailValue}" Text="{Binding SelectedDiagnostic.Correlation, TargetNullValue=-}" />
+                                        </StackPanel>
+                                    </ScrollViewer>
+                                </Border>
+                            </Grid>
+                        </TabItem>
+                    </TabControl>
+                </Grid>
+            </Grid>
+        </Grid>
+    </DockPanel>
+</Window>

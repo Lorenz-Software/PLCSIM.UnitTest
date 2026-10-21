@@ -1,0 +1,16 @@
+{
+  "project": {
+    "displayName": "Siemens Fake Archive Project",
+    "productVersion": "fake-21",
+    "projectVersion": "fake"
+  },
+  "targets": [
+    {
+      "id": "fake-plc-1",
+      "displayName": "Fake PLC 1",
+      "technicalPath": "Fake/PLC_1",
+      "cpuFamily": "S7-1500",
+      "cpuType": "S71500"
+    }
+  ]
+}

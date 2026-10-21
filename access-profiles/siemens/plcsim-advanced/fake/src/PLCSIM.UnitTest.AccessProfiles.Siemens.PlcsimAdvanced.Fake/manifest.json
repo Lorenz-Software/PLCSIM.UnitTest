@@ -1,0 +1,38 @@
+{
+  "schemaVersion": 1,
+  "info": {
+    "bindingKind": "plcsim-advanced",
+    "bindingVersion": "1.0.0",
+    "displayName": "Fake PLCSIM Advanced Binding"
+  },
+  "entryPoint": {
+    "assembly": "PLCSIM.UnitTest.AccessProfiles.Siemens.PlcsimAdvanced.Fake.dll",
+    "typeName": "PLCSIM.UnitTest.AccessProfiles.Siemens.PlcsimAdvanced.Fake.FakePlcsimAdvancedBinding"
+  },
+  "declaration": {
+    "accessApis": [
+      {
+        "kind": "plcsim-advanced",
+        "productVersion": "fake-8",
+        "accessApiVersion": "fake-8"
+      }
+    ],
+    "projectSources": [],
+    "runtimes": [
+      {
+        "kind": "plcsim-advanced",
+        "version": "fake",
+        "locality": "Local",
+        "compatibleProjectSourceKinds": [
+          "siemens-fake-project"
+        ]
+      }
+    ],
+    "unitTestCommunicationContractVersions": [
+      "1.0.0"
+    ],
+    "unitTestEventStreamContractVersions": [
+      "1.0.0"
+    ]
+  }
+}

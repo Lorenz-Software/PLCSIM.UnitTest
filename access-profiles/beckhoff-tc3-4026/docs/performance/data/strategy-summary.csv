@@ -1,0 +1,3 @@
+strategy,monitoringMs,drainMs,batchLimit,measuredRuns,meanRunMs,meanCaptureMs,captureP95Ms,meanEventsPerCapture,meanRunMaxBacklog,maxBacklog,meanCpuMs,meanAllocationMiB,meanRunControlReads,meanBufferCallbacks,meanRunControlCallbacks,meanNonemptyBatches
+polling,10,1,32,10,3087.31098,17.769875544794186,20.9305,18.934624697336563,60.1,73,325,14.056680297851562,197.8,0,0,82.6
+subscription,10,1,32,10,3070.54596,16.876839478417281,19.9078,14.064748201438849,39.2,45,271.875,15.881533813476562,31,224.9,3,111.2

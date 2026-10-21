@@ -1,0 +1,14 @@
+{
+  "schemaVersion": 1,
+  "profile": {
+    "id": "fake",
+    "version": "1.0.0",
+    "displayName": "Fake Access Profile",
+    "description": "Siemens-independent fake access profile for development and automated tests.",
+    "contractVersion": "2.0.0"
+  },
+  "entryPoint": {
+    "assembly": "PLCSIM.UnitTest.AccessProfiles.Fake.dll",
+    "type": "PLCSIM.UnitTest.AccessProfiles.Fake.FakeAccessProfilePlugin"
+  }
+}

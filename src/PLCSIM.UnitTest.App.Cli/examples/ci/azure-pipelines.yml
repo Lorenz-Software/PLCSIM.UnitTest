@@ -1,0 +1,44 @@
+# Starter pipeline for a pre-provisioned self-hosted Windows agent. Configure
+# the selected pool with one usable PLCSIM parallel slot or equivalent locking.
+trigger:
+  - main
+
+pool:
+  name: PlcsimWindowsAgents
+  demands:
+    - plcsim
+
+variables:
+  PLCSIM_UNITTEST_CLI: 'C:\Program Files\PLCSIM.UnitTest\PLCSIM.UnitTest.App.Cli.exe'
+  PLCSIM_UNITTEST_CONFIG: '$(Build.SourcesDirectory)\ci\plcsim-unittest.json'
+  PLCSIM_UNITTEST_JUNIT: '$(Build.ArtifactStagingDirectory)\plcsim-unittest\$(Build.BuildId)-$(System.JobAttempt)\plcsim-unittest.xml'
+  PLCSIM_UNITTEST_ANALYSIS: '$(Build.ArtifactStagingDirectory)\plcsim-unittest\$(Build.BuildId)-$(System.JobAttempt)\analysis'
+
+steps:
+  - checkout: self
+  - pwsh: '& "$(PLCSIM_UNITTEST_CLI)" list-profiles; exit $LASTEXITCODE'
+    displayName: Inspect registered profiles
+  - pwsh: '& "$(PLCSIM_UNITTEST_CLI)" check-config --file "$(PLCSIM_UNITTEST_CONFIG)"; exit $LASTEXITCODE'
+    displayName: Check configuration
+  - pwsh: '& "$(PLCSIM_UNITTEST_CLI)" run --file "$(PLCSIM_UNITTEST_CONFIG)" --output "$(PLCSIM_UNITTEST_JUNIT)" --analysis-output "$(PLCSIM_UNITTEST_ANALYSIS)"; exit $LASTEXITCODE'
+    displayName: Run PLC UnitTests
+  - task: PublishTestResults@2
+    condition: always()
+    inputs:
+      testResultsFormat: JUnit
+      testResultsFiles: '$(PLCSIM_UNITTEST_JUNIT)'
+      failTaskOnMissingResultsFile: false
+      failTaskOnFailedTests: false
+    displayName: Publish JUnit results
+  - pwsh: |
+      if (Get-ChildItem -LiteralPath "$(PLCSIM_UNITTEST_ANALYSIS)" -Filter *.zip -Recurse -ErrorAction SilentlyContinue) {
+        Write-Host "##vso[task.setvariable variable=HasEvidenceAnalysis]true"
+      }
+    condition: always()
+    displayName: Check for evidence analysis
+  - task: PublishBuildArtifacts@1
+    condition: and(always(), eq(variables['HasEvidenceAnalysis'], 'true'))
+    inputs:
+      PathtoPublish: '$(PLCSIM_UNITTEST_ANALYSIS)'
+      ArtifactName: plcsim-unittest-analysis
+    displayName: Publish evidence analysis

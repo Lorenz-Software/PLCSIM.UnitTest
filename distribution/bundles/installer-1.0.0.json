@@ -1,0 +1,104 @@
+{
+  "schemaVersion": 1,
+  "distribution": {
+    "name": "plcsim-unittest.windows",
+    "version": "1.0.0"
+  },
+  "application": {
+    "package": "plcsim-unittest",
+    "version": "1.0.0",
+    "manifestSha256": "8b7040419799188e2f5e310f2e01362c55666194885c7a853314af1c2f058e5e",
+    "destination": "."
+  },
+  "components": [
+    {
+      "id": "profile.siemens",
+      "package": "access-profiles.siemens",
+      "version": "1.0.0",
+      "manifestSha256": "8548301b923bacad8171ada7c584e81cf6a702d174a45b6238b050b17ec107bd",
+      "destination": "profiles/siemens",
+      "selectedByDefault": true
+    },
+    {
+      "id": "plugin.siemens.tia-openness.v15_1",
+      "package": "plugins.siemens.tia-openness.v15_1",
+      "version": "1.0.0",
+      "manifestSha256": "3d04fc6336b0d1334ef268ba380e6174cdb10a3a649a55ff873e265565be0f18",
+      "destination": "profiles/siemens/lib/bindings/tia-openness-v15_1",
+      "parent": "profile.siemens",
+      "selectedByDefault": true
+    },
+    {
+      "id": "plugin.siemens.tia-openness.v17",
+      "package": "plugins.siemens.tia-openness.v17",
+      "version": "1.0.0",
+      "manifestSha256": "f05a474b60b65b8f3afc074d303179fc333b8bb45d83e47ee1959f4f8dcc17f2",
+      "destination": "profiles/siemens/lib/bindings/tia-openness-v17",
+      "parent": "profile.siemens",
+      "selectedByDefault": true
+    },
+    {
+      "id": "plugin.siemens.tia-openness.v18",
+      "package": "plugins.siemens.tia-openness.v18",
+      "version": "1.0.0",
+      "manifestSha256": "ed1135849ec63e7b4c1f6d4812bd896e8a455efac295dfbdb067278094054503",
+      "destination": "profiles/siemens/lib/bindings/tia-openness-v18",
+      "parent": "profile.siemens",
+      "selectedByDefault": true
+    },
+    {
+      "id": "plugin.siemens.tia-openness.v19",
+      "package": "plugins.siemens.tia-openness.v19",
+      "version": "1.0.0",
+      "manifestSha256": "defb7c27d3cb98a7593ce8cad4a440e00c8ada5d7381c9c2860722dfc9b8b980",
+      "destination": "profiles/siemens/lib/bindings/tia-openness-v19",
+      "parent": "profile.siemens",
+      "selectedByDefault": true
+    },
+    {
+      "id": "plugin.siemens.tia-openness.v20",
+      "package": "plugins.siemens.tia-openness.v20",
+      "version": "1.0.0",
+      "manifestSha256": "13e95d0266aa603840ec0c6cebf05ee2e6b79df071329c36b4eac90bb6518144",
+      "destination": "profiles/siemens/lib/bindings/tia-openness-v20",
+      "parent": "profile.siemens",
+      "selectedByDefault": true
+    },
+    {
+      "id": "plugin.siemens.tia-openness.v21",
+      "package": "plugins.siemens.tia-openness.v21",
+      "version": "1.0.0",
+      "manifestSha256": "4c96225287227dccaf63e547f7cd9de615108c999b14ac9797e6acc1e24909a1",
+      "destination": "profiles/siemens/lib/bindings/tia-openness-v21",
+      "parent": "profile.siemens",
+      "selectedByDefault": true
+    },
+    {
+      "id": "plugin.siemens.plcsim-advanced.v6",
+      "package": "plugins.siemens.plcsim-advanced.v6",
+      "version": "1.0.0",
+      "manifestSha256": "9a44b6cc9dae5aa85d32136e38ff752738c531e6c621e61b1bc1b6be3bf4ced3",
+      "destination": "profiles/siemens/lib/bindings/plcsim-advanced-v6",
+      "parent": "profile.siemens",
+      "selectedByDefault": true
+    },
+    {
+      "id": "plugin.siemens.plcsim-advanced.v7",
+      "package": "plugins.siemens.plcsim-advanced.v7",
+      "version": "1.0.0",
+      "manifestSha256": "b2159ba862106d1edd98ed35545629a3a49cef0115e05d0e0cf686a2f022fded",
+      "destination": "profiles/siemens/lib/bindings/plcsim-advanced-v7",
+      "parent": "profile.siemens",
+      "selectedByDefault": true
+    },
+    {
+      "id": "plugin.siemens.plcsim-advanced.v8",
+      "package": "plugins.siemens.plcsim-advanced.v8",
+      "version": "1.0.0",
+      "manifestSha256": "84785353f5b131474ef0431099b9023d99f0dd74d508fa00e4945c68c6685508",
+      "destination": "profiles/siemens/lib/bindings/plcsim-advanced-v8",
+      "parent": "profile.siemens",
+      "selectedByDefault": true
+    }
+  ]
+}

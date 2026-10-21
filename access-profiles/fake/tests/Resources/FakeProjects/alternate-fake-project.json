@@ -1,0 +1,6 @@
+{
+  "schemaVersion": 1,
+  "id": "alternate-fake-project",
+  "displayName": "Alternate Fake Project",
+  "description": "Second fake project source used for manual selection, replacement, and repeated-load development checks."
+}

@@ -1,0 +1,32 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <ItemGroup>
+    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.10.0" />
+    <PackageReference Include="xunit" Version="2.9.0" />
+    <PackageReference Include="xunit.runner.visualstudio" Version="2.8.2" />
+    <Reference Include="PLCSIM.UnitTest.Common">
+      <HintPath>$(ContractArtifactsDir)PLCSIM.UnitTest.Common.dll</HintPath>
+      <Private>true</Private>
+    </Reference>
+    <Reference Include="PLCSIM.UnitTest.Common.Application">
+      <HintPath>$(ContractArtifactsDir)PLCSIM.UnitTest.Common.Application.dll</HintPath>
+      <Private>true</Private>
+    </Reference>
+    <ProjectReference Include="..\..\src\PLCSIM.UnitTest.App.Cli\PLCSIM.UnitTest.App.Cli.csproj" />
+    <ProjectReference Include="..\..\src\PLCSIM.UnitTest.Core\PLCSIM.UnitTest.Core.csproj" />
+    <ProjectReference Include="..\PLCSIM.UnitTest.Testing\PLCSIM.UnitTest.Testing.csproj" />
+    <ProjectReference Include="..\..\access-profiles\fake\src\PLCSIM.UnitTest.AccessProfiles.Fake\PLCSIM.UnitTest.AccessProfiles.Fake.csproj" />
+  </ItemGroup>
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+    <IsTestProject>true</IsTestProject>
+    <CliIntegrationProfileRoot>$(MSBuildProjectDirectory)\bin\$(Configuration)\$(TargetFramework)\integration-profiles</CliIntegrationProfileRoot>
+  </PropertyGroup>
+  <Target Name="DeployFakeProfileForCliIntegrationTests" BeforeTargets="Build">
+    <MSBuild
+      Projects="..\..\access-profiles\fake\src\PLCSIM.UnitTest.AccessProfiles.Fake\PLCSIM.UnitTest.AccessProfiles.Fake.csproj"
+      Targets="DeployPluginPackage"
+      Properties="Configuration=$(Configuration);PluginDeploymentRoot=$(CliIntegrationProfileRoot);PluginPackageSubDir=fake" />
+  </Target>
+</Project>

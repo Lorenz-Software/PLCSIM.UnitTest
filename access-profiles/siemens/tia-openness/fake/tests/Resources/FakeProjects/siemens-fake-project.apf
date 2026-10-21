@@ -1,0 +1,17 @@
+{
+  "schemaVersion": 1,
+  "project": {
+    "displayName": "Siemens Fake TIA Project",
+    "productVersion": "fake-21",
+    "projectVersion": "fake"
+  },
+  "targets": [
+    {
+      "id": "siemens-fake-plc",
+      "displayName": "Siemens Fake PLC",
+      "technicalPath": "Project/FakeStation/FakeCpu",
+      "cpuFamily": "S7-1500",
+      "cpuType": "CPU 1516F-3 PN/DP"
+    }
+  ]
+}

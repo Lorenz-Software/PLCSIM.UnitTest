@@ -1,0 +1,59 @@
+<Project>
+  <Target Name="DeployContractArtifact" DependsOnTargets="Build">
+    <PropertyGroup>
+      <_ContractDeployAllowed>false</_ContractDeployAllowed>
+      <_ContractDeployAllowed Condition="'$(MSBuildProjectName)' == 'PLCSIM.UnitTest.Common'">true</_ContractDeployAllowed>
+      <_ContractDeployAllowed Condition="'$(MSBuildProjectName)' == 'PLCSIM.UnitTest.Common.Application'">true</_ContractDeployAllowed>
+      <_ContractDeployAllowed Condition="'$(MSBuildProjectName)' == 'PLCSIM.UnitTest.AccessProfiles.Siemens.Contracts'">true</_ContractDeployAllowed>
+    </PropertyGroup>
+
+    <Error
+      Condition="'$(_ContractDeployAllowed)' != 'true'"
+      Text="DeployContractArtifact is only valid for contract projects." />
+    <Error
+      Condition="'$(Configuration)' != 'Release'"
+      Text="DeployContractArtifact must be run with Configuration=Release." />
+
+    <MakeDir Directories="$(ContractArtifactsDir)" />
+    <Copy
+      SourceFiles="$(TargetPath)"
+      DestinationFolder="$(ContractArtifactsDir)"
+      SkipUnchangedFiles="true" />
+    <Copy
+      Condition="Exists('$(TargetDir)$(TargetName).pdb')"
+      SourceFiles="$(TargetDir)$(TargetName).pdb"
+      DestinationFolder="$(ContractArtifactsDir)"
+      SkipUnchangedFiles="true" />
+  </Target>
+
+  <Target Name="ValidateAccessProfilePackageDocumentation"
+          DependsOnTargets="Build"
+          Condition="'$(IsAccessProfilePackage)' == 'true'">
+    <Error
+      Condition="!Exists('$(TargetDir)docs\configuration.md')"
+      Text="Access-profile package output must contain docs\configuration.md." />
+  </Target>
+
+  <Target Name="DeployPluginPackage"
+          DependsOnTargets="Build;ValidateAccessProfilePackageDocumentation">
+    <Error
+      Condition="'$(PluginDeploymentRoot)' == ''"
+      Text="DeployPluginPackage requires PluginDeploymentRoot." />
+    <Error
+      Condition="'$(PluginPackageSubDir)' == ''"
+      Text="DeployPluginPackage requires PluginPackageSubDir." />
+
+    <PropertyGroup>
+      <_PluginPackageDeployDir>$(PluginDeploymentRoot)\$(PluginPackageSubDir)\</_PluginPackageDeployDir>
+    </PropertyGroup>
+    <ItemGroup>
+      <_PluginPackageOutput Include="$(TargetDir)**\*.*" />
+    </ItemGroup>
+
+    <MakeDir Directories="$(_PluginPackageDeployDir)" />
+    <Copy
+      SourceFiles="@(_PluginPackageOutput)"
+      DestinationFiles="@(_PluginPackageOutput->'$(_PluginPackageDeployDir)%(RecursiveDir)%(Filename)%(Extension)')"
+      SkipUnchangedFiles="true" />
+  </Target>
+</Project>

@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Session setup - PLCSIM UnitTest Help</title>
+  <link rel="stylesheet" href="assets/help.css">
+</head>
+<body>
+  <header class="site-header">
+    <div class="header-content">
+      <img class="product-logo" src="assets/PLCSIM.UnitTest.png" alt="PLCSIM UnitTest">
+      <div><p class="product-name">PLCSIM UnitTest</p><h1>Session setup</h1></div>
+    </div>
+  </header>
+  <div class="help-layout">
+    <nav class="help-navigation" aria-label="Help topics">
+      <h2>Help topics</h2>
+      <ol><li><a href="index.html">Overview</a></li>
+        <li><a aria-current="page" href="workflow.html">Session setup</a></li>
+        <li><a href="operation.html">Test execution</a></li>
+        <li><a href="analysis.html">Evidence analysis</a></li>
+        <li><a href="diagnostics.html">Status and recovery</a></li>
+        <li><a href="settings.html">Settings</a></li>
+        <li><a href="configuration.html">Configuration authoring</a></li>
+        <li><a href="ci-integration.html">CI integration</a></li></ol>
+    </nav>
+    <main>
+<h2>Entry points</h2>
+<h3>Manual setup</h3>
+<p>Use the sidebar directly when selecting project ownership, profile, targets, and configuration interactively. This is the normal debugging flow.</p>
+<h3>Import Configuration</h3>
+<p><strong>File &gt; Import Configuration...</strong> loads a JSON configuration as an editable draft and returns to Step 1. Imported values prefill the workflow but do not force project ownership or start preparation.</p>
+<h3>Load UnitTest</h3>
+<p><strong>File &gt; Load UnitTest...</strong> loads a complete configuration and uses application-managed project handling. It advances through validation, project preparation, runtime preparation, and transfer. On failure, the responsible step remains visible with Output and Diagnostics evidence.</p>
+<p>Runtime intent is preserved independently of project handling. Explicit <code>UseExisting</code> resolves the configured runtime or the profile-designated default and retains that resource during cleanup. It still performs the managed build and transfer, which can change the program on that target. Omitted intent defaults to <code>CreateOwned</code>; an existing-target address alone does not request reuse. Unsupported creation and invalid explicit targets stop progression without selecting another mode or runtime.</p>
+<div class="warning"><strong>An existing session is never replaced silently.</strong> Importing or loading another configuration first requires confirmation and cleanup.</div>
+
+<h2>Step 1 - Project / Profile</h2>
+<p>Select the access profile and, when used, a project source. The <strong>Build and download project</strong> checkbox defines project ownership for this WPF session:</p>
+<p>After the window opens, the application checks whether the current user's profile registry still matches the installed profile packages. A missing or stale registration is shown directly below <strong>Access profile</strong>. Use <strong>Register now</strong> to explicitly refresh the registry and reload the profile list. Opening the application never invokes profile registration automatically.</p>
+<p><strong>Tools &gt; Refresh Profile Registrations</strong> performs the same explicit refresh later. Registration belongs to the current Windows user and should be repeated after installed profile packages are added, removed, or replaced.</p>
+<dl>
+  <dt>Enabled</dt>
+  <dd>The application opens the project, discovers PLC targets, builds, transfers, and releases project access after transfer or cleanup.</dd>
+  <dt>Disabled</dt>
+  <dd>Project handling remains external. The application only discovers and prepares runtime communication; the PLC program must already be present on the target.</dd>
+</dl>
+<p><strong>Next</strong> loads the profile and performs the discovery required by Step 2. It does not start the PLC or UnitTest communication.</p>
+
+<h2>Step 2 - PLC / Runtime / Communication</h2>
+<p>Select the discovered PLC target when project handling is application-managed and select the runtime target. Choosing an existing target uses <code>UseExisting</code>. <strong>Create own instance</strong> is offered only when the profile supports owned creation; any required creation parameters are edited with the profile fields in Step 3.</p>
+<figure class="screenshot screenshot-stepper">
+  <img src="assets/screenshots/step-2-target-selection.png" alt="Step 2 selecting an existing runtime with external project handling">
+  <figcaption>This example selects an existing runtime with external project handling. Managed setup also shows the PLC target selector; available runtimes and creation support depend on the selected profile.</figcaption>
+</figure>
+<p><strong>Next</strong> validates selection and opens Step 3 without preparing resources.</p>
+
+<h2>Step 3 - Profile Configuration</h2>
+<p>The selected profile publishes typed fields. WPF renders selection lists, checkboxes, strings, and numeric editors without knowing the profile's JSON paths or vendor semantics.</p>
+<figure class="screenshot screenshot-stepper">
+  <img src="assets/screenshots/step-3-profile-configuration.png" alt="Step 3 showing profile parameters, default overrides, and session timeouts">
+  <figcaption>This profile example exposes communication parameters and session settings before runtime preparation. Fields and optional overrides depend on the selected profile and runtime intent; displayed overrides are not the common configuration defaults.</figcaption>
+</figure>
+<p><strong>Next</strong> requires both generic field validation and profile validation. It then prepares project and runtime resources and transfers the project when project handling is application-managed.</p>
+<h3>Safety-program authorization</h3>
+<p>Before a managed build or transfer, the selected profile may report that Safety-program authorization is not required, requires a password, or is unsupported. WPF prompts only for the password-required case. The masked password remains in memory for the bounded authorization attempt and is not imported from configuration, persisted, logged, or exported.</p>
+<p>If authorization fails, the dialog can be opened again by retrying the setup action. Cancel stops the current setup attempt without changing the project. An unsupported result is terminal for the managed project workflow and is shown with the profile or binding diagnostic; it is not converted into a password prompt.</p>
+
+<h2>Step 4 - Test Execution</h2>
+<p>Step 4 is the repeated debugging surface. It exposes PLC control, UnitTest commands, EventBuffer reset, reconnect, and End Session. Continue with <a href="operation.html">Test execution</a> for PLC control and the normal run sequence.</p>
+<figure class="screenshot screenshot-stepper">
+  <img src="assets/screenshots/step-4-operation.png" alt="Step 4 operational controls">
+  <figcaption>Step 4 separates PLC control, UnitTest commands, recovery, and session cleanup.</figcaption>
+</figure>
+
+<h2>Backward navigation and cleanup</h2>
+<p><strong>Back</strong> and previously reached step headers release resources owned by later steps and retain values that remain safe to edit. The confirmation dialog identifies what will be released. <strong>File &gt; End Session</strong> releases the complete session and returns to Step 1.</p>
+<p>Cleanup retains an existing runtime selected with <code>UseExisting</code> and requests destruction of an application-owned runtime created with <code>CreateOwned</code>. Runtime-only sessions with external project handling do not open, build, or transfer a project.</p>
+
+    </main>
+  </div>
+  <footer class="site-footer">
+    <div class="footer-content">
+      <a href="https://www.lorenz-software.solutions/"><img src="assets/LogoLorenzSoftware.png" alt="Lorenz Software"></a>
+      <p>PLCSIM UnitTest offline help. <a href="license.html">License</a></p>
+    </div>
+  </footer>
+</body>
+</html>

@@ -1,0 +1,17 @@
+<Project>
+  <PropertyGroup>
+    <RepoRoot>$(MSBuildThisFileDirectory)</RepoRoot>
+    <ContractArtifactsDir>$(RepoRoot)lib\contracts\</ContractArtifactsDir>
+    <LangVersion>latest</LangVersion>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <TreatWarningsAsErrors>false</TreatWarningsAsErrors>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(MSBuildProjectName)' == 'PLCSIM.UnitTest.Common' Or '$(MSBuildProjectName)' == 'PLCSIM.UnitTest.Common.Application' Or '$(MSBuildProjectName)' == 'PLCSIM.UnitTest.AccessProfiles.Siemens.Contracts'">
+    <IncludeSourceRevisionInInformationalVersion>false</IncludeSourceRevisionInInformationalVersion>
+    <EnableSourceLink>false</EnableSourceLink>
+    <EmbedUntrackedSources>false</EmbedUntrackedSources>
+    <Deterministic>true</Deterministic>
+    <PathMap Condition="'$(Configuration)' == 'Release'">$(RepoRoot)=/_/</PathMap>
+  </PropertyGroup>
+</Project>

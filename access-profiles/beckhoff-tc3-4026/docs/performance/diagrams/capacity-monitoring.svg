@@ -1,0 +1,40 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1040" height="650" viewBox="0 0 1040 650">
+  <title>Observed backlog versus monitoring interval</title>
+  <rect width="1040" height="650" fill="white" />
+  <text font-size="22" font-family="Arial, sans-serif" fill="#333333" y="35" text-anchor="start" x="45">Observed backlog versus monitoring interval</text>
+  <text font-size="13" font-family="Arial, sans-serif" fill="#333333" y="61" text-anchor="start" x="45">Fixed: batch limit 32, drain 1 ms, PLC task 1 ms. 10 measured runs per setting.</text>
+  <line y2="490" x2="980" y1="490" x1="80" stroke="#dddddd" />
+  <text font-size="12" font-family="Arial, sans-serif" fill="#333333" y="494" text-anchor="end" x="70">0</text>
+  <line y2="417.777777777778" x2="980" y1="417.777777777778" x1="80" stroke="#dddddd" />
+  <text font-size="12" font-family="Arial, sans-serif" fill="#333333" y="421.777777777778" text-anchor="end" x="70">50</text>
+  <line y2="345.555555555556" x2="980" y1="345.555555555556" x1="80" stroke="#dddddd" />
+  <text font-size="12" font-family="Arial, sans-serif" fill="#333333" y="349.555555555556" text-anchor="end" x="70">100</text>
+  <line y2="273.333333333333" x2="980" y1="273.333333333333" x1="80" stroke="#dddddd" />
+  <text font-size="12" font-family="Arial, sans-serif" fill="#333333" y="277.333333333333" text-anchor="end" x="70">150</text>
+  <line y2="201.111111111111" x2="980" y1="201.111111111111" x1="80" stroke="#dddddd" />
+  <text font-size="12" font-family="Arial, sans-serif" fill="#333333" y="205.111111111111" text-anchor="end" x="70">200</text>
+  <line y2="128.888888888889" x2="980" y1="128.888888888889" x1="80" stroke="#dddddd" />
+  <text font-size="12" font-family="Arial, sans-serif" fill="#333333" y="132.888888888889" text-anchor="end" x="70">250</text>
+  <line y2="121.666666666667" stroke="#b84940" stroke-dasharray="6 4" x1="80" y1="121.666666666667" x2="980" />
+  <text font-size="12" font-family="Arial, sans-serif" fill="#333333" y="113.666666666667" text-anchor="end" x="980">Capacity 255</text>
+  <rect y="380.222222222222" fill="#16798b" width="56" height="109.777777777778" x="164.5" />
+  <line y2="401.166666666667" stroke="#efb849" x1="161.5" y1="401.166666666667" stroke-width="4" x2="223.5" />
+  <text font-size="13" font-family="Arial, sans-serif" fill="#333333" y="371.222222222222" text-anchor="middle" x="192.5">76</text>
+  <text font-size="13" font-family="Arial, sans-serif" fill="#333333" y="518" text-anchor="middle" x="192.5">5</text>
+  <rect y="336.888888888889" fill="#16798b" width="56" height="153.111111111111" x="389.5" />
+  <line y2="388.888888888889" stroke="#efb849" x1="386.5" y1="388.888888888889" stroke-width="4" x2="448.5" />
+  <text font-size="13" font-family="Arial, sans-serif" fill="#333333" y="327.888888888889" text-anchor="middle" x="417.5">106</text>
+  <text font-size="13" font-family="Arial, sans-serif" fill="#333333" y="518" text-anchor="middle" x="417.5">10</text>
+  <text font-size="11" font-family="Arial, sans-serif" fill="#333333" y="535" text-anchor="middle" x="417.5">default</text>
+  <rect y="323.888888888889" fill="#16798b" width="56" height="166.111111111111" x="614.5" />
+  <line y2="352.055555555556" stroke="#efb849" x1="611.5" y1="352.055555555556" stroke-width="4" x2="673.5" />
+  <text font-size="13" font-family="Arial, sans-serif" fill="#333333" y="314.888888888889" text-anchor="middle" x="642.5">115</text>
+  <text font-size="13" font-family="Arial, sans-serif" fill="#333333" y="518" text-anchor="middle" x="642.5">25</text>
+  <rect y="283.444444444444" fill="#16798b" width="56" height="206.555555555556" x="839.5" />
+  <line y2="333.855555555556" stroke="#efb849" x1="836.5" y1="333.855555555556" stroke-width="4" x2="898.5" />
+  <text font-size="13" font-family="Arial, sans-serif" fill="#333333" y="274.444444444444" text-anchor="middle" x="867.5">143</text>
+  <text font-size="13" font-family="Arial, sans-serif" fill="#333333" y="518" text-anchor="middle" x="867.5">50</text>
+  <text font-size="14" font-family="Arial, sans-serif" fill="#333333" y="560" text-anchor="middle" x="530">Monitoring interval (ms)</text>
+  <text font-size="13" font-family="Arial, sans-serif" fill="#333333" y="585" text-anchor="start" x="45">Bars: worst observed backlog. Gold markers: mean of per-run maxima.</text>
+  <text font-size="13" font-family="Arial, sans-serif" fill="#333333" y="611" text-anchor="start" x="45">Sampled peaks, not guaranteed limits. Polling + Sum Read; identical workload at every setting.</text>
+</svg>
