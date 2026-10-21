@@ -1,9 +1,16 @@
 # Normalize text files using automatic text detection.
 * text=auto
+*.sh text eol=lf
 
-# Preserve existing LFS rules; review incoming-source requirements before import.
-*.zap17 filter=lfs diff=lfs merge=lfs -text
-*.dll filter=lfs diff=lfs merge=lfs -text
-*.zal17 filter=lfs diff=lfs merge=lfs -text
-*.ico filter=lfs diff=lfs merge=lfs -text
-*.png filter=lfs diff=lfs merge=lfs -text
+# Keep contract source checksums stable across checkouts.
+src/PLCSIM.UnitTest.Common/**/*.cs text eol=lf
+src/PLCSIM.UnitTest.Common.Application/**/*.cs text eol=lf
+access-profiles/siemens/src/PLCSIM.UnitTest.AccessProfiles.Siemens.Contracts/**/*.cs text eol=lf
+
+# Store binary resources directly in Git without text conversion or merging.
+*.zap17 binary
+*.dll binary
+*.pdb binary
+*.zal17 binary
+*.ico binary
+*.png binary

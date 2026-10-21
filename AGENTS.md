@@ -72,11 +72,20 @@ identities, or confidential planning information.
 - Before replacement, present a concrete import/removal/retention plan and obtain
   approval. Identify obsolete files explicitly and preserve repository-owned
   documentation, packaging, GitHub configuration, and collaboration rules.
+- Repository-wide scripts belong under `tools/`; component-owned scripts remain
+  with their components. Preserve this public layout during later imports: map
+  incoming root scripts to their tools counterparts and reconcile public changes
+  instead of reintroducing duplicate root entry points. Update callers and owning
+  documentation when script locations change.
 - Agree the Git LFS representation before staging imported binary content.
   Preserve required contracts and resources; verify that LFS payloads resolve.
 - Keep local build, package, and installer workflows independent of private
   services. Do not publish authentication helpers, internal planning material,
   temporary exports, session notes, or machine-specific configuration.
+- Generic integration examples for users, including GitLab CI starters, are
+  public product content. Distinguish them from private development infrastructure
+  and registry/authentication helpers; do not remove CI support based on a vendor
+  or platform name alone. Preserve these examples in later source selections.
 - Scan the resulting tree for private information, obsolete infrastructure
   references, broken links, and accidentally retained legacy files.
 - Agree the release version separately. Establish correspondence between the
