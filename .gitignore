@@ -365,3 +365,6 @@ FodyWeavers.xsd
 PLCProject/*.backup/
 PLCProject/PlcSimCrossLink/
 *.bak
+
+# Temporary task analysis and verification output (not product source).
+/.tmp/
