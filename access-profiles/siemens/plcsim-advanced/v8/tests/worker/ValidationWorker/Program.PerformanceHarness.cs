@@ -501,12 +501,13 @@ namespace PLCSIM.UnitTest.AccessProfiles.Siemens.PlcsimAdvanced.V8.Worker
 
                 if (tag.EndsWith(".Index_IN", StringComparison.Ordinal))
                 {
-                    return capturedEvents == 256 ? (ushort)1 : (ushort)(capturedEvents + 1);
+                    return (ushort)(capturedEvents + 1);
                 }
 
                 if (tag.EndsWith(".BufferLength", StringComparison.Ordinal))
                 {
-                    return 256;
+                    // The synthetic 256-event workload needs one additional free slot.
+                    return 257;
                 }
 
                 if (tag.EndsWith(".LostEventCount", StringComparison.Ordinal))

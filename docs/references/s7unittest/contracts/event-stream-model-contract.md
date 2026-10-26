@@ -81,8 +81,8 @@ This contract does not define:
 - `CC-039` `Severity` is a logging-domain log level with the values and meanings defined in Table N.
 - `CC-040` `FifoControl.Index_IN` MUST be interpreted as the next producer write position and MUST NOT be interpreted as the last produced event position.
 - `CC-041` If `FifoControl.BufferEmpty = TRUE`, a consumer MUST treat the event buffer as having no available event entries.
-- `CC-042` If `FifoControl.BufferEmpty = FALSE` and `FifoControl.BufferFull = FALSE`, a consumer MUST treat the readable FIFO range as starting at `FifoControl.Index_OUT` and ending before `FifoControl.Index_IN`.
-- `CC-043` If `FifoControl.BufferFull = TRUE`, a consumer MUST treat the readable FIFO range as starting at `FifoControl.Index_OUT` and containing exactly `FifoControl.BufferLength` entries.
+- `CC-042` If `FifoControl.BufferEmpty = FALSE`, a consumer MUST treat the readable FIFO range as starting at `FifoControl.Index_OUT` and ending before `FifoControl.Index_IN`, including when `FifoControl.BufferFull = TRUE`.
+- `CC-043` If `FifoControl.BufferFull = TRUE`, a consumer MUST treat the readable FIFO range as containing exactly `FifoControl.BufferLength - 1` entries.
 - `CC-044` For the published FIFO control model, a consumer MUST advance readable FIFO positions by wrapping from `FifoControl.BufferLength` to index `1`.
 - `CC-045` A consumer MUST treat only entries inside the readable FIFO range and with `SequenceId > 0` as produced UnitTest events.
 - `CC-046` The UnitTest event producer MUST write event entries with FIFO overwrite disabled and MUST NOT overwrite unread event entries when the FIFO is full.
@@ -177,15 +177,17 @@ Available event-buffer entries are determined from the producer-owned FIFO contr
 
 The effective event-buffer array range for external consumers is `1..FifoControl.BufferLength`. External consumers do not need to know the PLC project constant that was used to declare the producer-side array. PLC-internal consumers may use compile-time array bounds or PLC constants when they are compiled against the same data model, but this is not required for external consumption.
 
+`FifoControl.BufferLength` is the physical array length and wrap boundary. One physical slot remains unused, so the usable event capacity is `BufferLength - 1`. For valid FIFO state, `ElementCnt` is the number of occupied entries, from `0` through `BufferLength - 1`; reservations do not occupy entries or increase this count.
+
 `FifoControl.Index_IN` represents the next producer write position. It is the FIFO input boundary, not the last produced event position.
 
 `FifoControl.Index_OUT` represents the current FIFO output position. If entries are available, the next event entry to be processed by the consumer is located at `Buffer[Index_OUT]`.
 
 If `FifoControl.BufferEmpty = TRUE`, no event-buffer entry is available for consumption.
 
-If `FifoControl.BufferEmpty = FALSE` and `FifoControl.BufferFull = FALSE`, the readable FIFO range starts at `FifoControl.Index_OUT` and ends before `FifoControl.Index_IN`.
+If `FifoControl.BufferEmpty = FALSE`, the readable FIFO range starts at `FifoControl.Index_OUT` and ends before `FifoControl.Index_IN`, including when the FIFO is full.
 
-If `FifoControl.BufferFull = TRUE`, the readable FIFO range starts at `FifoControl.Index_OUT` and contains exactly `FifoControl.BufferLength` entries.
+If `FifoControl.BufferFull = TRUE`, that range contains exactly `FifoControl.BufferLength - 1` entries. `Index_IN` still identifies the next write position and is not part of the readable range.
 
 The consumer derives FIFO read order from `FifoControl`. It must not assume that readable entries are stored in simple ascending physical array order.
 
@@ -200,14 +202,15 @@ Functionally, a consumer derives readable event-entry indexes from `FifoControl`
 1. Validate event-buffer `ContractInfo`.
 2. Read `FifoControl`, event-buffer `Status`, and the relevant event-buffer entries.
 3. If `FifoControl.BufferEmpty = TRUE`, no event entry is available.
-4. If `FifoControl.BufferFull = FALSE`, process FIFO positions from `Index_OUT` up to but not including `Index_IN`.
-5. If `FifoControl.BufferFull = TRUE`, process exactly `BufferLength` FIFO positions starting at `Index_OUT`.
-6. Treat only entries inside that readable FIFO range and with `SequenceId > 0` as produced events.
-7. Preserve FIFO order when deciding which processed `SequenceId` can be acknowledged for release.
+4. Otherwise, process FIFO positions from `Index_OUT` up to but not including `Index_IN`, regardless of `BufferFull`. A full FIFO has `BufferLength - 1` readable positions.
+5. Treat only entries inside that readable FIFO range and with `SequenceId > 0` as produced events.
+6. Preserve FIFO order when deciding which processed `SequenceId` can be acknowledged for release.
 
 For the current PLC-side FIFO control model, FIFO position advances by incrementing the current index. If the next index would be greater than `FifoControl.BufferLength`, it wraps to `1`. For example, with `BufferLength = 5`, `Index_OUT = 4`, `Index_IN = 2`, and `BufferFull = FALSE`, the readable FIFO positions are `4`, `5`, and `1`. Position `2` is the next producer write position and is not part of the readable range.
 
 Consumers use the derived FIFO positions as indexes into `Buffer`. In the example above, the consumer reads `Buffer[4]`, `Buffer[5]`, and `Buffer[1]` in that order.
+
+For a full wrapped FIFO with `BufferLength = 5`, `Index_OUT = 4`, `Index_IN = 3`, and `BufferFull = TRUE`, the readable positions are `4`, `5`, `1`, and `2`. These are the four usable entries; position `3` remains the next write position and is not readable.
 
 #### Event-Buffer Publication Area
 
@@ -232,10 +235,10 @@ The event-stream model owns the event-buffer publication structure. Concrete acc
 | `Index_OUT` | `UInt` | FIFO output position. The readable range starts here when `BufferEmpty = FALSE`. |
 | `Index_IN` | `UInt` | Next producer write position. It is the FIFO input boundary, not the last produced event position. |
 | `BufferEmpty` | `Bool` | `TRUE` means no event-buffer entry is available for consumption. |
-| `BufferFull` | `Bool` | `TRUE` means the readable range starts at `Index_OUT` and contains exactly `BufferLength` entries. |
+| `BufferFull` | `Bool` | `TRUE` means the readable range starts at `Index_OUT`, ends before `Index_IN`, and contains exactly `BufferLength - 1` entries. |
 | `BufferAlmostFull` | `Bool` | Producer-side capacity warning state. Relevant for diagnostics; the event stream remains authoritative for retained events and lost-event reporting. |
-| `ElementCnt` | `UInt` | Producer-side count of currently occupied FIFO entries. Useful for diagnostics and plausibility; readable range rules remain authoritative. |
-| `BufferLength` | `UInt` | Configured FIFO length and effective upper buffer index for external consumers. |
+| `ElementCnt` | `UInt` | Producer-side count of currently occupied FIFO entries, from `0` through `BufferLength - 1` for valid FIFO state. Reservations are not included. Useful for diagnostics and plausibility; readable range rules remain authoritative. |
+| `BufferLength` | `UInt` | Physical FIFO array length, wrap boundary, and effective upper buffer index for external consumers. Usable capacity is `BufferLength - 1`. |
 | `ConfigError` | `Bool` | `TRUE` means FIFO configuration is invalid. Consumers must treat event-buffer consumption as not reliable while this is true. |
 | `IndexError` | `Bool` | `TRUE` means FIFO index state is invalid or being repaired by the producer. Consumers must retry or defer event-buffer processing. |
 

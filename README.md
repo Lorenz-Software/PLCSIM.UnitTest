@@ -150,16 +150,25 @@ flowchart LR
 
 ## Project Status
 
-**Version 2.0.0:** the Windows distribution includes the WPF application, CLI,
-Siemens access profile and bindings, and Beckhoff TwinCAT 4026 access profile.
-See the [release notes and verification scope](docs/releases/2.0.0.md) and
-[download the installer](https://github.com/Lorenz-Software/PLCSIM.UnitTest/releases/tag/v2.0.0).
+**Windows distribution 2.0.1:** a FIFO event-buffer fix updates the PLCSIM Advanced
+V6/V7/V8 bindings and workers to 2.0.1. The WPF and CLI application remains 2.0.0;
+the other component versions are unchanged. See the
+[2.0.1 release notes and verification scope](docs/releases/2.0.1.md).
+
+GitHub publication of 2.0.1 is pending. The existing
+[2.0.0 installer download](https://github.com/Lorenz-Software/PLCSIM.UnitTest/releases/tag/v2.0.0)
+and [2.0.0 release notes](docs/releases/2.0.0.md) remain available.
 
 ## Further Reading
 
 - [Technical project specification](docs/project-specification.md): system requirements, technology stack and repository structure.
 - [Documentation guide](docs/README.md): installation, WPF/CLI operation, profiles, development and packaging.
 - [Architecture](docs/architecture/000-overview.md): shared models and integration boundaries.
+
+## Support this project
+
+Sponsorship helps maintain and improve Lorenz Software's open-source PLC testing
+frameworks and tools. [Become a sponsor](https://github.com/sponsors/Lorenz-Software).
 
 ## License
 

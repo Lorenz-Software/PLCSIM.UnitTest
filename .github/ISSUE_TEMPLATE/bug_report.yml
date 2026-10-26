@@ -1,0 +1,49 @@
+name: Bug report
+description: Report a reproducible problem in the application, access profiles, documentation, or tooling.
+labels: [bug]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Please check existing reports first. For questions and ideas, use Discussions.
+        Report problems specific to PLC-side tests or framework behavior in the [matching PLC framework project](https://github.com/Lorenz-Software/PLCSIM.UnitTest#current-plc-targets).
+        Remove credentials and confidential project information from examples and attachments.
+  - type: textarea
+    id: problem
+    attributes:
+      label: Problem
+      description: What goes wrong, and what are you trying to do?
+    validations:
+      required: true
+  - type: textarea
+    id: reproduction
+    attributes:
+      label: Steps to reproduce
+      description: Include starting conditions and a minimal configuration or example where possible. Configuration and code can be pasted in fenced code blocks.
+    validations:
+      required: true
+  - type: textarea
+    id: expected-actual
+    attributes:
+      label: Expected and actual behavior
+      description: Describe both so the difference is clear.
+    validations:
+      required: true
+  - type: textarea
+    id: environment
+    attributes:
+      label: Versions and environment
+      description: Include only what is relevant to this problem.
+      placeholder: |
+        PLCSIM.UnitTest application and installer versions or source commit:
+        Access profile and binding versions:
+        WPF or CLI:
+        Windows version:
+        Vendor engineering and runtime versions:
+        Runtime type and target architecture:
+        PLC testing framework and version, if involved:
+  - type: textarea
+    id: evidence
+    attributes:
+      label: Logs and additional context
+      description: Relevant assertion results, event captures, screenshots, or other observations. Attach files if useful.

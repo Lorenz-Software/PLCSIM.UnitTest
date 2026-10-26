@@ -18,10 +18,10 @@ master
 Reference commit:
 
 ```text
-516eee6fccee21f5b3ac924656b3509edf2679b6
+26d0f8ccf6d4ce7a824d6197367a3fc52e735914
 ```
 
-Snapshot date: `2026-10-20`.
+Snapshot date: `2026-10-25`.
 
 Declared contract version in both included documents:
 

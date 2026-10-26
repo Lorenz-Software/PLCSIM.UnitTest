@@ -1,0 +1,112 @@
+{
+  "schemaVersion": 1,
+  "distribution": {
+    "name": "plcsim-unittest.windows",
+    "version": "2.0.1"
+  },
+  "application": {
+    "package": "plcsim-unittest",
+    "version": "2.0.0",
+    "manifestSha256": "3467ddc94423b4de4f3b6302e1907850e2e8ca8c11c4fa11d693fdad8f09c8b2",
+    "destination": "."
+  },
+  "components": [
+    {
+      "id": "profile.siemens",
+      "package": "access-profiles.siemens",
+      "version": "2.0.0",
+      "manifestSha256": "f242fef1c9f3b42ebf649f94cb78d36c8516da7f8b4fa8de434a5b5abdfda4aa",
+      "destination": "profiles/siemens",
+      "selectedByDefault": true
+    },
+    {
+      "id": "plugin.siemens.tia-openness.v15_1",
+      "package": "plugins.siemens.tia-openness.v15_1",
+      "version": "2.0.0",
+      "manifestSha256": "73ef423a5e54c7842326a1ff282adf8cbfe7b8ef7004af99d6ddf2185a811769",
+      "destination": "profiles/siemens/lib/bindings/tia-openness-v15_1",
+      "parent": "profile.siemens",
+      "selectedByDefault": true
+    },
+    {
+      "id": "plugin.siemens.tia-openness.v17",
+      "package": "plugins.siemens.tia-openness.v17",
+      "version": "2.0.0",
+      "manifestSha256": "234da9677c52d912bca22b188bf88beae3a5e6e359573027d67f1424740b1e72",
+      "destination": "profiles/siemens/lib/bindings/tia-openness-v17",
+      "parent": "profile.siemens",
+      "selectedByDefault": true
+    },
+    {
+      "id": "plugin.siemens.tia-openness.v18",
+      "package": "plugins.siemens.tia-openness.v18",
+      "version": "2.0.0",
+      "manifestSha256": "5fcd8f84a9aae6e056c05b79e1328e4b6ef9e8f0daeab56be5c4de649eaf5442",
+      "destination": "profiles/siemens/lib/bindings/tia-openness-v18",
+      "parent": "profile.siemens",
+      "selectedByDefault": true
+    },
+    {
+      "id": "plugin.siemens.tia-openness.v19",
+      "package": "plugins.siemens.tia-openness.v19",
+      "version": "2.0.0",
+      "manifestSha256": "3b597ec6c6cd41d5493badf4670f37264267445a40ebf5bcadf3422f765fcc37",
+      "destination": "profiles/siemens/lib/bindings/tia-openness-v19",
+      "parent": "profile.siemens",
+      "selectedByDefault": true
+    },
+    {
+      "id": "plugin.siemens.tia-openness.v20",
+      "package": "plugins.siemens.tia-openness.v20",
+      "version": "2.0.0",
+      "manifestSha256": "852432e7138d2b6f27e52e6a819f3418179b7d145c381ff069670cb3f495b31d",
+      "destination": "profiles/siemens/lib/bindings/tia-openness-v20",
+      "parent": "profile.siemens",
+      "selectedByDefault": true
+    },
+    {
+      "id": "plugin.siemens.tia-openness.v21",
+      "package": "plugins.siemens.tia-openness.v21",
+      "version": "2.0.0",
+      "manifestSha256": "ea31adf23a8aeb2d2520aaa80ebd29401e638cd997922fa713df297e0212239a",
+      "destination": "profiles/siemens/lib/bindings/tia-openness-v21",
+      "parent": "profile.siemens",
+      "selectedByDefault": true
+    },
+    {
+      "id": "plugin.siemens.plcsim-advanced.v6",
+      "package": "plugins.siemens.plcsim-advanced.v6",
+      "version": "2.0.1",
+      "manifestSha256": "85e7ac78613a44801b8cbe4c957d91325f580c786de3b77a3a674d6ef12c4435",
+      "destination": "profiles/siemens/lib/bindings/plcsim-advanced-v6",
+      "parent": "profile.siemens",
+      "selectedByDefault": true
+    },
+    {
+      "id": "plugin.siemens.plcsim-advanced.v7",
+      "package": "plugins.siemens.plcsim-advanced.v7",
+      "version": "2.0.1",
+      "manifestSha256": "4479c32a13275b8af8d27e1d67769d99a0bd7bba331acfe4be85adeda1904823",
+      "destination": "profiles/siemens/lib/bindings/plcsim-advanced-v7",
+      "parent": "profile.siemens",
+      "selectedByDefault": true
+    },
+    {
+      "id": "plugin.siemens.plcsim-advanced.v8",
+      "package": "plugins.siemens.plcsim-advanced.v8",
+      "version": "2.0.1",
+      "manifestSha256": "f9ab7ad5ef8976dc8a095e48dd614f568c6f1be7041aab0bb7e9c410dee246a2",
+      "destination": "profiles/siemens/lib/bindings/plcsim-advanced-v8",
+      "parent": "profile.siemens",
+      "selectedByDefault": true
+    },
+    {
+      "id": "profile.beckhoff-tc3-4026",
+      "package": "access-profiles.beckhoff-tc3-4026",
+      "version": "1.0.0",
+      "destination": "profiles/beckhoff-tc3-4026",
+      "selectedByDefault": true,
+      "manifestSha256": "14408d91b61c9f730d1909b62e038a3430eb69a705673153d1b5f2177e3bcb2c"
+    }
+  ]
+}

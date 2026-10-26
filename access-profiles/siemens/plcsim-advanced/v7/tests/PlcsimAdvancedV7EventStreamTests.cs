@@ -326,6 +326,13 @@ public sealed class PlcsimAdvancedV7EventStreamTests
         Assert.Equal(expectedBufferObservedEmpty, result.Monitoring.State.BufferObservedEmpty);
         Assert.Equal(expectedLostEventCount, result.Monitoring.State.LostEventCount);
 
+        if (validationBehavior == "eventstream-snapshot-full")
+        {
+            var batch = Assert.Single(result.Batches);
+            Assert.Equal(new uint[] { 1, 2, 3 }, batch.Events.Select(entry => entry.SequenceId));
+            Assert.Equal(EventStreamBatchReleaseState.Completed, result.Monitoring.State.BatchReleaseState);
+        }
+
         await result.Communication.CloseAsync(CancellationToken.None);
         await result.Worker.CloseAsync(CancellationToken.None);
     }
@@ -457,7 +464,7 @@ public sealed class PlcsimAdvancedV7EventStreamTests
         await result.Worker.CloseAsync(CancellationToken.None);
 
         var log = ReadWorkerLog(logDirectory, "siemens-test");
-        Assert.Contains("EffectiveMaxEventsPerBatch=4", log);
+        Assert.Contains("EffectiveMaxEventsPerBatch=5", log);
         Assert.Contains("KnownRemainingEvents=false", log, StringComparison.OrdinalIgnoreCase);
         Assert.Contains("EventStream release write completed. DeleteSequenceId=4", log);
     }
