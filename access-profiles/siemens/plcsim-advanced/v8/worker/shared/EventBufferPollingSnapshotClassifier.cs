@@ -109,9 +109,7 @@ namespace PLCSIM.UnitTest.AccessProfiles.Siemens.PlcsimAdvanced.V8.Worker
 
             var positions = new List<ushort>();
             var current = fifoControl.IndexOut;
-            var count = fifoControl.BufferFull
-                ? fifoControl.BufferLength
-                : CountUntilInputBoundary(fifoControl.IndexOut, fifoControl.IndexIn, fifoControl.BufferLength);
+            var count = CountUntilInputBoundary(fifoControl.IndexOut, fifoControl.IndexIn, fifoControl.BufferLength);
             count = Math.Min(count, maximumCount);
 
             if (count == 0)

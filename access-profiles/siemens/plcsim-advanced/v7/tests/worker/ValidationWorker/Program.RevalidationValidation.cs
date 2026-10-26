@@ -342,20 +342,20 @@ namespace PLCSIM.UnitTest.AccessProfiles.Siemens.PlcsimAdvanced.V7.Worker
                     {
                         return adaptiveReleasedThroughSequenceId switch
                         {
-                            2 => 1,
-                            4 => 3,
+                            2 => 5,
+                            4 => 2,
                             _ => 3
                         };
                     }
 
                     if (tag.EndsWith(".FifoControl.Index_IN", StringComparison.Ordinal))
                     {
-                        return 3;
+                        return 2;
                     }
 
                     if (tag.EndsWith(".FifoControl.BufferLength", StringComparison.Ordinal))
                     {
-                        return 4;
+                        return 5;
                     }
                 }
 
@@ -425,12 +425,12 @@ namespace PLCSIM.UnitTest.AccessProfiles.Siemens.PlcsimAdvanced.V7.Worker
                         return 2;
                     }
 
-                    if (tag.EndsWith(".Buffer[1].SequenceId", StringComparison.Ordinal))
+                    if (tag.EndsWith(".Buffer[5].SequenceId", StringComparison.Ordinal))
                     {
                         return 3;
                     }
 
-                    if (tag.EndsWith(".Buffer[2].SequenceId", StringComparison.Ordinal))
+                    if (tag.EndsWith(".Buffer[1].SequenceId", StringComparison.Ordinal))
                     {
                         return 4;
                     }

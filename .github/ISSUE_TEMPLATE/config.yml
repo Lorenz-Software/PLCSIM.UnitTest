@@ -1,0 +1,11 @@
+blank_issues_enabled: true
+contact_links:
+  - name: Ask a question
+    url: https://github.com/Lorenz-Software/PLCSIM.UnitTest/discussions/categories/q-a
+    about: Get help with using the application or integrating your tests.
+  - name: Suggest an idea
+    url: https://github.com/Lorenz-Software/PLCSIM.UnitTest/discussions/categories/ideas
+    about: Discuss a use case or improvement before implementation.
+  - name: PLC testing frameworks
+    url: https://github.com/Lorenz-Software/PLCSIM.UnitTest#current-plc-targets
+    about: Questions and reports specific to PLC-side tests or framework behavior belong in the matching PLC framework project.

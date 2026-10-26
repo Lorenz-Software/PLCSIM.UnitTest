@@ -72,6 +72,16 @@ identities, or confidential planning information.
 - Before replacement, present a concrete import/removal/retention plan and obtain
   approval. Identify obsolete files explicitly and preserve repository-owned
   documentation, packaging, GitHub configuration, and collaboration rules.
+- Preserve the root README's public-owned `Support this project` section immediately
+  before `License` during source imports. Keep its shared wording and
+  `https://github.com/sponsors/Lorenz-Software` target aligned with the companion
+  PLC testing projects. Funding configuration is maintained separately in the
+  organization's `.github` repository; do not introduce a repository-local
+  funding file as part of source imports.
+- Preserve the public `CONTRIBUTING.md` and `.github/ISSUE_TEMPLATE/` during
+  source imports. Keep their contribution guidance and issue-form structure
+  aligned with the companion PLC testing projects, while retaining this
+  application's own links, environment fields, and verification instructions.
 - Repository-wide scripts belong under `tools/`; component-owned scripts remain
   with their components. Preserve this public layout during later imports: map
   incoming root scripts to their tools counterparts and reconcile public changes

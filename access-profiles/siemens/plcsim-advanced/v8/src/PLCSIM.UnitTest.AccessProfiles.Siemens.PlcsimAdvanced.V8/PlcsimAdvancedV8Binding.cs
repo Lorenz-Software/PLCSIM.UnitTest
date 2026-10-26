@@ -32,7 +32,7 @@ public sealed class PlcsimAdvancedV8Binding : IPlcsimAdvancedRuntimeBinding, IPl
 
     public SiemensBindingInfo Info { get; } = new(
         SiemensBindingKinds.PlcSimAdvanced,
-        "2.0.0",
+        "2.0.1",
         "PLCSIM Advanced V8 Binding");
 
     public SiemensBindingDeclaration Declaration { get; } = new(

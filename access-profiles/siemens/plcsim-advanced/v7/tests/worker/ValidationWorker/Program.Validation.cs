@@ -458,12 +458,12 @@ namespace PLCSIM.UnitTest.AccessProfiles.Siemens.PlcsimAdvanced.V7.Worker
             }
             else if (string.Equals(validationBehavior, "eventstream-snapshot-full", StringComparison.OrdinalIgnoreCase))
             {
-                preFifo = new PlcsimEventBufferFifoControlSnapshot(2, 2, 4, BufferEmpty: false, BufferFull: true, ConfigError: false, IndexError: false);
+                preFifo = new PlcsimEventBufferFifoControlSnapshot(2, 1, 4, BufferEmpty: false, BufferFull: true, ConfigError: false, IndexError: false);
                 postFifo = preFifo;
                 sequenceIdsByBufferIndex[2] = 1;
                 sequenceIdsByBufferIndex[3] = 2;
                 sequenceIdsByBufferIndex[4] = 3;
-                sequenceIdsByBufferIndex[1] = 4;
+                sequenceIdsByBufferIndex[1] = 0;
             }
             else if (string.Equals(validationBehavior, "eventstream-snapshot-index-in-advanced", StringComparison.OrdinalIgnoreCase))
             {

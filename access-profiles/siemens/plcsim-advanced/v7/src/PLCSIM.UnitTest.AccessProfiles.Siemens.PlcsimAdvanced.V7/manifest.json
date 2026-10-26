@@ -2,7 +2,7 @@
   "schemaVersion": 1,
   "info": {
     "bindingKind": "plcsim-advanced",
-    "bindingVersion": "2.0.0",
+    "bindingVersion": "2.0.1",
     "displayName": "PLCSIM Advanced V7 Binding"
   },
   "entryPoint": {

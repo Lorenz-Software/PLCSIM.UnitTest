@@ -29,7 +29,7 @@ public sealed class EventStreamSequenceEpochTests
             DateTimeOffset.UtcNow);
 
         Assert.Equal(EventBufferReadState.Valid, classification.Snapshot.ReadState);
-        Assert.Equal(new uint[] { 1, 2, 3, 4 }, classification.CapturedSequences.Select(item => item.SequenceId));
+        Assert.Equal(new uint[] { 1, 2, 3 }, classification.CapturedSequences.Select(item => item.SequenceId));
         Assert.True(classification.Snapshot.FifoControl.BufferFull);
         Assert.Equal((ushort)3, classification.Snapshot.Status.LostEventCount);
     }
@@ -116,7 +116,7 @@ public sealed class EventStreamSequenceEpochTests
             UnitTestContractVersions.EventStreamModel,
             "test");
         var pre = new PlcsimEventBufferFifoControlSnapshot(1, 3, 4, false, false, false, false);
-        var post = new PlcsimEventBufferFifoControlSnapshot(1, 1, 4, false, true, false, false);
+        var post = new PlcsimEventBufferFifoControlSnapshot(1, 4, 4, false, true, false, false);
         var prefix = classifier.DeriveReadablePositions(pre, maximumCount: 1);
 
         var classification = classifier.Classify(
@@ -140,7 +140,7 @@ public sealed class EventStreamSequenceEpochTests
     {
         return new PlcsimEventBufferFifoControlSnapshot(
             IndexOut: 1,
-            IndexIn: 1,
+            IndexIn: bufferFull ? bufferLength : (ushort)1,
             BufferLength: bufferLength,
             BufferEmpty: bufferEmpty,
             BufferFull: bufferFull,
