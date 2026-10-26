@@ -155,9 +155,9 @@ V6/V7/V8 bindings and workers to 2.0.1. The WPF and CLI application remains 2.0.
 the other component versions are unchanged. See the
 [2.0.1 release notes and verification scope](docs/releases/2.0.1.md).
 
-GitHub publication of 2.0.1 is pending. The existing
-[2.0.0 installer download](https://github.com/Lorenz-Software/PLCSIM.UnitTest/releases/tag/v2.0.0)
-and [2.0.0 release notes](docs/releases/2.0.0.md) remain available.
+[Download the Windows installer](https://github.com/Lorenz-Software/PLCSIM.UnitTest/releases/tag/v2.0.1).
+The [2.0.0 release notes](docs/releases/2.0.0.md) remain available for the previous
+distribution.
 
 ## Further Reading
 
